@@ -34,7 +34,7 @@ def predict_vqa(model, processor, video_path, question, max_frames=16, frame_siz
     if detector is not None:
         # Ground the prompt with what a dedicated detector actually sees in the clip -
         # trained specifically on the 14 tool classes, it catches things the VLM's own
-        # learned tool-frequency prior gets wrong (see case122/132 on the BTC sample).
+        # learned tool-frequency prior gets wrong (see case122/132 on the public sample).
         # Sampled at a higher frame rate than the VQA model's own 8 frames, since a
         # miss traced to a tool only being visible for a couple of seconds at the edge
         # of frame - cheap to widen since detector inference is only a few ms/frame.

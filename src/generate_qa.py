@@ -1,6 +1,6 @@
 """
 SurgVU 2026 Category 2 - Expanded QA Generator v2
-Generates 9+ question types matching BTC test samples (case122-132).
+Generates 9+ question types matching the public sample's test cases (case122-132).
 Includes rebalancing for Yes/No and task distribution.
 """
 import json
@@ -27,7 +27,7 @@ TOOL_SINGULAR_PLURAL = {
     "tip-up fenestrated grasper":   ("tip-up fenestrated grasper", "graspers"),
 }
 
-# Aliases mapping common BTC variants → canonical name
+# Aliases mapping common public-sample variants → canonical name
 TOOL_ALIASES = {
     "large needle driver": "needle driver",
     "needle driver":       "needle driver",
@@ -37,7 +37,7 @@ TOOL_ALIASES = {
 # tracked separately in tools.csv's commercial_toolname column - e.g. "needle driver"
 # covers "Large Needle Driver", "Mega Needle Driver", "Large SutureCut Needle Driver"
 # and "Mega SutureCut Needle Driver", which are NOT interchangeable. The organizers
-# confirmed BTC test questions probe this level of detail (e.g. "was a *large* needle
+# confirmed the public sample's test questions probe this level of detail (e.g. "was a *large* needle
 # driver used"). preprocess.py now also records these as each segment's
 # 'commercial_tools' set; COMMERCIAL_VARIANTS lists the known variants per generic
 # tool so a question can be asked - and answered - at that specific granularity
@@ -98,7 +98,7 @@ def _sp(tool):
 
 
 def gen_tool_presence(active_tools, target_tool=None, active_commercial_tools=None):
-    """BTC examples: case122, 123, 126, 128, 132.
+    """Public sample examples: case122, 123, 126, 128, 132.
 
     About half the time, if target_tool has known commercial variants (see
     COMMERCIAL_VARIANTS), asks about one specific variant and checks presence
@@ -151,7 +151,7 @@ def gen_tool_presence(active_tools, target_tool=None, active_commercial_tools=No
 
 
 def gen_forceps_type(active_tools):
-    """BTC example: case124"""
+    """Public sample example: case124"""
     active_forceps = [t for t in active_tools if t in FORCEPS_TOOLS]
     q = "What type of forceps is mentioned?"
 
@@ -177,7 +177,7 @@ def gen_forceps_type(active_tools):
 
 
 def gen_suture_required(task_name):
-    """BTC example: case125"""
+    """Public sample example: case125"""
     q = "Is a suture required in this surgical step?"
     is_suturing = "suturing" in task_name.lower()
 
@@ -220,7 +220,7 @@ def gen_task_identification(task_name):
 
 
 def gen_organ_question(task_name, description):
-    """BTC example: case127 — "What organ is being manipulated?" → "Uterine horn" """
+    """Public sample example: case127 — "What organ is being manipulated?" → "Uterine horn" """
     q_templates = [
         "What organ is being manipulated?",
         "What anatomical structure is being operated on?",
@@ -267,7 +267,7 @@ def gen_organ_question(task_name, description):
 
 
 def gen_procedure_type():
-    """BTC example: case129 — "What procedure is this summary describing?"
+    """Public sample example: case129 — "What procedure is this summary describing?"
     All videos are from da Vinci robot → endoscopic/laparoscopic surgery."""
     q_templates = [
         "What procedure is this summary describing?",
@@ -286,12 +286,12 @@ def gen_procedure_type():
 
 
 def gen_tool_purpose(active_tools):
-    """BTC example: case130 — "What is the purpose of using forceps in this procedure?"
+    """Public sample example: case130 — "What is the purpose of using forceps in this procedure?"
     → "To grasp and hold tissues or objects during the surgery." """
     forceps_active = [t for t in active_tools if t in FORCEPS_TOOLS]
     other_active = [t for t in active_tools if t not in FORCEPS_TOOLS]
 
-    # Prefer forceps if present (matches BTC sample), otherwise pick any tool
+    # Prefer forceps if present (matches the public sample), otherwise pick any tool
     if forceps_active:
         tool = random.choice(forceps_active)
         tool_display = "forceps"
@@ -324,7 +324,7 @@ def gen_tool_purpose(active_tools):
 
 
 def gen_tissue_cutting(active_tools, task_name):
-    """BTC example: case131 — "Is tissue being cut during this clip?" → "Yes" """
+    """Public sample example: case131 — "Is tissue being cut during this clip?" → "Yes" """
     cutting_tools = ["monopolar curved scissors", "permanent cautery hook/spatula", "vessel sealer"]
     cutting_tasks = ["suspensory ligaments", "uterine horn", "rectal artery/vein", "skills application"]
 
@@ -410,7 +410,7 @@ def main():
     # ── Question type generators with weights ──
     # Higher weight = more samples of that type
     QA_GENERATORS = [
-        ("tool_presence",    3),  # most common in BTC
+        ("tool_presence",    3),  # most common in the public sample
         ("forceps_type",     1),
         ("suture_required",  1),
         ("task_id",          1),
@@ -502,7 +502,7 @@ def main():
         segments, so uniformly-random target_tool sampling makes tool_presence QA for
         those tools skew heavily Yes (~80%+) - the model then learns "this tool ->
         probably Yes" instead of actually checking the clip, which is exactly the
-        false-positive failure seen on the real BTC sample (case122, case132). Fix by
+        false-positive failure seen on the real public sample (case122, case132). Fix by
         searching the full segment pool (not just what got sampled above) for
         counter-examples per tool and topping up whichever class is underrepresented.
         """

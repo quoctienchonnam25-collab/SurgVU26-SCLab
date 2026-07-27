@@ -5,7 +5,7 @@ Team: SCLab-Surg (Chonnam National University) - Grand Challenge username `TienN
 Fine-tuned Qwen2-VL-2B-Instruct (QLoRA) for surgical video VQA, with a domain-adaptive
 pretraining stage and an optional YOLOv5 tool-detector used to ground the VQA prompt.
 
-## Results on the public BTC sample set (`SURGVU25_cat_2_sample_set_public`, 11 Q&A pairs)
+## Results on the public sample set (`SURGVU25_cat_2_sample_set_public`, 11 Q&A pairs)
 
 Scored with the official metric (BERTScore-F1, `roberta-large`, rescaled with baseline;
 max score over the 5 reference answers per question, mean over questions):
@@ -66,7 +66,7 @@ adapter's weights via `--init_lora_from` (a fresh optimizer/step count, as oppos
 **Commercial tool-name granularity fix**: `tools.csv`'s `groundtruth_toolname` collapses
 several distinct commercial variants (e.g. "Large Needle Driver", "Mega Needle Driver",
 "Large SutureCut Needle Driver" all become "needle driver"). The organizers confirmed
-BTC test questions probe this specific level of detail (e.g. "was a *large* needle
+the public sample's test questions probe this specific level of detail (e.g. "was a *large* needle
 driver used"). `preprocess.py`/`generate_qa.py` now also track the `commercial_toolname`
 column and, about half the time, ask about a specific named variant, checking presence
 against that specific name rather than the generic category.
@@ -77,7 +77,7 @@ real box labels in this project) and `train_tool_detector.py` fine-tunes YOLOv5s
 (mAP50 = 0.99 on held-out frames). `detect_tools.py` + `predict.py --detector_weights`
 optionally prepend a "Detected tools: ..." context line to the prompt at inference time.
 This measurably helped the 8-frame v3 model (0.8194 -> 0.8429) but did not improve the
-final 16-frame v5 model on the BTC sample, so the submitted container runs **without**
+final 16-frame v5 model on the public sample, so the submitted container runs **without**
 the detector.
 
 **Evaluation metric**: `evaluate.py` implements the official BERTScore-F1 metric

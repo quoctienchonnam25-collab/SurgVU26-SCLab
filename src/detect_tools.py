@@ -3,7 +3,7 @@ Inference helper around the fine-tuned YOLOv5 tool detector (train_tool_detector
 Used by predict.py (and prepare_grounding_context.py for training-time consistency) to
 ground the VQA prompt with explicit detected-tool evidence, e.g. "Detected tools:
 cadiere forceps (0.91), needle driver (0.78)." - meant to reduce the kind of
-false-positive tool-presence answers seen on the real BTC sample (the VQA model
+false-positive tool-presence answers seen on the real public sample (the VQA model
 guessing "Yes" from a learned tool-frequency prior instead of what's actually visible
 in the clip).
 
