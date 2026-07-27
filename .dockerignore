@@ -1,0 +1,29 @@
+# Raw datasets - never needed inside the submission image (predict.py only reads /input)
+surgvu24/
+surgvu24_labels_updated_v2/
+SURGVU25_train_labels/
+SURGVU25_cat_2_sample_set_public/
+cat1_test_set_public/
+__MACOSX/
+docs/
+frame_cache/
+frame_cache_16fr/
+frame_cache_pretrain/
+tool_detection_data/
+runs/
+
+# src: only the .py files are needed at inference time
+src/*.json
+src/*.json.bak
+src/__pycache__/
+
+# checkpoints: only the final v5 adapter is needed for submission - exclude
+# everything else (older versions, logs, intermediate checkpoint-N saves,
+# detector/pretrain artifacts) then re-include just that one directory's
+# root-level files (not its own intermediate checkpoint-N subdirs).
+checkpoints/*
+!checkpoints/qwen2_vl_2b_lora_v5/
+checkpoints/qwen2_vl_2b_lora_v5/checkpoint-*/
+checkpoints/qwen2_vl_2b_lora_v5/runs/
+
+.git/

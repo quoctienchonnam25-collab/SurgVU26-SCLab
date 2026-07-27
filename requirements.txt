@@ -1,0 +1,12 @@
+transformers>=4.45.0
+torchvision==0.23.0
+accelerate
+peft
+bitsandbytes
+decord
+opencv-python
+nltk
+qwen-vl-utils
+sentencepiece
+tqdm
+albumentations

@@ -1,0 +1,34 @@
+# Raw challenge datasets and derived caches - large, not meant for the code repo.
+# See README.md for where to obtain/regenerate each of these.
+surgvu24/
+surgvu24_labels_updated_v2/
+SURGVU25_train_labels/
+SURGVU25_cat_2_sample_set_public/
+cat1_test_set_public/
+__MACOSX/
+frame_cache/
+frame_cache_16fr/
+frame_cache_pretrain/
+tool_detection_data/
+runs/
+repo/
+
+# Challenge PDFs downloaded from the (login-gated) challenge website - not ours to republish.
+docs/
+
+# Model checkpoints / training artifacts - large binaries, regenerate via src/train.py.
+checkpoints/
+
+# Pretrained weights auto-downloaded by ultralytics on first run.
+*.pt
+
+# Generated QA/segment data (large, regenerate via preprocess.py + generate_qa.py)
+src/*.json
+src/*.json.bak
+
+# Python
+__pycache__/
+*.pyc
+
+# Editor/tooling
+.claude/
