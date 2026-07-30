@@ -130,10 +130,21 @@ def process_case(case_name, surgvu24_dir, labels_dir):
                             overlapping_tasks.append((overlap_dur, row.get('groundtruth_taskname', 'Other'), row.get('matched_description', '')))
                 
                 if overlapping_tasks:
-                    # Select the task with the maximum overlap duration
+                    # Select the task with the maximum overlap duration - but only if it
+                    # actually covers a majority of the window. Without this threshold, a
+                    # task that ends (or starts) a fraction of a second inside the window
+                    # still "wins" whenever no other task overlaps at all, mislabeling the
+                    # entire 30s window - and everything 16-frame-sampled from it - with a
+                    # task/description that describes almost none of what's actually shown
+                    # (found via analyze_description_alignment.py: some segments had as
+                    # little as 0.02% real overlap). Below the threshold, fall back to the
+                    # existing "Other" default instead of crediting a boundary sliver.
+                    MIN_OVERLAP_FRACTION = 0.5
                     overlapping_tasks.sort(reverse=True, key=lambda x: x[0])
-                    active_task = overlapping_tasks[0][1]
-                    task_desc = overlapping_tasks[0][2]
+                    best_overlap_dur = overlapping_tasks[0][0]
+                    if best_overlap_dur / window_size >= MIN_OVERLAP_FRACTION:
+                        active_task = overlapping_tasks[0][1]
+                        task_desc = overlapping_tasks[0][2]
 
             # Determine active tools
             active_tools = set()

@@ -7,7 +7,7 @@ import json
 import os
 import re
 import random
-from collections import defaultdict
+from collections import defaultdict, Counter
 from tqdm import tqdm
 
 # ─── Tool metadata ────────────────────────────────────────────────────────────
@@ -97,7 +97,8 @@ def _sp(tool):
     return TOOL_SINGULAR_PLURAL.get(tool, (tool, tool + "s"))
 
 
-def gen_tool_presence(active_tools, target_tool=None, active_commercial_tools=None):
+def gen_tool_presence(active_tools, target_tool=None, active_commercial_tools=None,
+                       force_variant=None, force_generic=False):
     """Public sample examples: case122, 123, 126, 128, 132.
 
     About half the time, if target_tool has known commercial variants (see
@@ -105,20 +106,41 @@ def gen_tool_presence(active_tools, target_tool=None, active_commercial_tools=No
     against active_commercial_tools - NOT the generic active_tools - so "was a
     large needle driver used" is answered correctly even when a *different*
     needle driver variant (e.g. Mega SutureCut) is the one actually present.
+
+    The returned balance_key is the generic tool name for generic-mode questions,
+    but the SPECIFIC variant string (e.g. "large clip applier") for variant-mode
+    questions - self-distillation error analysis on v5 found the model
+    false-positives specifically on variant questions (e.g. "was a maryland
+    bipolar forceps used?" -> answered Yes because *some* bipolar forceps is
+    almost always present), a bias invisible to balancing that only tracked the
+    generic key, since it averaged away against the differently-skewed
+    generic-mode questions for the same tool. force_variant/force_generic let
+    balance_tool_presence request a specific mode instead of the random 50/50
+    split, so it can top up exactly the (tool, mode) pair that's actually skewed.
     """
     active_commercial_tools = active_commercial_tools or set()
-    if target_tool is None:
-        target_tool = random.choice(ALL_TARGET_TOOLS)
-    _resolved_tool = target_tool
 
-    variants = COMMERCIAL_VARIANTS.get(target_tool)
-    if variants and random.random() < 0.5:
-        display_name = random.choice(variants)
-        is_present = display_name in active_commercial_tools
+    if force_variant is not None:
+        display_name = force_variant
         p = display_name + "s"
+        is_present = display_name in active_commercial_tools
+        balance_key = display_name
     else:
-        display_name, p = _sp(target_tool)
-        is_present = target_tool in active_tools
+        if target_tool is None:
+            target_tool = random.choice(ALL_TARGET_TOOLS)
+        _resolved_tool = target_tool
+
+        variants = COMMERCIAL_VARIANTS.get(target_tool)
+        use_variant = (not force_generic) and variants and random.random() < 0.5
+        if use_variant:
+            display_name = random.choice(variants)
+            is_present = display_name in active_commercial_tools
+            p = display_name + "s"
+            balance_key = display_name
+        else:
+            display_name, p = _sp(target_tool)
+            is_present = target_tool in active_tools
+            balance_key = target_tool
 
     q_templates = [
         f"Is a {display_name} among the listed tools?",
@@ -147,7 +169,7 @@ def gen_tool_presence(active_tools, target_tool=None, active_commercial_tools=No
             f"No, there's no {display_name}.",
             f"There is no indication a {display_name} was used.",
         ]
-    return q, answers, _resolved_tool
+    return q, answers, balance_key
 
 
 def gen_forceps_type(active_tools):
@@ -496,7 +518,7 @@ def main():
         return vqa
 
     def balance_tool_presence(vqa, cases_list, target_yes_ratio=0.5, tolerance=0.1, max_extra_per_tool=600):
-        """Per-tool Yes/No balancing.
+        """Per-(tool, mode) Yes/No balancing.
 
         A few tools (cadiere forceps, needle driver) are physically present in most
         segments, so uniformly-random target_tool sampling makes tool_presence QA for
@@ -505,31 +527,47 @@ def main():
         false-positive failure seen on the real public sample (case122, case132). Fix by
         searching the full segment pool (not just what got sampled above) for
         counter-examples per tool and topping up whichever class is underrepresented.
+
+        Balances generic tool keys (e.g. "clip applier") AND every individual
+        commercial variant (e.g. "large clip applier") separately - v5's
+        self-distillation error analysis found variant-mode questions ("was a
+        maryland bipolar forceps used?") false-positive on Yes even when the
+        generic tool key's aggregate Yes/No looked balanced, because generic-mode
+        and variant-mode questions for the same tool can have very different
+        underlying Yes-rates that average out when tracked under one key.
         """
         all_segs = [s for case in cases_list for s in case_groups[case]]
+        all_variants = [v for variants in COMMERCIAL_VARIANTS.values() for v in variants]
 
-        counts = defaultdict(lambda: [0, 0])  # tool -> [yes, no]
+        counts = defaultdict(lambda: [0, 0])  # balance_key -> [yes, no]
         for item in vqa:
             if "tool" not in item:
                 continue
             counts[item["tool"]][0 if item["answers"][0] == "Yes" else 1] += 1
 
         extra = []
-        for tool in ALL_TARGET_TOOLS:
-            yes, no = counts[tool]
+        for key in ALL_TARGET_TOOLS + all_variants:
+            is_variant = key not in ALL_TARGET_TOOLS
+            yes, no = counts[key]
             total = yes + no
             if total == 0:
                 continue
             ratio = yes / total
 
             if ratio > target_yes_ratio + tolerance:
-                # too many Yes -> top up with segments where this tool is ABSENT
+                # too many Yes -> top up with segments where this key is ABSENT
                 need = min(int(yes / target_yes_ratio) - total, max_extra_per_tool)
-                pool = [s for s in all_segs if tool not in s['tools']]
+                if is_variant:
+                    pool = [s for s in all_segs if key not in s.get('commercial_tools', [])]
+                else:
+                    pool = [s for s in all_segs if key not in s['tools']]
             elif ratio < target_yes_ratio - tolerance:
-                # too many No -> top up with segments where this tool IS present
+                # too many No -> top up with segments where this key IS present
                 need = min(int(no / (1 - target_yes_ratio)) - total, max_extra_per_tool)
-                pool = [s for s in all_segs if tool in s['tools']]
+                if is_variant:
+                    pool = [s for s in all_segs if key in s.get('commercial_tools', [])]
+                else:
+                    pool = [s for s in all_segs if key in s['tools']]
             else:
                 continue
 
@@ -537,10 +575,16 @@ def main():
                 continue
             random.shuffle(pool)
             for seg in pool[:need]:
-                q, answers, _ = gen_tool_presence(
-                    seg['tools'], target_tool=tool,
-                    active_commercial_tools=set(seg.get('commercial_tools', []))
-                )
+                commercial = set(seg.get('commercial_tools', []))
+                if is_variant:
+                    q, answers, _ = gen_tool_presence(
+                        seg['tools'], active_commercial_tools=commercial, force_variant=key
+                    )
+                else:
+                    q, answers, _ = gen_tool_presence(
+                        seg['tools'], target_tool=key, active_commercial_tools=commercial,
+                        force_generic=True
+                    )
                 extra.append({
                     "id": f"{seg['case']}_p{seg['part']}_t{int(seg['t_start'])}_tp_bal_{random.randint(100,999)}",
                     "video": seg['video_path'],
@@ -548,23 +592,66 @@ def main():
                     "t_end": seg['t_end'],
                     "question": q,
                     "answers": answers,
-                    "tool": tool,
+                    "tool": key,
                 })
 
         return vqa + extra
+
+    _TYPE_PATTERN = re.compile(r"_t\d+_(.+)_\d+$")
+
+    def downsample_dominant_answers(vqa, target_types=("task_id", "description"), max_share=0.5):
+        """v5's self-distillation error analysis found the model mode-collapses on
+        task_id/description questions: it learned to answer the single most common
+        label ("Other" task / "Activity outside of the structured training."
+        description) regardless of what's actually in the clip, because that alone
+        was ~74% correct in training data - a pure frequency-prior shortcut costing
+        real accuracy. Cap the dominant answer's share per type instead of
+        oversampling counter-examples (there's nothing to oversample here, the
+        model just needs less incentive to always guess the majority class)."""
+        by_type = defaultdict(list)
+        for item in vqa:
+            m = _TYPE_PATTERN.search(item['id'])
+            by_type[m.group(1) if m else None].append(item)
+
+        drop_ids = set()
+        for t in target_types:
+            items = by_type.get(t, [])
+            if not items:
+                continue
+            counts = Counter(it['answers'][0] for it in items)
+            dominant, dom_count = counts.most_common(1)[0]
+            total = len(items)
+            share = dom_count / total
+            if share <= max_share:
+                continue
+            other_count = total - dom_count
+            keep_dom = int((max_share * other_count) / (1 - max_share))
+            keep_dom = max(0, min(keep_dom, dom_count))
+            dominant_items = [it for it in items if it['answers'][0] == dominant]
+            random.shuffle(dominant_items)
+            drop = dominant_items[keep_dom:]
+            drop_ids.update(id(it) for it in drop)
+            print(f"  downsample[{t}]: dominant={dominant!r} {dom_count}/{total} ({share:.1%})"
+                  f" -> keeping {keep_dom}, dropping {len(drop)}")
+
+        return [it for it in vqa if id(it) not in drop_ids]
 
     train_vqa = sample_and_generate(train_cases, max_segs_per_case=60)
     val_vqa   = sample_and_generate(val_cases,   max_segs_per_case=60)
 
     train_vqa = balance_tool_presence(train_vqa, train_cases)
     val_vqa   = balance_tool_presence(val_vqa, val_cases)
+
+    print("Downsampling dominant task_id/description answers (train):")
+    train_vqa = downsample_dominant_answers(train_vqa)
+    print("Downsampling dominant task_id/description answers (val):")
+    val_vqa   = downsample_dominant_answers(val_vqa)
     # Not shuffled here: the Trainer already shuffles each epoch, and keeping QA
     # entries grouped by video/case helps extract_frames.py's decord cache locality.
 
     # ── Print stats ──
     print(f"\nGenerated {len(train_vqa)} train QA, {len(val_vqa)} val QA.")
 
-    from collections import Counter
     def print_stats(data, label):
         tp_items = [d for d in data if "tool" in d]
         yes_tp = sum(1 for d in tp_items if d['answers'][0] == 'Yes')
