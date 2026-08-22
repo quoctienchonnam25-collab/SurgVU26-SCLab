@@ -17,13 +17,13 @@ src/*.json
 src/*.json.bak
 src/__pycache__/
 
-# checkpoints: only the final v5 adapter is needed for submission - exclude
+# checkpoints: only the final v7 adapter is needed for submission - exclude
 # everything else (older versions, logs, intermediate checkpoint-N saves,
 # detector/pretrain artifacts) then re-include just that one directory's
 # root-level files (not its own intermediate checkpoint-N subdirs).
 checkpoints/*
-!checkpoints/qwen2_vl_2b_lora_v5/
-checkpoints/qwen2_vl_2b_lora_v5/checkpoint-*/
-checkpoints/qwen2_vl_2b_lora_v5/runs/
+!checkpoints/qwen2_vl_2b_lora_v7/
+checkpoints/qwen2_vl_2b_lora_v7/checkpoint-*/
+checkpoints/qwen2_vl_2b_lora_v7/runs/
 
 .git/
