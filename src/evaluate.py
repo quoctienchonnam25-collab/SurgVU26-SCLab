@@ -2,22 +2,47 @@ import json
 import numpy as np
 from nltk.translate.bleu_score import sentence_bleu, SmoothingFunction
 import argparse
+import os
+from pathlib import Path
 
 # As of 2026-07-23 the official metric switched from BLEU-4 to BERTScore-F1
 # (roberta-large, rescaled with baseline) - see docs/Evaluation Criteria...
 # -new-metrics.pdf. compute_bleu_for_pair/evaluate_predictions are kept only
 # for historical comparison against runs scored before the change.
 _bertscorer = None
+_bertscorer_model_type = None
 
 
 def get_bertscorer(model_type="roberta-large"):
     """Cached singleton: BERTScorer loads a full roberta-large model, so reuse it
     across repeated calls (e.g. train.py's periodic eval callback) instead of
     reloading every time."""
-    global _bertscorer
-    if _bertscorer is None:
+    global _bertscorer, _bertscorer_model_type
+    model_type = str(model_type)
+    if _bertscorer is None or _bertscorer_model_type != model_type:
+        import bert_score
         from bert_score import BERTScorer
-        _bertscorer = BERTScorer(lang="en", model_type=model_type, rescale_with_baseline=True)
+        from bert_score.utils import model2layers
+
+        kwargs = {}
+        if os.path.isdir(model_type):
+            # BERTScore's lookup tables are keyed by the hub id, not a local path.
+            # Supply the official roberta-large layer and baseline explicitly while
+            # loading tokenizer/model weights from the offline directory.
+            kwargs["num_layers"] = model2layers["roberta-large"]
+            kwargs["baseline_path"] = str(
+                Path(bert_score.__file__).resolve().parent
+                / "rescale_baseline"
+                / "en"
+                / "roberta-large.tsv"
+            )
+        _bertscorer = BERTScorer(
+            lang="en",
+            model_type=model_type,
+            rescale_with_baseline=True,
+            **kwargs,
+        )
+        _bertscorer_model_type = model_type
     return _bertscorer
 
 

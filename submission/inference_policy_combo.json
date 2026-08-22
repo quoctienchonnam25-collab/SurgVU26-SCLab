@@ -1,0 +1,26 @@
+{
+  "checkpoint": "dual_encoder_v3_stage_b_all155_combo",
+  "surgmotion_frames": 16,
+  "qwen_frames": 8,
+  "qwen_max_pixels": 12544,
+  "auxiliary_tokens": 32,
+  "vision_lora_r": 8,
+  "lora_r": 32,
+  "tool_presence": {
+    "threshold": 0.1,
+    "decision": "first-token logit(Yes) - logit(No) >= 0.1",
+    "scope": "recognized tool-presence questions only"
+  },
+  "tissue_cutting": {
+    "threshold": -1.7,
+    "decision": "first-token logit(Yes) - logit(No) >= -1.7",
+    "scope": "recognized tissue-cutting questions only"
+  },
+  "suture_required": {
+    "threshold": 0.6,
+    "decision": "first-token logit(Yes) - logit(No) >= 0.6",
+    "scope": "recognized suture-required questions only"
+  },
+  "architecture_note": "Checkpoint changed 2026-08-16: dual_encoder_v3_stage_b_all155_combo. Architecture change on top of release_20260813_descfix's data (short-style description answers, unchanged): Qwen's own vision tower is no longer fully frozen - it carries a low-rank LoRA adapter (vision_lora_r=8, target_modules=qkv/gate_proj/up_proj/down_proj, see dual_encoder_vqa_prototype.py::build()) instead of being untouched, and the text-side LoRA rank was raised 16->32. This combo was chosen after 4 isolated dev-scale architecture experiments (2026-08-13/14, see project memory surgvu_dual_encoder_architecture_experiments): (1) increasing Qwen's vision resolution 112^2->224^2 - failed, no real gain; (2) vision tower LoRA r=8 alone - passed the quality gate 4/4, +0.0063 overall BERTScore, organ +0.184 (best single experiment); (3) text LoRA rank 32 alone - failed gate 3/4 (forceps regression), +0.0038 overall; (4) an explicit CrossModalFusion cross-attention layer between the two visual streams - failed gate 3/4, weakest result, organ actually regressed. This combo (vision LoRA r=8 + text LoRA r=32 stacked) was run as a follow-up and PASSED the quality gate 4/4 outright (no override needed) with the best overall result of all 5 dev-scale runs: BERTScore 0.9605->0.9672 (+0.0067), and uniquely the only one where `description` improved (+0.048) rather than regressed slightly - the two changes appear to act through different mechanisms (vision-side domain adaptation vs text-side fusion capacity) and stack rather than just repeating the same gain.",
+  "threshold_calibration_note": "All 3 thresholds re-swept on this checkpoint via src/calibrate_yes_no_thresholds.py, 2026-08-16, against the full case140-154 holdout (2407 examples, val+test v3 curated combined) using the dev-lineage proxy checkpoint (dual_encoder_v3_stage_b_dev_combo) - dual_encoder_v3_stage_b_all155_combo trains on all 155 cases so still has no fair holdout of its own. All 3 calibrated accuracies are the highest measured across every checkpoint this project has calibrated so far: tool_presence 76.3% (threshold 0.1), tissue_cutting 90.5% (threshold -1.7, a large shift from prior checkpoints' ~1.0-1.4), suture_required 94.5% (threshold 0.6)."
+}

@@ -1,0 +1,23 @@
+{
+  "checkpoint": "dual_encoder_v3_stage_b_all155",
+  "surgmotion_frames": 16,
+  "qwen_frames": 8,
+  "qwen_max_pixels": 12544,
+  "auxiliary_tokens": 32,
+  "tool_presence": {
+    "threshold": 0.2,
+    "decision": "first-token logit(Yes) - logit(No) >= 0.2",
+    "scope": "recognized tool-presence questions only"
+  },
+  "tissue_cutting": {
+    "threshold": 1.4,
+    "decision": "first-token logit(Yes) - logit(No) >= 1.4",
+    "scope": "recognized tissue-cutting questions only"
+  },
+  "suture_required": {
+    "threshold": 0.3,
+    "decision": "first-token logit(Yes) - logit(No) >= 0.3",
+    "scope": "recognized suture-required questions only"
+  },
+  "threshold_calibration_note": "All 3 thresholds swept on checkpoints/dual_encoder_stage_b_dev (fair holdout: case140-154, excluded from that checkpoint's training) via src/calibrate_yes_no_thresholds.py, 2026-08-06. dual_encoder_v3_stage_b_all155 trains on all 155 cases so has no fair holdout of its own to calibrate against directly; these values are transferred from the dev checkpoint as the best available evidence. Holdout accuracy gains on the dev checkpoint: tool_presence 73.6%->74.3%, tissue_cutting 85.4%->89.3%, suture_required 90.5%->91.0%."
+}

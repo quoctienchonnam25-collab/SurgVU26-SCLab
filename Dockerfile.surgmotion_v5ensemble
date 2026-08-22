@@ -1,0 +1,74 @@
+FROM pytorch/pytorch:2.8.0-cuda12.6-cudnn9-runtime
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    ffmpeg \
+    libsm6 \
+    libxext6 \
+    git \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+# Grand Challenge rejects containers that run as root - create a dedicated non-root
+# user, matching Dockerfile.surgmotion / the official category-2 reference container.
+RUN groupadd -r user && useradd -m --no-log-init -r -g user user
+
+WORKDIR /app
+
+# HF_HOME is set before the build-time download below (which runs as root) and
+# chown'd to `user` afterwards, so the v5 branch's from_pretrained() call at
+# runtime (running as non-root `user`, whose own $HOME would otherwise have an
+# empty cache) still finds the weights baked in at build time.
+ENV HF_HOME=/app/hf_cache
+
+COPY requirements.ensemble_v5.txt /app/requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Pre-download and cache Qwen2-VL-2B-Instruct (v5's base model) at build time -
+# the evaluation platform has no internet access at runtime (--network none), same
+# reasoning as the original Dockerfile. SurgMotion's Qwen2.5-VL-3B base comes from a
+# local baked-in snapshot instead (no network needed for that branch - see below).
+RUN python -c "from transformers import AutoProcessor, Qwen2VLForConditionalGeneration; \
+    AutoProcessor.from_pretrained('Qwen/Qwen2-VL-2B-Instruct'); \
+    Qwen2VLForConditionalGeneration.from_pretrained('Qwen/Qwen2-VL-2B-Instruct')"
+
+# Copy source code, the vendored SurgMotion encoder repo, the local
+# Qwen2.5-VL-3B-Instruct base snapshot, and the two checkpoints
+# predict_ensemble_v5_grand_challenge.py's router selects between: stage_b_dev by
+# default, qwen2_vl_2b_lora_v5 for tool_purpose questions (see that script's
+# docstring for why - runs/surgmotion_vqa/audit_dev_holdout/v5_on_curated_holdout
+# has the numbers). There is no third, organ-routed checkpoint - see the same
+# docstring for why that idea was dropped.
+COPY --chown=user:user src /app/src
+COPY --chown=user:user repo/SurgMotion-main /app/repo/SurgMotion-main
+COPY --chown=user:user checkpoints/base_models/Qwen2.5-VL-3B-Instruct /app/checkpoints/base_models/Qwen2.5-VL-3B-Instruct
+COPY --chown=user:user checkpoints/surgmotion_v2_stage_b_dev /app/checkpoints/surgmotion_v2_stage_b_dev
+COPY --chown=user:user checkpoints/qwen2_vl_2b_lora_v5 /app/checkpoints/qwen2_vl_2b_lora_v5
+
+RUN chown -R user:user /app/hf_cache
+
+ENV PYTHONPATH=/app
+
+# The evaluation container runs with --network none - force offline mode so
+# huggingface_hub/transformers never attempt a network call at runtime.
+ENV HF_HUB_OFFLINE=1
+ENV TRANSFORMERS_OFFLINE=1
+
+# SurgMotionVQA.generate() (surgmotion_vqa_prototype.py) runs a manual
+# token-by-token loop with use_cache=False - every step reprocesses the whole
+# (growing) sequence from scratch instead of reusing a KV-cache, so a single
+# answer does ~24-32 variable-length alloc/free cycles. On a GPU with less headroom
+# than this dev box, that fragmentation pattern is what previously produced
+# "CUDA out of memory ... reserved but unallocated memory is large" during a real
+# submission even though total usage stays well under capacity (measured peak here:
+# ~8.3GB on the stage_b_dev branch). This is the fix PyTorch's own error message
+# recommends for exactly this pattern.
+ENV PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+
+USER user
+
+# Grand Challenge mounts /input and expects outputs in /output, invoking the
+# container once per test case. Which checkpoint to load is decided at runtime by
+# the router in predict_ensemble_v5_grand_challenge.py - only the one branch a
+# given question routes to ever gets loaded.
+ENTRYPOINT ["python", "src/predict_ensemble_v5_grand_challenge.py", "--input-dir", "/input", "--output-dir", "/output"]

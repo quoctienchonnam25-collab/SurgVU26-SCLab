@@ -8,10 +8,12 @@ cat1_test_set_public/
 __MACOSX/
 frame_cache/
 frame_cache_16fr/
+frame_cache_64fr/
 frame_cache_pretrain/
 tool_detection_data/
 runs/
 repo/
+CholecT50/
 
 # Challenge PDFs downloaded from the (login-gated) challenge website - not ours to republish.
 docs/
@@ -21,6 +23,9 @@ checkpoints/
 
 # Pretrained weights auto-downloaded by ultralytics on first run.
 *.pt
+
+# Packaged submission containers - large binaries, rebuild via submission/build_image*.sh.
+*.tar.gz
 
 # Generated QA/segment data (large, regenerate via preprocess.py + generate_qa.py)
 src/*.json
@@ -32,3 +37,4 @@ __pycache__/
 
 # Editor/tooling
 .claude/
+.vscode/

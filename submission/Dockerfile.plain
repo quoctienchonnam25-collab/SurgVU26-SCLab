@@ -1,0 +1,28 @@
+FROM pytorch/pytorch:2.8.0-cuda12.6-cudnn9-runtime
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ffmpeg libsm6 libxext6 git build-essential \
+    && rm -rf /var/lib/apt/lists/*
+RUN groupadd -r user && useradd -m --no-log-init -r -g user user
+
+WORKDIR /app
+COPY submission/requirements.txt /app/requirements.txt
+RUN pip install --no-cache-dir -r /app/requirements.txt
+
+# Plain Qwen2.5-VL-3B + LoRA (no SurgMotion branch, no dual-encoder complexity) -
+# see src/predict_plain_qwen25vl.py's module docstring for why: real prelim
+# leaderboard evidence (2026-08-17) showed this project's own added architecture
+# complexity regressed hard on the real hidden test set, while the current #1
+# leaderboard entry uses exactly this minimal shape ("QwenVL LoRA, 5-frame").
+COPY --chown=user:user src/predict_plain_qwen25vl.py /app/src/predict_plain_qwen25vl.py
+COPY --chown=user:user checkpoints/base_models/Qwen2.5-VL-3B-Instruct /app/checkpoints/base_models/Qwen2.5-VL-3B-Instruct
+COPY --chown=user:user checkpoints/plain_qwen25vl_lora_all155 /app/checkpoints/plain_qwen25vl_lora_all155
+
+ENV PYTHONPATH=/app
+ENV HF_HUB_OFFLINE=1
+ENV TRANSFORMERS_OFFLINE=1
+ENV PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+
+USER user
+
+ENTRYPOINT ["python", "src/predict_plain_qwen25vl.py", "--model_path", "/app/checkpoints/base_models/Qwen2.5-VL-3B-Instruct", "--lora_path", "/app/checkpoints/plain_qwen25vl_lora_all155", "--input_dir", "/input", "--output_dir", "/output", "--max_frames", "5"]

@@ -1,0 +1,850 @@
+[
+  {
+    "id": "case_140_p1_t16980_organ_886",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_140/case_140_video_part_001.mp4",
+    "t_start": 16980.0,
+    "t_end": 17010.0,
+    "question": "Which anatomical structure is simulated by this training task?",
+    "answers": [
+      "Uterine horn"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is involved in this step?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_140_p1_t22905_organ_312",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_140/case_140_video_part_001.mp4",
+    "t_start": 22905.0,
+    "t_end": 22935.0,
+    "question": "What organ or structure does this exercise represent?",
+    "answers": [
+      "Suspensory ligaments"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is involved in this step?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_140_p1_t23220_organ_965",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_140/case_140_video_part_001.mp4",
+    "t_start": 23220.0,
+    "t_end": 23250.0,
+    "question": "What organ or structure does this exercise represent?",
+    "answers": [
+      "Suspensory ligaments"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What anatomical structure is being operated on?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_140_p1_t19290_organ_959",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_140/case_140_video_part_001.mp4",
+    "t_start": 19290.0,
+    "t_end": 19320.0,
+    "question": "What organ or structure does this exercise represent?",
+    "answers": [
+      "Colon"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is involved in this step?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_140_p1_t15210_organ_668",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_140/case_140_video_part_001.mp4",
+    "t_start": 15210.0,
+    "t_end": 15240.0,
+    "question": "Which anatomical structure is simulated by this training task?",
+    "answers": [
+      "Colon"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is involved in this step?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_141_p2_t1890_organ_497",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_141/case_141_video_part_002.mp4",
+    "t_start": 1890.0,
+    "t_end": 1920.0,
+    "question": "What anatomical structure is this training exercise intended to represent?",
+    "answers": [
+      "Rectal artery and vein"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What anatomical structure is being operated on?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_141_p2_t2625_organ_306",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_141/case_141_video_part_002.mp4",
+    "t_start": 2625.0,
+    "t_end": 2655.0,
+    "question": "What anatomical structure is this training exercise intended to represent?",
+    "answers": [
+      "Rectal artery and vein"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is being manipulated?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_141_p2_t1635_organ_953",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_141/case_141_video_part_002.mp4",
+    "t_start": 1635.0,
+    "t_end": 1665.0,
+    "question": "What anatomical structure is this training exercise intended to represent?",
+    "answers": [
+      "Rectal artery and vein"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What anatomical structure is being operated on?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_141_p2_t1545_organ_369",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_141/case_141_video_part_002.mp4",
+    "t_start": 1545.0,
+    "t_end": 1575.0,
+    "question": "What anatomical structure is this training exercise intended to represent?",
+    "answers": [
+      "Rectal artery and vein"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is being manipulated?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_141_p2_t7095_organ_202",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_141/case_141_video_part_002.mp4",
+    "t_start": 7095.0,
+    "t_end": 7125.0,
+    "question": "Which anatomical structure is simulated by this training task?",
+    "answers": [
+      "Gallbladder"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What anatomical structure is being operated on?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_141_p2_t6210_organ_546",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_141/case_141_video_part_002.mp4",
+    "t_start": 6210.0,
+    "t_end": 6240.0,
+    "question": "Which anatomical structure is simulated by this training task?",
+    "answers": [
+      "Gallbladder"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is being manipulated?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_141_p2_t1365_organ_816",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_141/case_141_video_part_002.mp4",
+    "t_start": 1365.0,
+    "t_end": 1395.0,
+    "question": "What organ or structure does this exercise represent?",
+    "answers": [
+      "Rectal artery and vein"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is being manipulated?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_142_p1_t9240_organ_740",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_142/case_142_video_part_001.mp4",
+    "t_start": 9240.0,
+    "t_end": 9270.0,
+    "question": "Which anatomical structure is simulated by this training task?",
+    "answers": [
+      "Uterine horn"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is involved in this step?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_142_p2_t4410_organ_699",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_142/case_142_video_part_002.mp4",
+    "t_start": 4410.0,
+    "t_end": 4440.0,
+    "question": "What organ or structure does this exercise represent?",
+    "answers": [
+      "Colon"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is being manipulated?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_142_p1_t10935_organ_420",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_142/case_142_video_part_001.mp4",
+    "t_start": 10935.0,
+    "t_end": 10965.0,
+    "question": "What organ or structure does this exercise represent?",
+    "answers": [
+      "Uterine horn"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is being manipulated?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_142_p2_t1440_organ_935",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_142/case_142_video_part_002.mp4",
+    "t_start": 1440.0,
+    "t_end": 1470.0,
+    "question": "Which anatomical structure is simulated by this training task?",
+    "answers": [
+      "Rectal artery and vein"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What anatomical structure is being operated on?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_142_p1_t8295_organ_421",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_142/case_142_video_part_001.mp4",
+    "t_start": 8295.0,
+    "t_end": 8325.0,
+    "question": "Which anatomical structure is simulated by this training task?",
+    "answers": [
+      "Uterine horn"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is being manipulated?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_143_p1_t8190_organ_451",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_143/case_143_video_part_001.mp4",
+    "t_start": 8190.0,
+    "t_end": 8220.0,
+    "question": "Which anatomical structure is simulated by this training task?",
+    "answers": [
+      "Uterine horn"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is being manipulated?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_144_p1_t6225_organ_863",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_144/case_144_video_part_001.mp4",
+    "t_start": 6225.0,
+    "t_end": 6255.0,
+    "question": "Which anatomical structure is simulated by this training task?",
+    "answers": [
+      "Uterine horn"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What anatomical structure is being operated on?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_144_p1_t5955_organ_453",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_144/case_144_video_part_001.mp4",
+    "t_start": 5955.0,
+    "t_end": 5985.0,
+    "question": "Which anatomical structure is simulated by this training task?",
+    "answers": [
+      "Uterine horn"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is involved in this step?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_145_p2_t480_organ_774",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_145/case_145_video_part_002.mp4",
+    "t_start": 480.0,
+    "t_end": 510.0,
+    "question": "What anatomical structure is this training exercise intended to represent?",
+    "answers": [
+      "Gallbladder"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is involved in this step?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_145_p1_t17175_organ_894",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_145/case_145_video_part_001.mp4",
+    "t_start": 17175.0,
+    "t_end": 17205.0,
+    "question": "What organ or structure does this exercise represent?",
+    "answers": [
+      "Rectal artery and vein"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What anatomical structure is being operated on?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_145_p2_t315_organ_814",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_145/case_145_video_part_002.mp4",
+    "t_start": 315.0,
+    "t_end": 345.0,
+    "question": "What organ or structure does this exercise represent?",
+    "answers": [
+      "Gallbladder"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is being manipulated?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_147_p1_t6810_organ_855",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_147/case_147_video_part_001.mp4",
+    "t_start": 6810.0,
+    "t_end": 6840.0,
+    "question": "Which anatomical structure is simulated by this training task?",
+    "answers": [
+      "Rectal artery and vein"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What anatomical structure is being operated on?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_147_p1_t3210_organ_481",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_147/case_147_video_part_001.mp4",
+    "t_start": 3210.0,
+    "t_end": 3240.0,
+    "question": "What organ or structure does this exercise represent?",
+    "answers": [
+      "Colon"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is being manipulated?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_147_p1_t2895_organ_616",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_147/case_147_video_part_001.mp4",
+    "t_start": 2895.0,
+    "t_end": 2925.0,
+    "question": "What anatomical structure is this training exercise intended to represent?",
+    "answers": [
+      "Colon"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What anatomical structure is being operated on?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_148_p1_t6195_organ_165",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_148/case_148_video_part_001.mp4",
+    "t_start": 6195.0,
+    "t_end": 6225.0,
+    "question": "Which anatomical structure is simulated by this training task?",
+    "answers": [
+      "Uterine horn"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is being manipulated?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_148_p1_t16230_organ_623",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_148/case_148_video_part_001.mp4",
+    "t_start": 16230.0,
+    "t_end": 16260.0,
+    "question": "What organ or structure does this exercise represent?",
+    "answers": [
+      "Rectal artery and vein"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What anatomical structure is being operated on?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_148_p1_t15480_organ_839",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_148/case_148_video_part_001.mp4",
+    "t_start": 15480.0,
+    "t_end": 15510.0,
+    "question": "What anatomical structure is this training exercise intended to represent?",
+    "answers": [
+      "Rectal artery and vein"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What anatomical structure is being operated on?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_148_p1_t16200_organ_183",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_148/case_148_video_part_001.mp4",
+    "t_start": 16200.0,
+    "t_end": 16230.0,
+    "question": "What organ or structure does this exercise represent?",
+    "answers": [
+      "Rectal artery and vein"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is involved in this step?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_148_p1_t16335_organ_242",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_148/case_148_video_part_001.mp4",
+    "t_start": 16335.0,
+    "t_end": 16365.0,
+    "question": "Which anatomical structure is simulated by this training task?",
+    "answers": [
+      "Rectal artery and vein"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What anatomical structure is being operated on?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_149_p1_t18975_organ_587",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_149/case_149_video_part_001.mp4",
+    "t_start": 18975.0,
+    "t_end": 19005.0,
+    "question": "What anatomical structure is this training exercise intended to represent?",
+    "answers": [
+      "Rectal artery and vein"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is being manipulated?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_149_p1_t9465_organ_801",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_149/case_149_video_part_001.mp4",
+    "t_start": 9465.0,
+    "t_end": 9495.0,
+    "question": "What anatomical structure is this training exercise intended to represent?",
+    "answers": [
+      "Uterine horn"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is involved in this step?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_149_p1_t19260_organ_309",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_149/case_149_video_part_001.mp4",
+    "t_start": 19260.0,
+    "t_end": 19290.0,
+    "question": "What organ or structure does this exercise represent?",
+    "answers": [
+      "Rectal artery and vein"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is involved in this step?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_149_p1_t18990_organ_786",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_149/case_149_video_part_001.mp4",
+    "t_start": 18990.0,
+    "t_end": 19020.0,
+    "question": "Which anatomical structure is simulated by this training task?",
+    "answers": [
+      "Rectal artery and vein"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is involved in this step?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_150_p2_t1395_organ_457",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_150/case_150_video_part_002.mp4",
+    "t_start": 1395.0,
+    "t_end": 1425.0,
+    "question": "What organ or structure does this exercise represent?",
+    "answers": [
+      "Gallbladder"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is being manipulated?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_150_p2_t1665_organ_447",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_150/case_150_video_part_002.mp4",
+    "t_start": 1665.0,
+    "t_end": 1695.0,
+    "question": "Which anatomical structure is simulated by this training task?",
+    "answers": [
+      "Gallbladder"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is being manipulated?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_151_p2_t3000_organ_995",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_151/case_151_video_part_002.mp4",
+    "t_start": 3000.0,
+    "t_end": 3030.0,
+    "question": "What organ or structure does this exercise represent?",
+    "answers": [
+      "Gallbladder"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What anatomical structure is being operated on?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_151_p1_t13005_organ_611",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_151/case_151_video_part_001.mp4",
+    "t_start": 13005.0,
+    "t_end": 13035.0,
+    "question": "What anatomical structure is this training exercise intended to represent?",
+    "answers": [
+      "Suspensory ligaments"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is involved in this step?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_152_p1_t14610_organ_474",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_152/case_152_video_part_001.mp4",
+    "t_start": 14610.0,
+    "t_end": 14640.0,
+    "question": "What anatomical structure is this training exercise intended to represent?",
+    "answers": [
+      "Suspensory ligaments"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is involved in this step?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_152_p2_t4620_organ_430",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_152/case_152_video_part_002.mp4",
+    "t_start": 4620.0,
+    "t_end": 4650.0,
+    "question": "What organ or structure does this exercise represent?",
+    "answers": [
+      "Bladder"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is involved in this step?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_152_p2_t4560_organ_260",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_152/case_152_video_part_002.mp4",
+    "t_start": 4560.0,
+    "t_end": 4590.0,
+    "question": "What organ or structure does this exercise represent?",
+    "answers": [
+      "Bladder"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is being manipulated?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_153_p1_t14850_organ_645",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_153/case_153_video_part_001.mp4",
+    "t_start": 14850.0,
+    "t_end": 14880.0,
+    "question": "What anatomical structure is this training exercise intended to represent?",
+    "answers": [
+      "Suspensory ligaments"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is involved in this step?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_153_p1_t7035_organ_355",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_153/case_153_video_part_001.mp4",
+    "t_start": 7035.0,
+    "t_end": 7065.0,
+    "question": "Which anatomical structure is simulated by this training task?",
+    "answers": [
+      "Uterine horn"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is being manipulated?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_153_p1_t8115_organ_945",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_153/case_153_video_part_001.mp4",
+    "t_start": 8115.0,
+    "t_end": 8145.0,
+    "question": "Which anatomical structure is simulated by this training task?",
+    "answers": [
+      "Uterine horn"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What anatomical structure is being operated on?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_153_p1_t15465_organ_959",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_153/case_153_video_part_001.mp4",
+    "t_start": 15465.0,
+    "t_end": 15495.0,
+    "question": "Which anatomical structure is simulated by this training task?",
+    "answers": [
+      "Suspensory ligaments"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is involved in this step?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_153_p2_t600_organ_742",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_153/case_153_video_part_002.mp4",
+    "t_start": 600.0,
+    "t_end": 630.0,
+    "question": "What anatomical structure is this training exercise intended to represent?",
+    "answers": [
+      "Rectal artery and vein"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What anatomical structure is being operated on?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_153_p2_t1425_organ_378",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_153/case_153_video_part_002.mp4",
+    "t_start": 1425.0,
+    "t_end": 1455.0,
+    "question": "Which anatomical structure is simulated by this training task?",
+    "answers": [
+      "Rectal artery and vein"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What anatomical structure is being operated on?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_154_p1_t15135_organ_465",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_154/case_154_video_part_001.mp4",
+    "t_start": 15135.0,
+    "t_end": 15165.0,
+    "question": "What anatomical structure is this training exercise intended to represent?",
+    "answers": [
+      "Suspensory ligaments"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is being manipulated?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_154_p1_t16275_organ_387",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_154/case_154_video_part_001.mp4",
+    "t_start": 16275.0,
+    "t_end": 16305.0,
+    "question": "What organ or structure does this exercise represent?",
+    "answers": [
+      "Colon"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is involved in this step?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_154_p1_t14775_organ_378",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_154/case_154_video_part_001.mp4",
+    "t_start": 14775.0,
+    "t_end": 14805.0,
+    "question": "What organ or structure does this exercise represent?",
+    "answers": [
+      "Suspensory ligaments"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What anatomical structure is being operated on?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_154_p1_t16455_organ_243",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_154/case_154_video_part_001.mp4",
+    "t_start": 16455.0,
+    "t_end": 16485.0,
+    "question": "What anatomical structure is this training exercise intended to represent?",
+    "answers": [
+      "Colon"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is being manipulated?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_154_p1_t14445_organ_422",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_154/case_154_video_part_001.mp4",
+    "t_start": 14445.0,
+    "t_end": 14475.0,
+    "question": "Which anatomical structure is simulated by this training task?",
+    "answers": [
+      "Suspensory ligaments"
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What anatomical structure is being operated on?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  }
+]

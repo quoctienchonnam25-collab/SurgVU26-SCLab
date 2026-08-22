@@ -1,0 +1,15 @@
+# Inference-only dependencies for the DualEncoderVQA submission image.
+# torch/torchvision are supplied by pytorch/pytorch:2.8.0-cuda12.6-cudnn9-runtime.
+transformers==4.57.6
+peft==0.17.1
+timm==1.0.28
+accelerate
+einops
+decord
+opencv-python-headless
+numpy
+nltk
+sentencepiece
+safetensors
+qwen-vl-utils
+tqdm

@@ -1,0 +1,16 @@
+# Minimal inference-only requirements for the SurgMotion VQA submission image.
+# Versions pinned to what is verified working end-to-end in repo/surgmotion_env
+# on this project's checkpoints (surgmotion_v2_stage_b_dev). torch/torchvision
+# come from the pytorch/pytorch base image and are not reinstalled here.
+transformers==4.57.6
+peft==0.17.1
+timm==1.0.28
+accelerate
+einops
+decord
+opencv-python
+numpy
+nltk
+sentencepiece
+safetensors
+tqdm

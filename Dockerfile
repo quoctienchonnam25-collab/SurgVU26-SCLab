@@ -28,6 +28,12 @@ COPY checkpoints /app/checkpoints
 # Set python path
 ENV PYTHONPATH=/app
 
+# The evaluation container runs with --network none (confirmed via the official
+# category-2 reference container's do_test_run.sh) - force offline mode so
+# huggingface_hub never attempts a revision-check network call at runtime.
+ENV HF_HUB_OFFLINE=1
+ENV TRANSFORMERS_OFFLINE=1
+
 # Default command for Grand Challenge algorithm
 # Grand Challenge mounts /input and expects outputs in /output
 ENTRYPOINT ["python", "src/predict.py", "--input_dir", "/input", "--output_dir", "/output", "--model_path", "Qwen/Qwen2-VL-2B-Instruct", "--lora_path", "/app/checkpoints/qwen2_vl_2b_lora_v5"]

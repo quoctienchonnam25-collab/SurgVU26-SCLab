@@ -98,7 +98,19 @@ class SurgicalVQADataset(Dataset):
         question = item['question']
 
         if self.is_train:
-            answer = random.choice(item['answers'])
+            # generate_qa.py always puts the shortest/canonical form (bare "Yes"/"No"
+            # or the closest match to the reference phrasing) at index 0. BERTScore-F1
+            # (the official metric) rewards close lexical match to reference wording far
+            # more than semantically-equivalent paraphrases - e.g. "No, X was not used"
+            # scores 1.0 against the references while "No, X is not listed" scores 0.71
+            # despite both being correct - so bias training toward that canonical form
+            # instead of sampling all 5 answer variants uniformly.
+            answers = item['answers']
+            if len(answers) > 1:
+                weights = [0.55] + [0.45 / (len(answers) - 1)] * (len(answers) - 1)
+                answer = random.choices(answers, weights=weights, k=1)[0]
+            else:
+                answer = answers[0]
         else:
             answer = item['answers'][0]
 

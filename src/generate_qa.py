@@ -3,12 +3,22 @@ SurgVU 2026 Category 2 - Expanded QA Generator v2
 Generates 9+ question types matching the public sample's test cases (case122-132).
 Includes rebalancing for Yes/No and task distribution.
 """
+import argparse
 import json
 import os
 import re
 import random
-from collections import defaultdict
+from collections import defaultdict, Counter
+from pathlib import Path
+
 from tqdm import tqdm
+
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+DEFAULT_SEGMENTS = PROJECT_ROOT / "src" / "surgvu_segments_v2.json"
+DEFAULT_TRAIN_OUTPUT = PROJECT_ROOT / "src" / "train_vqa_v2.json"
+DEFAULT_VAL_OUTPUT = PROJECT_ROOT / "src" / "val_vqa_v2.json"
+DEFAULT_ALL_OUTPUT = PROJECT_ROOT / "src" / "all_vqa_v2.json"
 
 # ─── Tool metadata ────────────────────────────────────────────────────────────
 
@@ -90,6 +100,7 @@ TASK_ORGAN = {
 FORCEPS_TOOLS = ["cadiere forceps", "bipolar forceps", "prograsp forceps"]
 
 ALL_TARGET_TOOLS = list(TOOL_SINGULAR_PLURAL.keys())
+ALL_PRESENCE_TARGETS = ALL_TARGET_TOOLS + ["forceps"]
 
 # ─── Question generators ──────────────────────────────────────────────────────
 
@@ -97,7 +108,8 @@ def _sp(tool):
     return TOOL_SINGULAR_PLURAL.get(tool, (tool, tool + "s"))
 
 
-def gen_tool_presence(active_tools, target_tool=None, active_commercial_tools=None):
+def gen_tool_presence(active_tools, target_tool=None, active_commercial_tools=None,
+                       force_variant=None, force_generic=False):
     """Public sample examples: case122, 123, 126, 128, 132.
 
     About half the time, if target_tool has known commercial variants (see
@@ -105,73 +117,108 @@ def gen_tool_presence(active_tools, target_tool=None, active_commercial_tools=No
     against active_commercial_tools - NOT the generic active_tools - so "was a
     large needle driver used" is answered correctly even when a *different*
     needle driver variant (e.g. Mega SutureCut) is the one actually present.
+
+    The returned balance_key is the generic tool name for generic-mode questions,
+    but the SPECIFIC variant string (e.g. "large clip applier") for variant-mode
+    questions - self-distillation error analysis on v5 found the model
+    false-positives specifically on variant questions (e.g. "was a maryland
+    bipolar forceps used?" -> answered Yes because *some* bipolar forceps is
+    almost always present), a bias invisible to balancing that only tracked the
+    generic key, since it averaged away against the differently-skewed
+    generic-mode questions for the same tool. force_variant/force_generic let
+    balance_tool_presence request a specific mode instead of the random 50/50
+    split, so it can top up exactly the (tool, mode) pair that's actually skewed.
     """
     active_commercial_tools = active_commercial_tools or set()
-    if target_tool is None:
-        target_tool = random.choice(ALL_TARGET_TOOLS)
-    _resolved_tool = target_tool
+    active_tools = set(active_tools)
 
-    variants = COMMERCIAL_VARIANTS.get(target_tool)
-    if variants and random.random() < 0.5:
-        display_name = random.choice(variants)
+    if force_variant is not None:
+        display_name = force_variant
         is_present = display_name in active_commercial_tools
-        p = display_name + "s"
+        balance_key = display_name
     else:
-        display_name, p = _sp(target_tool)
-        is_present = target_tool in active_tools
+        if target_tool is None:
+            target_tool = random.choice(ALL_PRESENCE_TARGETS)
+
+        if target_tool == "forceps":
+            display_name = "forceps"
+            is_present = any(tool in active_tools for tool in FORCEPS_TOOLS)
+            balance_key = "forceps"
+            variants = None
+        else:
+            variants = COMMERCIAL_VARIANTS.get(target_tool)
+
+        use_variant = bool((not force_generic) and variants and random.random() < 0.5)
+        if target_tool != "forceps" and use_variant:
+            display_name = random.choice(variants)
+            is_present = display_name in active_commercial_tools
+            balance_key = display_name
+        elif target_tool != "forceps":
+            display_name = target_tool
+            is_present = target_tool in active_tools
+            balance_key = target_tool
 
     q_templates = [
-        f"Is a {display_name} among the listed tools?",
-        f"Is a {display_name} being used here?",
-        f"Are there {p} being used here?",
-        f"Is there a {display_name} present?",
-        f"Was a {display_name} used during the surgery?",
-        f"Was a {display_name} used in this clip?",
-        f"Is a {display_name} involved in the procedure?",
+        f"Is {display_name} among the tools listed as installed for this clip?",
+        f"Does the installation record list {display_name} for this clip?",
+        f"Is {display_name} listed in the installed tool record for this clip?",
     ]
     q = random.choice(q_templates)
 
     if is_present:
         answers = [
             "Yes",
-            f"Yes, a {display_name} is listed.",
-            f"Yes, a {display_name} is being used.",
-            f"Yes, a {display_name} was utilized.",
-            f"Yes, the procedure involved a {display_name}.",
+            f"Yes, {display_name} is listed as installed.",
+            f"Yes, the installation record includes {display_name}.",
+            f"Yes, {display_name} appears in the installed tool list.",
+            f"The installed tool record lists {display_name}.",
         ]
     else:
         answers = [
             "No",
-            f"No, a {display_name} was not used.",
-            f"No, a {display_name} is not listed.",
-            f"No, there's no {display_name}.",
-            f"There is no indication a {display_name} was used.",
+            f"No, {display_name} is not listed as installed.",
+            f"No, the installation record does not include {display_name}.",
+            f"No, {display_name} does not appear in the installed tool list.",
+            f"The installed tool record does not list {display_name}.",
         ]
-    return q, answers, _resolved_tool
+    return q, answers, balance_key
 
 
 def gen_forceps_type(active_tools):
-    """Public sample example: case124"""
-    active_forceps = [t for t in active_tools if t in FORCEPS_TOOLS]
-    q = "What type of forceps is mentioned?"
+    """Generate complete, deterministic forceps-set supervision."""
+    active_set = set(active_tools)
+    active_forceps = [tool for tool in FORCEPS_TOOLS if tool in active_set]
 
     if not active_forceps:
+        q = "Are any forceps types listed as installed for this clip?"
         answers = [
-            "No forceps are mentioned.",
-            "No forceps are listed.",
-            "There are no forceps referenced.",
-            "No forceps are being used.",
-            "No forceps.",
+            "No forceps types are listed.",
+            "No forceps are listed as installed.",
+            "The installed tool record contains no forceps types.",
+            "There are no forceps types in the installed tool list.",
+            "No installed forceps type is recorded for this clip.",
         ]
-    else:
-        tool_name = random.choice(active_forceps)
-        cap = " ".join(w.capitalize() for w in tool_name.split())
+    elif len(active_forceps) == 1:
+        q = "Which forceps type is listed as installed for this clip?"
+        tool_name = active_forceps[0]
+        cap = " ".join(word.capitalize() for word in tool_name.split())
         answers = [
             cap,
-            f"The type of forceps mentioned is {cap}.",
-            f"{cap} are the type mentioned.",
-            f"The forceps type is {cap}.",
-            f"{cap} is the specific type referenced.",
+            f"The listed forceps type is {cap}.",
+            f"{cap} is listed as installed.",
+            f"The installed tool record lists {cap}.",
+            f"The forceps type recorded for this clip is {cap}.",
+        ]
+    else:
+        q = "Which forceps types are listed as installed for this clip?"
+        names = [" ".join(word.capitalize() for word in tool.split()) for tool in active_forceps]
+        joined = ", ".join(names[:-1]) + f" and {names[-1]}"
+        answers = [
+            f"{joined}.",
+            f"The listed forceps types are {joined}.",
+            f"{joined} are listed as installed.",
+            f"The installed tool record lists {joined}.",
+            f"The forceps types recorded for this clip are {joined}.",
         ]
     return q, answers
 
@@ -286,39 +333,28 @@ def gen_procedure_type():
 
 
 def gen_tool_purpose(active_tools):
-    """Public sample example: case130 — "What is the purpose of using forceps in this procedure?"
-    → "To grasp and hold tissues or objects during the surgery." """
-    forceps_active = [t for t in active_tools if t in FORCEPS_TOOLS]
-    other_active = [t for t in active_tools if t not in FORCEPS_TOOLS]
+    """Describe the general purpose of an explicitly active tool."""
+    active_set = set(active_tools)
+    active = [tool for tool in ALL_TARGET_TOOLS if tool in active_set]
+    if not active:
+        return None, None
 
-    # Prefer forceps if present (matches the public sample), otherwise pick any tool
-    if forceps_active:
-        tool = random.choice(forceps_active)
-        tool_display = "forceps"
-    elif other_active:
-        tool = random.choice(other_active)
-        tool_display = _sp(tool)[0]
-    else:
-        # No tools → pick a random one and describe its general purpose
-        tool = random.choice(ALL_TARGET_TOOLS)
-        tool_display = _sp(tool)[0]
-
+    tool = random.choice(active)
     purpose = TOOL_PURPOSE.get(tool, "to assist during the surgical procedure")
-
     q_templates = [
-        f"What is the purpose of using {tool_display} in this procedure?",
-        f"Why is a {tool_display} being used?",
-        f"What role does the {tool_display} play in this step?",
+        f"What is the purpose of using {tool} in this procedure?",
+        f"What is the general purpose of {tool}?",
+        f"What role is {tool} intended to serve?",
     ]
     q = random.choice(q_templates)
 
     cap_purpose = purpose[0].upper() + purpose[1:]
     answers = [
         f"{cap_purpose}.",
-        f"The {tool_display} is used {purpose}.",
-        f"{tool_display.capitalize()} is utilized {purpose}.",
-        f"The purpose of {tool_display} is {purpose}.",
-        f"{tool_display.capitalize()} is used {purpose}.",
+        f"The purpose of {tool} is {purpose}.",
+        f"{tool.capitalize()} is intended {purpose}.",
+        f"The listed tool, {tool}, is designed {purpose}.",
+        f"In general, {tool} serves {purpose}.",
     ]
     return q, answers
 
@@ -359,11 +395,33 @@ def gen_tissue_cutting(active_tools, task_name):
 
 
 def gen_description_question(description):
-    """Generate a question from matched_description if available."""
-    if not description or str(description) == 'nan' or len(str(description).strip()) < 10:
+    """Generate clean, visible-field description supervision when available.
+
+    Unlike every other question type here, this one has no matching case in the
+    public sample (case122-132) to confirm answer style against. All 11 public
+    examples - including case129's closest analog, "What procedure is this
+    summary describing?" -> "Endoscopic surgery or a laparoscopic surgery" - use
+    a single short sentence, never a multi-sentence narrative paragraph. Prior to
+    2026-08-12 this generator answered with up to a ~200-char excerpt of the raw
+    `matched_description` field (a per-task paragraph, not per-clip), which is
+    long/narrative in a way nothing else in this file's official-style answers
+    is. Answers are now truncated to just the FIRST sentence, matching the
+    length/register of every other category's reference answers.
+    """
+    if not description or str(description).lower() == "nan":
         return None, None
 
-    desc = str(description).strip()
+    desc = re.sub(r"\s+", " ", str(description)).strip()
+    lowered = desc.lower()
+    invalid_markers = (
+        "activity outside of the structured training",
+        "training activity is other",
+        "annotator",
+        "annotation note",
+    )
+    if len(desc) < 10 or any(marker in lowered for marker in invalid_markers):
+        return None, None
+
     q_templates = [
         "What is the surgeon doing in this step?",
         "Describe what is happening in this surgical clip.",
@@ -371,27 +429,52 @@ def gen_description_question(description):
     ]
     q = random.choice(q_templates)
 
-    # Create paraphrased answers from the description
-    # Truncate very long descriptions
-    if len(desc) > 200:
-        desc = desc[:200].rsplit(' ', 1)[0] + "."
+    # Keep only the first sentence (cap ~140 chars) - short-answer style, not
+    # the full multi-sentence task paragraph.
+    search_window = desc[:140]
+    sentence_end = min(
+        (i for i in (search_window.find("."), search_window.find("!"), search_window.find("?")) if i != -1),
+        default=-1,
+    )
+    if sentence_end >= 15:
+        desc = search_window[: sentence_end + 1]
+    elif len(desc) > 140:
+        desc = desc[:140].rsplit(" ", 1)[0].rstrip(" ,;:") + "."
+    elif desc[-1] not in ".!?":
+        desc += "."
 
+    body = desc[:-1] if desc[-1] in ".!?" else desc
+    body_lower = body[0].lower() + body[1:] if body[0].isupper() else body
     answers = [
         desc,
-        f"The surgeon is {desc[0].lower()}{desc[1:]}" if desc[0].isupper() else desc,
-        f"In this step, {desc[0].lower()}{desc[1:]}" if desc[0].isupper() else f"In this step, {desc}",
-        f"The activity involves: {desc}",
-        f"The clip shows: {desc}",
+        f"The clip shows that {body_lower}.",
+        f"In this step, {body_lower}.",
+        f"The surgical activity is: {desc}",
+        f"This segment shows: {desc}",
     ]
     return q, answers
 
 
 # ─── Main pipeline ────────────────────────────────────────────────────────────
 
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--segments", default=str(DEFAULT_SEGMENTS))
+    parser.add_argument("--train-output", default=str(DEFAULT_TRAIN_OUTPUT))
+    parser.add_argument("--val-output", default=str(DEFAULT_VAL_OUTPUT))
+    parser.add_argument("--all-output", default=str(DEFAULT_ALL_OUTPUT))
+    parser.add_argument("--train-case-count", type=int, default=140)
+    parser.add_argument("--max-segments-per-case", type=int, default=60)
+    parser.add_argument("--seed", type=int, default=42)
+    return parser.parse_args()
+
+
 def main():
-    segments_json = r"d:\SCLab\Surgical-Video-Understanding\SurgVU-challenge\src\surgvu_segments.json"
-    train_output  = r"d:\SCLab\Surgical-Video-Understanding\SurgVU-challenge\src\train_vqa.json"
-    val_output    = r"d:\SCLab\Surgical-Video-Understanding\SurgVU-challenge\src\val_vqa.json"
+    args = parse_args()
+    segments_json = os.path.abspath(args.segments)
+    train_output = os.path.abspath(args.train_output)
+    val_output = os.path.abspath(args.val_output)
+    all_output = os.path.abspath(args.all_output)
 
     with open(segments_json, 'r', encoding='utf-8') as f:
         segments = json.load(f)
@@ -400,11 +483,15 @@ def main():
     for seg in segments:
         case_groups[seg['case']].append(seg)
 
-    random.seed(42)
+    random.seed(args.seed)
 
-    all_cases   = sorted(case_groups.keys())
-    train_cases = all_cases[:140]
-    val_cases   = all_cases[140:]
+    all_cases = sorted(case_groups.keys())
+    if not 0 < args.train_case_count < len(all_cases):
+        raise ValueError(
+            f"--train-case-count must be between 1 and {len(all_cases) - 1}"
+        )
+    train_cases = all_cases[: args.train_case_count]
+    val_cases = all_cases[args.train_case_count :]
     print(f"Train cases: {len(train_cases)}, Val cases: {len(val_cases)}")
 
     # ── Question type generators with weights ──
@@ -496,7 +583,7 @@ def main():
         return vqa
 
     def balance_tool_presence(vqa, cases_list, target_yes_ratio=0.5, tolerance=0.1, max_extra_per_tool=600):
-        """Per-tool Yes/No balancing.
+        """Per-(tool, mode) Yes/No balancing.
 
         A few tools (cadiere forceps, needle driver) are physically present in most
         segments, so uniformly-random target_tool sampling makes tool_presence QA for
@@ -505,31 +592,55 @@ def main():
         false-positive failure seen on the real public sample (case122, case132). Fix by
         searching the full segment pool (not just what got sampled above) for
         counter-examples per tool and topping up whichever class is underrepresented.
+
+        Balances generic tool keys (e.g. "clip applier") AND every individual
+        commercial variant (e.g. "large clip applier") separately - v5's
+        self-distillation error analysis found variant-mode questions ("was a
+        maryland bipolar forceps used?") false-positive on Yes even when the
+        generic tool key's aggregate Yes/No looked balanced, because generic-mode
+        and variant-mode questions for the same tool can have very different
+        underlying Yes-rates that average out when tracked under one key.
         """
         all_segs = [s for case in cases_list for s in case_groups[case]]
+        all_variants = [v for variants in COMMERCIAL_VARIANTS.values() for v in variants]
 
-        counts = defaultdict(lambda: [0, 0])  # tool -> [yes, no]
+        counts = defaultdict(lambda: [0, 0])  # balance_key -> [yes, no]
         for item in vqa:
             if "tool" not in item:
                 continue
             counts[item["tool"]][0 if item["answers"][0] == "Yes" else 1] += 1
 
         extra = []
-        for tool in ALL_TARGET_TOOLS:
-            yes, no = counts[tool]
+        for key in ALL_PRESENCE_TARGETS + all_variants:
+            is_variant = key not in ALL_PRESENCE_TARGETS
+            yes, no = counts[key]
             total = yes + no
             if total == 0:
                 continue
             ratio = yes / total
 
             if ratio > target_yes_ratio + tolerance:
-                # too many Yes -> top up with segments where this tool is ABSENT
+                # too many Yes -> top up with segments where this key is ABSENT
                 need = min(int(yes / target_yes_ratio) - total, max_extra_per_tool)
-                pool = [s for s in all_segs if tool not in s['tools']]
+                if is_variant:
+                    pool = [s for s in all_segs if key not in s.get('commercial_tools', [])]
+                elif key == "forceps":
+                    pool = [s for s in all_segs if not any(
+                        tool in s["tools"] for tool in FORCEPS_TOOLS
+                    )]
+                else:
+                    pool = [s for s in all_segs if key not in s['tools']]
             elif ratio < target_yes_ratio - tolerance:
-                # too many No -> top up with segments where this tool IS present
+                # too many No -> top up with segments where this key IS present
                 need = min(int(no / (1 - target_yes_ratio)) - total, max_extra_per_tool)
-                pool = [s for s in all_segs if tool in s['tools']]
+                if is_variant:
+                    pool = [s for s in all_segs if key in s.get('commercial_tools', [])]
+                elif key == "forceps":
+                    pool = [s for s in all_segs if any(
+                        tool in s["tools"] for tool in FORCEPS_TOOLS
+                    )]
+                else:
+                    pool = [s for s in all_segs if key in s['tools']]
             else:
                 continue
 
@@ -537,10 +648,16 @@ def main():
                 continue
             random.shuffle(pool)
             for seg in pool[:need]:
-                q, answers, _ = gen_tool_presence(
-                    seg['tools'], target_tool=tool,
-                    active_commercial_tools=set(seg.get('commercial_tools', []))
-                )
+                commercial = set(seg.get('commercial_tools', []))
+                if is_variant:
+                    q, answers, _ = gen_tool_presence(
+                        seg['tools'], active_commercial_tools=commercial, force_variant=key
+                    )
+                else:
+                    q, answers, _ = gen_tool_presence(
+                        seg['tools'], target_tool=key, active_commercial_tools=commercial,
+                        force_generic=True
+                    )
                 extra.append({
                     "id": f"{seg['case']}_p{seg['part']}_t{int(seg['t_start'])}_tp_bal_{random.randint(100,999)}",
                     "video": seg['video_path'],
@@ -548,23 +665,109 @@ def main():
                     "t_end": seg['t_end'],
                     "question": q,
                     "answers": answers,
-                    "tool": tool,
+                    "tool": key,
                 })
 
         return vqa + extra
 
-    train_vqa = sample_and_generate(train_cases, max_segs_per_case=60)
-    val_vqa   = sample_and_generate(val_cases,   max_segs_per_case=60)
+    _TYPE_PATTERN = re.compile(r"_t\d+_(.+)_\d+$")
+
+    def downsample_dominant_answers(vqa, target_types=("task_id", "description"), max_share=0.5):
+        """v5's self-distillation error analysis found the model mode-collapses on
+        task_id/description questions: it learned to answer the single most common
+        label ("Other" task / "Activity outside of the structured training."
+        description) regardless of what's actually in the clip, because that alone
+        was ~74% correct in training data - a pure frequency-prior shortcut costing
+        real accuracy. Cap the dominant answer's share per type instead of
+        oversampling counter-examples (there's nothing to oversample here, the
+        model just needs less incentive to always guess the majority class)."""
+        by_type = defaultdict(list)
+        for item in vqa:
+            m = _TYPE_PATTERN.search(item['id'])
+            by_type[m.group(1) if m else None].append(item)
+
+        drop_ids = set()
+        for t in target_types:
+            items = by_type.get(t, [])
+            if not items:
+                continue
+            counts = Counter(it['answers'][0] for it in items)
+            dominant, dom_count = counts.most_common(1)[0]
+            total = len(items)
+            share = dom_count / total
+            if share <= max_share:
+                continue
+            other_count = total - dom_count
+            keep_dom = int((max_share * other_count) / (1 - max_share))
+            keep_dom = max(0, min(keep_dom, dom_count))
+            dominant_items = [it for it in items if it['answers'][0] == dominant]
+            random.shuffle(dominant_items)
+            drop = dominant_items[keep_dom:]
+            drop_ids.update(id(it) for it in drop)
+            print(f"  downsample[{t}]: dominant={dominant!r} {dom_count}/{total} ({share:.1%})"
+                  f" -> keeping {keep_dom}, dropping {len(drop)}")
+
+        return [it for it in vqa if id(it) not in drop_ids]
+
+    train_vqa = sample_and_generate(
+        train_cases, max_segs_per_case=args.max_segments_per_case
+    )
+    val_vqa = sample_and_generate(
+        val_cases, max_segs_per_case=args.max_segments_per_case
+    )
 
     train_vqa = balance_tool_presence(train_vqa, train_cases)
     val_vqa   = balance_tool_presence(val_vqa, val_cases)
+
+    print("Downsampling dominant task_id/description answers (train):")
+    train_vqa = downsample_dominant_answers(train_vqa)
+    print("Downsampling dominant task_id/description answers (val):")
+    val_vqa   = downsample_dominant_answers(val_vqa)
     # Not shuffled here: the Trainer already shuffles each epoch, and keeping QA
     # entries grouped by video/case helps extract_frames.py's decord cache locality.
+
+    def ensure_unique_ids(rows):
+        seen = set()
+        duplicate_counter = 1000
+        for item in rows:
+            if item["id"] in seen:
+                base = item["id"].rsplit("_", 1)[0]
+                while f"{base}_{duplicate_counter}" in seen:
+                    duplicate_counter += 1
+                item["id"] = f"{base}_{duplicate_counter}"
+                duplicate_counter += 1
+            seen.add(item["id"])
+
+    def deduplicate_semantics(rows):
+        kept = []
+        seen = {}
+        for item in rows:
+            key = (
+                item["video"],
+                float(item["t_start"]),
+                float(item["t_end"]),
+                re.sub(r"\s+", " ", item["question"].strip().lower()),
+            )
+            signature = tuple(sorted(
+                re.sub(r"\s+", " ", answer.strip().lower())
+                for answer in item["answers"]
+            ))
+            if key not in seen:
+                seen[key] = signature
+                kept.append(item)
+            elif seen[key] != signature:
+                raise RuntimeError(f"Conflicting supervision for semantic key: {key}")
+        return kept
+
+    train_vqa = deduplicate_semantics(train_vqa)
+    val_vqa = deduplicate_semantics(val_vqa)
+
+    ensure_unique_ids(train_vqa)
+    ensure_unique_ids(val_vqa)
 
     # ── Print stats ──
     print(f"\nGenerated {len(train_vqa)} train QA, {len(val_vqa)} val QA.")
 
-    from collections import Counter
     def print_stats(data, label):
         tp_items = [d for d in data if "tool" in d]
         yes_tp = sum(1 for d in tp_items if d['answers'][0] == 'Yes')
@@ -588,11 +791,15 @@ def main():
     print_stats(train_vqa, "train")
     print_stats(val_vqa,   "val")
 
+    for output in (train_output, val_output, all_output):
+        os.makedirs(os.path.dirname(output), exist_ok=True)
     with open(train_output, 'w', encoding='utf-8') as f:
         json.dump(train_vqa, f, indent=2, ensure_ascii=False)
     with open(val_output, 'w', encoding='utf-8') as f:
         json.dump(val_vqa, f, indent=2, ensure_ascii=False)
-    print(f"\nSaved to {train_output} and {val_output}")
+    with open(all_output, 'w', encoding='utf-8') as f:
+        json.dump(train_vqa + val_vqa, f, indent=2, ensure_ascii=False)
+    print(f"\nSaved train={train_output}, val={val_output}, all={all_output}")
 
 
 if __name__ == "__main__":

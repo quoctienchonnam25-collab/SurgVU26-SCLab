@@ -1,4 +1,12 @@
 import os
+
+# Grand Challenge runs the evaluation container with --network none (confirmed via the
+# official reference container's do_test_run.sh) - the model weights are already baked
+# into the image at build time, so force offline mode rather than let huggingface_hub
+# attempt (and hang/fail on) a revision-check network call at runtime.
+os.environ.setdefault("HF_HUB_OFFLINE", "1")
+os.environ.setdefault("TRANSFORMERS_OFFLINE", "1")
+
 import json
 import glob
 import torch
@@ -17,10 +25,13 @@ def load_model(base_model_path="Qwen/Qwen2-VL-2B-Instruct", lora_path=None):
     processor.image_processor.min_pixels = 112 * 112
     processor.image_processor.max_pixels = 224 * 224
     
-    # For inference, BF16/FP16 is perfect and consumes very little VRAM (<4GB)
+    # FP16 (not BF16): the submission GPU is a T4 (Turing, compute capability 7.5),
+    # which has no Tensor Core acceleration for bf16 matmuls (that requires Ampere
+    # sm_80+) - bf16 still runs there but via a slow fallback path. FP16 is fully
+    # Tensor Core-accelerated on Turing and consumes the same VRAM (<4GB either way).
     model = Qwen2VLForConditionalGeneration.from_pretrained(
         base_model_path,
-        torch_dtype=torch.bfloat16,
+        torch_dtype=torch.float16,
         device_map="auto"
     )
     if lora_path and os.path.exists(lora_path):
@@ -30,7 +41,15 @@ def load_model(base_model_path="Qwen/Qwen2-VL-2B-Instruct", lora_path=None):
     model.eval()
     return model, processor
 
-def predict_vqa(model, processor, video_path, question, max_frames=16, frame_size=384, detector=None):
+def predict_vqa(model, processor, video_path, question, max_frames=16, frame_size=384, detector=None, blind=False):
+    """blind=True feeds black frames instead of the real video - a language-prior
+    diagnostic (inspired by SurgCheck's text-only ablation): if a question scores
+    nearly as well blind as with real frames, the model is answering from a learned
+    text pattern rather than actually looking at the clip."""
+    if blind:
+        pil_frames = [Image.new("RGB", (frame_size, frame_size), (0, 0, 0)) for _ in range(max_frames)]
+        return _generate_answer(model, processor, pil_frames, question)
+
     if detector is not None:
         # Ground the prompt with what a dedicated detector actually sees in the clip -
         # trained specifically on the 14 tool classes, it catches things the VLM's own
@@ -70,6 +89,10 @@ def predict_vqa(model, processor, video_path, question, max_frames=16, frame_siz
         # Fallback to black frames
         pil_frames = [Image.new("RGB", (frame_size, frame_size), (0, 0, 0)) for _ in range(max_frames)]
 
+    return _generate_answer(model, processor, pil_frames, question)
+
+
+def _generate_answer(model, processor, pil_frames, question):
     messages = [
         {
             "role": "user",
@@ -79,11 +102,11 @@ def predict_vqa(model, processor, video_path, question, max_frames=16, frame_siz
             ]
         }
     ]
-    
+
     # Apply template and process vision info
     text = processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
     image_inputs, video_inputs = process_vision_info(messages)
-    
+
     inputs = processor(
         text=[text],
         images=image_inputs,
@@ -91,23 +114,87 @@ def predict_vqa(model, processor, video_path, question, max_frames=16, frame_siz
         padding=True,
         return_tensors="pt"
     )
-    
+
     # Move to GPU
     inputs = {k: v.to("cuda") if isinstance(v, torch.Tensor) else v for k, v in inputs.items()}
-    
+
     with torch.no_grad():
         generated_ids = model.generate(**inputs, max_new_tokens=50)
-        
+
     # Trim prompt
     generated_ids_trimmed = [
         out_ids[len(in_ids):] for in_ids, out_ids in zip(inputs["input_ids"], generated_ids)
     ]
-    
+
     output_text = processor.batch_decode(
         generated_ids_trimmed, skip_special_tokens=True, clean_up_tokenization_spaces=False
     )[0]
-    
+
     return output_text.strip()
+
+# Grand Challenge's actual Category 2 interface (confirmed against the official
+# reference container, github.com/isi-challenges/surgvu2025-category2-submission):
+# the algorithm is invoked ONCE PER TEST CASE with these fixed socket filenames under
+# /input, and must write exactly one fixed-name file under /output. This is NOT a
+# "loop over a directory of cases" interface - grand-challenge mounts a fresh /input
+# per case and calls the container fresh each time.
+GC_VIDEO_SLUG = "endoscopic-robotic-surgery-video"
+GC_QUESTION_SLUG = "visual-context-question"
+GC_RESPONSE_SLUG = "visual-context-response"
+
+
+def run_grand_challenge_case(input_dir, output_dir, model, processor, detector):
+    """The real submission path: one video + one question in, one answer out."""
+    video_path = os.path.join(input_dir, f"{GC_VIDEO_SLUG}.mp4")
+    question_path = os.path.join(input_dir, f"{GC_QUESTION_SLUG}.json")
+
+    with open(question_path, "r", encoding="utf-8") as f:
+        question = json.load(f)
+
+    print(f"Question: {question}")
+    answer = predict_vqa(model, processor, video_path, question, detector=detector)
+    print(f"Answer: {answer}")
+
+    os.makedirs(output_dir, exist_ok=True)
+    with open(os.path.join(output_dir, f"{GC_RESPONSE_SLUG}.json"), "w", encoding="utf-8") as f:
+        json.dump(answer, f, ensure_ascii=False)
+
+
+def run_batch_directory(input_dir, output_dir, model, processor, detector):
+    """Convenience path for local development only (NOT the grand-challenge contract):
+    scans input_dir for however many case{N}.mp4 + case{N}_question.json pairs it
+    finds (e.g. the public sample set) and predicts all of them in one process, so we
+    don't have to re-load the model per case when comparing checkpoints locally."""
+    video_files = glob.glob(os.path.join(input_dir, "**/*.mp4"), recursive=True)
+    print(f"Found {len(video_files)} video files for prediction.")
+
+    predictions = {}
+    for video_path in video_files:
+        video_dir = os.path.dirname(video_path)
+        base_name = os.path.splitext(os.path.basename(video_path))[0]
+
+        q_path = os.path.join(video_dir, f"{base_name}_question.json")
+        if not os.path.exists(q_path):
+            q_path = os.path.join(video_dir, "question.json")
+        if not os.path.exists(q_path):
+            print(f"Warning: Question file not found for {video_path}. Skipping.")
+            continue
+
+        with open(q_path, 'r', encoding='utf-8') as f:
+            question = json.load(f)
+
+        print(f"Predicting for {base_name}: Q='{question}'")
+        pred_ans = predict_vqa(model, processor, video_path, question, detector=detector)
+        print(f"Prediction: '{pred_ans}'")
+        predictions[base_name] = pred_ans
+
+        with open(os.path.join(output_dir, f"{base_name}.json"), 'w', encoding='utf-8') as f:
+            json.dump(pred_ans, f, indent=4, ensure_ascii=False)
+
+    with open(os.path.join(output_dir, "predictions.json"), 'w', encoding='utf-8') as f:
+        json.dump(predictions, f, indent=4, ensure_ascii=False)
+    print(f"Predictions saved to {output_dir}")
+
 
 def main():
     parser = argparse.ArgumentParser()
@@ -122,7 +209,6 @@ def main():
 
     os.makedirs(args.output_dir, exist_ok=True)
 
-    # Load model
     model, processor = load_model(args.model_path, args.lora_path)
 
     detector = None
@@ -130,50 +216,12 @@ def main():
         from detect_tools import load_detector
         print(f"Loading tool detector from {args.detector_weights}...")
         detector = load_detector(args.detector_weights)
-    
-    # Find all cases in the input directory
-    # Grand challenge input might have files directly in /input/ or inside case subdirectories
-    # We will search for any .mp4 files in input_dir and its subdirectories
-    video_files = glob.glob(os.path.join(args.input_dir, "**/*.mp4"), recursive=True)
-    
-    print(f"Found {len(video_files)} video files for prediction.")
-    
-    predictions = {}
-    
-    for video_path in video_files:
-        video_dir = os.path.dirname(video_path)
-        base_name = os.path.splitext(os.path.basename(video_path))[0]
-        
-        # Try to find corresponding question file
-        # It could be named like [base_name]_question.json or question.json
-        q_path = os.path.join(video_dir, f"{base_name}_question.json")
-        if not os.path.exists(q_path):
-            q_path = os.path.join(video_dir, "question.json")
-            
-        if not os.path.exists(q_path):
-            print(f"Warning: Question file not found for {video_path}. Skipping.")
-            continue
-            
-        with open(q_path, 'r', encoding='utf-8') as f:
-            question = json.load(f)
-            
-        print(f"Predicting for {base_name}: Q='{question}'")
-        pred_ans = predict_vqa(model, processor, video_path, question, detector=detector)
-        print(f"Prediction: '{pred_ans}'")
-        
-        predictions[base_name] = pred_ans
-        
-        # Save individual prediction as expected by grand-challenge
-        # e.g., output_dir/case122.json containing a single string
-        out_json_path = os.path.join(args.output_dir, f"{base_name}.json")
-        with open(out_json_path, 'w', encoding='utf-8') as f:
-            json.dump(pred_ans, f, indent=4, ensure_ascii=False)
-            
-    # Also save a global summary predictions.json
-    with open(os.path.join(args.output_dir, "predictions.json"), 'w', encoding='utf-8') as f:
-        json.dump(predictions, f, indent=4, ensure_ascii=False)
-        
-    print(f"Predictions saved to {args.output_dir}")
+
+    gc_video_path = os.path.join(args.input_dir, f"{GC_VIDEO_SLUG}.mp4")
+    if os.path.exists(gc_video_path):
+        run_grand_challenge_case(args.input_dir, args.output_dir, model, processor, detector)
+    else:
+        run_batch_directory(args.input_dir, args.output_dir, model, processor, detector)
 
 if __name__ == "__main__":
     main()

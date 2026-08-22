@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "frozen_at": "2026-08-05T00:00:00+09:00",
+  "image": {
+    "tag": "surgvu-dual-encoder-v3:freeze-20260805",
+    "sha256": "6cbb2a139250357d06fa30c010f2a3160266603ef1481731433ae96f6ae0d018",
+    "size_bytes": 16923312457
+  },
+  "checkpoint": {
+    "path": "checkpoints/dual_encoder_v3_stage_b_all155",
+    "integrity_manifest": "submission/SHA256SUMS"
+  },
+  "inference": {
+    "source_sha256": "c6e35637dd99bfa69fe0aeec8e93aa822f328c26ae201de8499b1dbd34c9bcea",
+    "policy": "submission/inference_policy.json",
+    "tool_presence_threshold": 0.5,
+    "surgmotion_frames": 16,
+    "qwen_frames": 8,
+    "auxiliary_tokens": 32
+  },
+  "public_container_smoke": {
+    "input_contract": [
+      "endoscopic-robotic-surgery-video.mp4",
+      "visual-context-question.json"
+    ],
+    "response_contract": "visual-context-response.json containing one non-empty JSON string",
+    "cases": {
+      "case122": "Yes",
+      "case123": "No",
+      "case124": "Bipolar Forceps",
+      "case125": "No",
+      "case126": "No",
+      "case127": "The tissue in the surgical field",
+      "case128": "Yes",
+      "case129": "Endoscopic surgery or a laparoscopic surgery",
+      "case130": "To grasp and hold tissues or objects during the surgery.",
+      "case131": "Yes",
+      "case132": "No"
+    },
+    "outputs_root": "runs/surgmotion_vqa/dual_encoder_v3/container_public_batch_20260805",
+    "reference_answers_distributed": false
+  },
+  "provenance": {
+    "threshold_validation": "runs/surgmotion_vqa/dual_encoder_v3/candidate_threshold_val/threshold_selection.json",
+    "quality_gate": "runs/surgmotion_vqa/dual_encoder_v3/quality_gate_threshold.json",
+    "single_case_container_dry_run": "runs/surgmotion_vqa/dual_encoder_v3/container_dryrun_case126_final/visual-context-response.json"
+  }
+}

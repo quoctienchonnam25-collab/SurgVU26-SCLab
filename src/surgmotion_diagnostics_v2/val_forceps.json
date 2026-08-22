@@ -1,0 +1,3004 @@
+[
+  {
+    "id": "case_140_p1_t17715_forceps_type_172",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_140/case_140_video_part_001.mp4",
+    "t_start": 17715.0,
+    "t_end": 17745.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_140_p1_t23985_forceps_type_608",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_140/case_140_video_part_001.mp4",
+    "t_start": 23985.0,
+    "t_end": 24015.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_140_p1_t17205_forceps_type_708",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_140/case_140_video_part_001.mp4",
+    "t_start": 17205.0,
+    "t_end": 17235.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_140_p1_t15345_forceps_type_249",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_140/case_140_video_part_001.mp4",
+    "t_start": 15345.0,
+    "t_end": 15375.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_140_p1_t18900_forceps_type_487",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_140/case_140_video_part_001.mp4",
+    "t_start": 18900.0,
+    "t_end": 18930.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_140_p1_t25275_forceps_type_967",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_140/case_140_video_part_001.mp4",
+    "t_start": 25275.0,
+    "t_end": 25305.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_140_p2_t870_forceps_type_533",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_140/case_140_video_part_002.mp4",
+    "t_start": 870.0,
+    "t_end": 900.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_140_p2_t4770_forceps_type_871",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_140/case_140_video_part_002.mp4",
+    "t_start": 4770.0,
+    "t_end": 4800.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Prograsp Forceps",
+      "The type of forceps mentioned is Prograsp Forceps.",
+      "Prograsp Forceps are the type mentioned.",
+      "The forceps type is Prograsp Forceps.",
+      "Prograsp Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_140_p1_t25395_forceps_type_500",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_140/case_140_video_part_001.mp4",
+    "t_start": 25395.0,
+    "t_end": 25425.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_140_p1_t15630_forceps_type_986",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_140/case_140_video_part_001.mp4",
+    "t_start": 15630.0,
+    "t_end": 15660.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_140_p1_t12570_forceps_type_383",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_140/case_140_video_part_001.mp4",
+    "t_start": 12570.0,
+    "t_end": 12600.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Prograsp Forceps",
+      "The type of forceps mentioned is Prograsp Forceps.",
+      "Prograsp Forceps are the type mentioned.",
+      "The forceps type is Prograsp Forceps.",
+      "Prograsp Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_140_p1_t21060_forceps_type_708",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_140/case_140_video_part_001.mp4",
+    "t_start": 21060.0,
+    "t_end": 21090.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_140_p1_t8970_forceps_type_922",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_140/case_140_video_part_001.mp4",
+    "t_start": 8970.0,
+    "t_end": 9000.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "No forceps are mentioned.",
+      "No forceps are listed.",
+      "There are no forceps referenced.",
+      "No forceps are being used.",
+      "No forceps."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_140_p1_t7335_forceps_type_211",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_140/case_140_video_part_001.mp4",
+    "t_start": 7335.0,
+    "t_end": 7365.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "No forceps are mentioned.",
+      "No forceps are listed.",
+      "There are no forceps referenced.",
+      "No forceps are being used.",
+      "No forceps."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_141_p1_t13665_forceps_type_104",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_141/case_141_video_part_001.mp4",
+    "t_start": 13665.0,
+    "t_end": 13695.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_141_p1_t13305_forceps_type_989",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_141/case_141_video_part_001.mp4",
+    "t_start": 13305.0,
+    "t_end": 13335.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_141_p2_t945_forceps_type_666",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_141/case_141_video_part_002.mp4",
+    "t_start": 945.0,
+    "t_end": 975.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_141_p2_t4095_forceps_type_895",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_141/case_141_video_part_002.mp4",
+    "t_start": 4095.0,
+    "t_end": 4125.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_141_p1_t10290_forceps_type_481",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_141/case_141_video_part_001.mp4",
+    "t_start": 10290.0,
+    "t_end": 10320.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_141_p2_t1125_forceps_type_842",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_141/case_141_video_part_002.mp4",
+    "t_start": 1125.0,
+    "t_end": 1155.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_141_p2_t4125_forceps_type_683",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_141/case_141_video_part_002.mp4",
+    "t_start": 4125.0,
+    "t_end": 4155.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_141_p2_t6705_forceps_type_715",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_141/case_141_video_part_002.mp4",
+    "t_start": 6705.0,
+    "t_end": 6735.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_141_p1_t5730_forceps_type_545",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_141/case_141_video_part_001.mp4",
+    "t_start": 5730.0,
+    "t_end": 5760.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_141_p2_t1545_forceps_type_170",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_141/case_141_video_part_002.mp4",
+    "t_start": 1545.0,
+    "t_end": 1575.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_141_p2_t3825_forceps_type_895",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_141/case_141_video_part_002.mp4",
+    "t_start": 3825.0,
+    "t_end": 3855.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_141_p1_t5175_forceps_type_632",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_141/case_141_video_part_001.mp4",
+    "t_start": 5175.0,
+    "t_end": 5205.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_141_p2_t225_forceps_type_399",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_141/case_141_video_part_002.mp4",
+    "t_start": 225.0,
+    "t_end": 255.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_142_p2_t435_forceps_type_938",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_142/case_142_video_part_002.mp4",
+    "t_start": 435.0,
+    "t_end": 465.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_142_p1_t7050_forceps_type_329",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_142/case_142_video_part_001.mp4",
+    "t_start": 7050.0,
+    "t_end": 7080.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_142_p2_t4035_forceps_type_265",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_142/case_142_video_part_002.mp4",
+    "t_start": 4035.0,
+    "t_end": 4065.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_143_p1_t12360_forceps_type_938",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_143/case_143_video_part_001.mp4",
+    "t_start": 12360.0,
+    "t_end": 12390.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_143_p1_t8700_forceps_type_818",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_143/case_143_video_part_001.mp4",
+    "t_start": 8700.0,
+    "t_end": 8730.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_143_p1_t6600_forceps_type_351",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_143/case_143_video_part_001.mp4",
+    "t_start": 6600.0,
+    "t_end": 6630.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_143_p1_t13020_forceps_type_395",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_143/case_143_video_part_001.mp4",
+    "t_start": 13020.0,
+    "t_end": 13050.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_143_p1_t4965_forceps_type_438",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_143/case_143_video_part_001.mp4",
+    "t_start": 4965.0,
+    "t_end": 4995.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Prograsp Forceps",
+      "The type of forceps mentioned is Prograsp Forceps.",
+      "Prograsp Forceps are the type mentioned.",
+      "The forceps type is Prograsp Forceps.",
+      "Prograsp Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_143_p1_t4170_forceps_type_292",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_143/case_143_video_part_001.mp4",
+    "t_start": 4170.0,
+    "t_end": 4200.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "No forceps are mentioned.",
+      "No forceps are listed.",
+      "There are no forceps referenced.",
+      "No forceps are being used.",
+      "No forceps."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_143_p1_t3720_forceps_type_307",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_143/case_143_video_part_001.mp4",
+    "t_start": 3720.0,
+    "t_end": 3750.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "No forceps are mentioned.",
+      "No forceps are listed.",
+      "There are no forceps referenced.",
+      "No forceps are being used.",
+      "No forceps."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_143_p1_t16140_forceps_type_823",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_143/case_143_video_part_001.mp4",
+    "t_start": 16140.0,
+    "t_end": 16170.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_144_p1_t6705_forceps_type_203",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_144/case_144_video_part_001.mp4",
+    "t_start": 6705.0,
+    "t_end": 6735.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_144_p1_t6090_forceps_type_966",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_144/case_144_video_part_001.mp4",
+    "t_start": 6090.0,
+    "t_end": 6120.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_144_p1_t2670_forceps_type_576",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_144/case_144_video_part_001.mp4",
+    "t_start": 2670.0,
+    "t_end": 2700.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Prograsp Forceps",
+      "The type of forceps mentioned is Prograsp Forceps.",
+      "Prograsp Forceps are the type mentioned.",
+      "The forceps type is Prograsp Forceps.",
+      "Prograsp Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_144_p1_t4455_forceps_type_239",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_144/case_144_video_part_001.mp4",
+    "t_start": 4455.0,
+    "t_end": 4485.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_144_p1_t6315_forceps_type_527",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_144/case_144_video_part_001.mp4",
+    "t_start": 6315.0,
+    "t_end": 6345.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_144_p1_t6660_forceps_type_367",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_144/case_144_video_part_001.mp4",
+    "t_start": 6660.0,
+    "t_end": 6690.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_144_p1_t105_forceps_type_340",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_144/case_144_video_part_001.mp4",
+    "t_start": 105.0,
+    "t_end": 135.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Prograsp Forceps",
+      "The type of forceps mentioned is Prograsp Forceps.",
+      "Prograsp Forceps are the type mentioned.",
+      "The forceps type is Prograsp Forceps.",
+      "Prograsp Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_144_p1_t5310_forceps_type_296",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_144/case_144_video_part_001.mp4",
+    "t_start": 5310.0,
+    "t_end": 5340.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_145_p1_t5775_forceps_type_646",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_145/case_145_video_part_001.mp4",
+    "t_start": 5775.0,
+    "t_end": 5805.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_145_p1_t8400_forceps_type_363",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_145/case_145_video_part_001.mp4",
+    "t_start": 8400.0,
+    "t_end": 8430.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Prograsp Forceps",
+      "The type of forceps mentioned is Prograsp Forceps.",
+      "Prograsp Forceps are the type mentioned.",
+      "The forceps type is Prograsp Forceps.",
+      "Prograsp Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_145_p1_t17175_forceps_type_721",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_145/case_145_video_part_001.mp4",
+    "t_start": 17175.0,
+    "t_end": 17205.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_145_p1_t4665_forceps_type_745",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_145/case_145_video_part_001.mp4",
+    "t_start": 4665.0,
+    "t_end": 4695.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Prograsp Forceps",
+      "The type of forceps mentioned is Prograsp Forceps.",
+      "Prograsp Forceps are the type mentioned.",
+      "The forceps type is Prograsp Forceps.",
+      "Prograsp Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_145_p1_t5310_forceps_type_181",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_145/case_145_video_part_001.mp4",
+    "t_start": 5310.0,
+    "t_end": 5340.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Prograsp Forceps",
+      "The type of forceps mentioned is Prograsp Forceps.",
+      "Prograsp Forceps are the type mentioned.",
+      "The forceps type is Prograsp Forceps.",
+      "Prograsp Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_145_p1_t13680_forceps_type_306",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_145/case_145_video_part_001.mp4",
+    "t_start": 13680.0,
+    "t_end": 13710.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Prograsp Forceps",
+      "The type of forceps mentioned is Prograsp Forceps.",
+      "Prograsp Forceps are the type mentioned.",
+      "The forceps type is Prograsp Forceps.",
+      "Prograsp Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_145_p1_t17880_forceps_type_274",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_145/case_145_video_part_001.mp4",
+    "t_start": 17880.0,
+    "t_end": 17910.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Prograsp Forceps",
+      "The type of forceps mentioned is Prograsp Forceps.",
+      "Prograsp Forceps are the type mentioned.",
+      "The forceps type is Prograsp Forceps.",
+      "Prograsp Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_146_p1_t11040_forceps_type_433",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_146/case_146_video_part_001.mp4",
+    "t_start": 11040.0,
+    "t_end": 11070.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_146_p2_t2895_forceps_type_988",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_146/case_146_video_part_002.mp4",
+    "t_start": 2895.0,
+    "t_end": 2925.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_146_p2_t915_forceps_type_239",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_146/case_146_video_part_002.mp4",
+    "t_start": 915.0,
+    "t_end": 945.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_146_p1_t5355_forceps_type_382",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_146/case_146_video_part_001.mp4",
+    "t_start": 5355.0,
+    "t_end": 5385.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Prograsp Forceps",
+      "The type of forceps mentioned is Prograsp Forceps.",
+      "Prograsp Forceps are the type mentioned.",
+      "The forceps type is Prograsp Forceps.",
+      "Prograsp Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_146_p2_t3555_forceps_type_220",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_146/case_146_video_part_002.mp4",
+    "t_start": 3555.0,
+    "t_end": 3585.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "No forceps are mentioned.",
+      "No forceps are listed.",
+      "There are no forceps referenced.",
+      "No forceps are being used.",
+      "No forceps."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_146_p1_t5835_forceps_type_991",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_146/case_146_video_part_001.mp4",
+    "t_start": 5835.0,
+    "t_end": 5865.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_146_p1_t15960_forceps_type_213",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_146/case_146_video_part_001.mp4",
+    "t_start": 15960.0,
+    "t_end": 15990.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "No forceps are mentioned.",
+      "No forceps are listed.",
+      "There are no forceps referenced.",
+      "No forceps are being used.",
+      "No forceps."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_146_p1_t795_forceps_type_825",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_146/case_146_video_part_001.mp4",
+    "t_start": 795.0,
+    "t_end": 825.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Prograsp Forceps",
+      "The type of forceps mentioned is Prograsp Forceps.",
+      "Prograsp Forceps are the type mentioned.",
+      "The forceps type is Prograsp Forceps.",
+      "Prograsp Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_146_p2_t660_forceps_type_158",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_146/case_146_video_part_002.mp4",
+    "t_start": 660.0,
+    "t_end": 690.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_146_p1_t14610_forceps_type_372",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_146/case_146_video_part_001.mp4",
+    "t_start": 14610.0,
+    "t_end": 14640.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_147_p1_t4575_forceps_type_531",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_147/case_147_video_part_001.mp4",
+    "t_start": 4575.0,
+    "t_end": 4605.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_147_p1_t1650_forceps_type_816",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_147/case_147_video_part_001.mp4",
+    "t_start": 1650.0,
+    "t_end": 1680.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_147_p1_t6810_forceps_type_332",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_147/case_147_video_part_001.mp4",
+    "t_start": 6810.0,
+    "t_end": 6840.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_147_p1_t5550_forceps_type_110",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_147/case_147_video_part_001.mp4",
+    "t_start": 5550.0,
+    "t_end": 5580.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "partially_black",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 0.5,
+    "curation_action": "downweight_partially_black"
+  },
+  {
+    "id": "case_147_p1_t4440_forceps_type_834",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_147/case_147_video_part_001.mp4",
+    "t_start": 4440.0,
+    "t_end": 4470.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_147_p1_t6285_forceps_type_411",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_147/case_147_video_part_001.mp4",
+    "t_start": 6285.0,
+    "t_end": 6315.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_147_p1_t6975_forceps_type_590",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_147/case_147_video_part_001.mp4",
+    "t_start": 6975.0,
+    "t_end": 7005.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_147_p1_t2895_forceps_type_279",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_147/case_147_video_part_001.mp4",
+    "t_start": 2895.0,
+    "t_end": 2925.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Prograsp Forceps",
+      "The type of forceps mentioned is Prograsp Forceps.",
+      "Prograsp Forceps are the type mentioned.",
+      "The forceps type is Prograsp Forceps.",
+      "Prograsp Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_148_p1_t12285_forceps_type_646",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_148/case_148_video_part_001.mp4",
+    "t_start": 12285.0,
+    "t_end": 12315.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_148_p1_t6135_forceps_type_740",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_148/case_148_video_part_001.mp4",
+    "t_start": 6135.0,
+    "t_end": 6165.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_148_p2_t525_forceps_type_453",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_148/case_148_video_part_002.mp4",
+    "t_start": 525.0,
+    "t_end": 555.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_148_p2_t2895_forceps_type_912",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_148/case_148_video_part_002.mp4",
+    "t_start": 2895.0,
+    "t_end": 2925.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_148_p2_t1380_forceps_type_745",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_148/case_148_video_part_002.mp4",
+    "t_start": 1380.0,
+    "t_end": 1410.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_148_p1_t4440_forceps_type_244",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_148/case_148_video_part_001.mp4",
+    "t_start": 4440.0,
+    "t_end": 4470.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_148_p1_t7365_forceps_type_450",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_148/case_148_video_part_001.mp4",
+    "t_start": 7365.0,
+    "t_end": 7395.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_148_p2_t1680_forceps_type_267",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_148/case_148_video_part_002.mp4",
+    "t_start": 1680.0,
+    "t_end": 1710.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_148_p1_t5520_forceps_type_854",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_148/case_148_video_part_001.mp4",
+    "t_start": 5520.0,
+    "t_end": 5550.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_148_p2_t120_forceps_type_912",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_148/case_148_video_part_002.mp4",
+    "t_start": 120.0,
+    "t_end": 150.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_148_p1_t5700_forceps_type_547",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_148/case_148_video_part_001.mp4",
+    "t_start": 5700.0,
+    "t_end": 5730.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_149_p2_t315_forceps_type_995",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_149/case_149_video_part_002.mp4",
+    "t_start": 315.0,
+    "t_end": 345.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_149_p1_t360_forceps_type_576",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_149/case_149_video_part_001.mp4",
+    "t_start": 360.0,
+    "t_end": 390.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Prograsp Forceps",
+      "The type of forceps mentioned is Prograsp Forceps.",
+      "Prograsp Forceps are the type mentioned.",
+      "The forceps type is Prograsp Forceps.",
+      "Prograsp Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_149_p1_t20400_forceps_type_267",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_149/case_149_video_part_001.mp4",
+    "t_start": 20400.0,
+    "t_end": 20430.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_149_p1_t11385_forceps_type_762",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_149/case_149_video_part_001.mp4",
+    "t_start": 11385.0,
+    "t_end": 11415.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_149_p1_t18165_forceps_type_310",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_149/case_149_video_part_001.mp4",
+    "t_start": 18165.0,
+    "t_end": 18195.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_149_p1_t8160_forceps_type_629",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_149/case_149_video_part_001.mp4",
+    "t_start": 8160.0,
+    "t_end": 8190.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_149_p1_t20175_forceps_type_959",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_149/case_149_video_part_001.mp4",
+    "t_start": 20175.0,
+    "t_end": 20205.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_149_p1_t8340_forceps_type_608",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_149/case_149_video_part_001.mp4",
+    "t_start": 8340.0,
+    "t_end": 8370.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_149_p1_t18375_forceps_type_794",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_149/case_149_video_part_001.mp4",
+    "t_start": 18375.0,
+    "t_end": 18405.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_149_p1_t16305_forceps_type_918",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_149/case_149_video_part_001.mp4",
+    "t_start": 16305.0,
+    "t_end": 16335.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "No forceps are mentioned.",
+      "No forceps are listed.",
+      "There are no forceps referenced.",
+      "No forceps are being used.",
+      "No forceps."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_149_p1_t5925_forceps_type_471",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_149/case_149_video_part_001.mp4",
+    "t_start": 5925.0,
+    "t_end": 5955.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_150_p1_t13725_forceps_type_962",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_150/case_150_video_part_001.mp4",
+    "t_start": 13725.0,
+    "t_end": 13755.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "No forceps are mentioned.",
+      "No forceps are listed.",
+      "There are no forceps referenced.",
+      "No forceps are being used.",
+      "No forceps."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_150_p1_t8250_forceps_type_440",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_150/case_150_video_part_001.mp4",
+    "t_start": 8250.0,
+    "t_end": 8280.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_150_p1_t6060_forceps_type_777",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_150/case_150_video_part_001.mp4",
+    "t_start": 6060.0,
+    "t_end": 6090.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "No forceps are mentioned.",
+      "No forceps are listed.",
+      "There are no forceps referenced.",
+      "No forceps are being used.",
+      "No forceps."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_150_p1_t7035_forceps_type_392",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_150/case_150_video_part_001.mp4",
+    "t_start": 7035.0,
+    "t_end": 7065.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_150_p1_t10995_forceps_type_352",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_150/case_150_video_part_001.mp4",
+    "t_start": 10995.0,
+    "t_end": 11025.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_150_p1_t16575_forceps_type_742",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_150/case_150_video_part_001.mp4",
+    "t_start": 16575.0,
+    "t_end": 16605.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_150_p2_t1230_forceps_type_338",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_150/case_150_video_part_002.mp4",
+    "t_start": 1230.0,
+    "t_end": 1260.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_150_p1_t15825_forceps_type_153",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_150/case_150_video_part_001.mp4",
+    "t_start": 15825.0,
+    "t_end": 15855.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_150_p1_t11625_forceps_type_791",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_150/case_150_video_part_001.mp4",
+    "t_start": 11625.0,
+    "t_end": 11655.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_150_p1_t15810_forceps_type_348",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_150/case_150_video_part_001.mp4",
+    "t_start": 15810.0,
+    "t_end": 15840.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_150_p1_t7860_forceps_type_599",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_150/case_150_video_part_001.mp4",
+    "t_start": 7860.0,
+    "t_end": 7890.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_150_p1_t15930_forceps_type_425",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_150/case_150_video_part_001.mp4",
+    "t_start": 15930.0,
+    "t_end": 15960.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_150_p1_t16155_forceps_type_731",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_150/case_150_video_part_001.mp4",
+    "t_start": 16155.0,
+    "t_end": 16185.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_150_p2_t1395_forceps_type_740",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_150/case_150_video_part_002.mp4",
+    "t_start": 1395.0,
+    "t_end": 1425.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_150_p1_t4845_forceps_type_887",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_150/case_150_video_part_001.mp4",
+    "t_start": 4845.0,
+    "t_end": 4875.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "No forceps are mentioned.",
+      "No forceps are listed.",
+      "There are no forceps referenced.",
+      "No forceps are being used.",
+      "No forceps."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_150_p1_t12510_forceps_type_424",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_150/case_150_video_part_001.mp4",
+    "t_start": 12510.0,
+    "t_end": 12540.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_150_p1_t14475_forceps_type_523",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_150/case_150_video_part_001.mp4",
+    "t_start": 14475.0,
+    "t_end": 14505.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_151_p1_t3495_forceps_type_818",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_151/case_151_video_part_001.mp4",
+    "t_start": 3495.0,
+    "t_end": 3525.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Prograsp Forceps",
+      "The type of forceps mentioned is Prograsp Forceps.",
+      "Prograsp Forceps are the type mentioned.",
+      "The forceps type is Prograsp Forceps.",
+      "Prograsp Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_151_p1_t4170_forceps_type_242",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_151/case_151_video_part_001.mp4",
+    "t_start": 4170.0,
+    "t_end": 4200.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_151_p1_t390_forceps_type_530",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_151/case_151_video_part_001.mp4",
+    "t_start": 390.0,
+    "t_end": 420.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Prograsp Forceps",
+      "The type of forceps mentioned is Prograsp Forceps.",
+      "Prograsp Forceps are the type mentioned.",
+      "The forceps type is Prograsp Forceps.",
+      "Prograsp Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_151_p2_t1500_forceps_type_721",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_151/case_151_video_part_002.mp4",
+    "t_start": 1500.0,
+    "t_end": 1530.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_151_p1_t5280_forceps_type_452",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_151/case_151_video_part_001.mp4",
+    "t_start": 5280.0,
+    "t_end": 5310.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Prograsp Forceps",
+      "The type of forceps mentioned is Prograsp Forceps.",
+      "Prograsp Forceps are the type mentioned.",
+      "The forceps type is Prograsp Forceps.",
+      "Prograsp Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_151_p1_t14040_forceps_type_992",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_151/case_151_video_part_001.mp4",
+    "t_start": 14040.0,
+    "t_end": 14070.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_151_p2_t1005_forceps_type_682",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_151/case_151_video_part_002.mp4",
+    "t_start": 1005.0,
+    "t_end": 1035.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Prograsp Forceps",
+      "The type of forceps mentioned is Prograsp Forceps.",
+      "Prograsp Forceps are the type mentioned.",
+      "The forceps type is Prograsp Forceps.",
+      "Prograsp Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_151_p1_t15195_forceps_type_914",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_151/case_151_video_part_001.mp4",
+    "t_start": 15195.0,
+    "t_end": 15225.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Prograsp Forceps",
+      "The type of forceps mentioned is Prograsp Forceps.",
+      "Prograsp Forceps are the type mentioned.",
+      "The forceps type is Prograsp Forceps.",
+      "Prograsp Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_151_p2_t735_forceps_type_717",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_151/case_151_video_part_002.mp4",
+    "t_start": 735.0,
+    "t_end": 765.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Prograsp Forceps",
+      "The type of forceps mentioned is Prograsp Forceps.",
+      "Prograsp Forceps are the type mentioned.",
+      "The forceps type is Prograsp Forceps.",
+      "Prograsp Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_151_p1_t15960_forceps_type_357",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_151/case_151_video_part_001.mp4",
+    "t_start": 15960.0,
+    "t_end": 15990.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_151_p1_t495_forceps_type_393",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_151/case_151_video_part_001.mp4",
+    "t_start": 495.0,
+    "t_end": 525.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Prograsp Forceps",
+      "The type of forceps mentioned is Prograsp Forceps.",
+      "Prograsp Forceps are the type mentioned.",
+      "The forceps type is Prograsp Forceps.",
+      "Prograsp Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_151_p1_t8145_forceps_type_924",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_151/case_151_video_part_001.mp4",
+    "t_start": 8145.0,
+    "t_end": 8175.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_151_p1_t12345_forceps_type_139",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_151/case_151_video_part_001.mp4",
+    "t_start": 12345.0,
+    "t_end": 12375.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_151_p1_t3660_forceps_type_595",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_151/case_151_video_part_001.mp4",
+    "t_start": 3660.0,
+    "t_end": 3690.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Prograsp Forceps",
+      "The type of forceps mentioned is Prograsp Forceps.",
+      "Prograsp Forceps are the type mentioned.",
+      "The forceps type is Prograsp Forceps.",
+      "Prograsp Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_151_p1_t13740_forceps_type_510",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_151/case_151_video_part_001.mp4",
+    "t_start": 13740.0,
+    "t_end": 13770.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_151_p1_t2925_forceps_type_318",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_151/case_151_video_part_001.mp4",
+    "t_start": 2925.0,
+    "t_end": 2955.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Prograsp Forceps",
+      "The type of forceps mentioned is Prograsp Forceps.",
+      "Prograsp Forceps are the type mentioned.",
+      "The forceps type is Prograsp Forceps.",
+      "Prograsp Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_151_p1_t13860_forceps_type_664",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_151/case_151_video_part_001.mp4",
+    "t_start": 13860.0,
+    "t_end": 13890.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Prograsp Forceps",
+      "The type of forceps mentioned is Prograsp Forceps.",
+      "Prograsp Forceps are the type mentioned.",
+      "The forceps type is Prograsp Forceps.",
+      "Prograsp Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_151_p2_t3030_forceps_type_147",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_151/case_151_video_part_002.mp4",
+    "t_start": 3030.0,
+    "t_end": 3060.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Prograsp Forceps",
+      "The type of forceps mentioned is Prograsp Forceps.",
+      "Prograsp Forceps are the type mentioned.",
+      "The forceps type is Prograsp Forceps.",
+      "Prograsp Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_152_p1_t7995_forceps_type_906",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_152/case_152_video_part_001.mp4",
+    "t_start": 7995.0,
+    "t_end": 8025.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_152_p2_t1515_forceps_type_805",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_152/case_152_video_part_002.mp4",
+    "t_start": 1515.0,
+    "t_end": 1545.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_152_p1_t7560_forceps_type_525",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_152/case_152_video_part_001.mp4",
+    "t_start": 7560.0,
+    "t_end": 7590.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_152_p2_t2565_forceps_type_942",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_152/case_152_video_part_002.mp4",
+    "t_start": 2565.0,
+    "t_end": 2595.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_152_p2_t1125_forceps_type_554",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_152/case_152_video_part_002.mp4",
+    "t_start": 1125.0,
+    "t_end": 1155.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_152_p2_t1215_forceps_type_448",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_152/case_152_video_part_002.mp4",
+    "t_start": 1215.0,
+    "t_end": 1245.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_152_p1_t9495_forceps_type_651",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_152/case_152_video_part_001.mp4",
+    "t_start": 9495.0,
+    "t_end": 9525.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_152_p2_t90_forceps_type_525",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_152/case_152_video_part_002.mp4",
+    "t_start": 90.0,
+    "t_end": 120.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_152_p1_t7200_forceps_type_215",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_152/case_152_video_part_001.mp4",
+    "t_start": 7200.0,
+    "t_end": 7230.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_152_p1_t75_forceps_type_977",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_152/case_152_video_part_001.mp4",
+    "t_start": 75.0,
+    "t_end": 105.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Prograsp Forceps",
+      "The type of forceps mentioned is Prograsp Forceps.",
+      "Prograsp Forceps are the type mentioned.",
+      "The forceps type is Prograsp Forceps.",
+      "Prograsp Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_152_p1_t8820_forceps_type_541",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_152/case_152_video_part_001.mp4",
+    "t_start": 8820.0,
+    "t_end": 8850.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_152_p1_t15735_forceps_type_123",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_152/case_152_video_part_001.mp4",
+    "t_start": 15735.0,
+    "t_end": 15765.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_152_p1_t13800_forceps_type_329",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_152/case_152_video_part_001.mp4",
+    "t_start": 13800.0,
+    "t_end": 13830.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_152_p1_t9690_forceps_type_695",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_152/case_152_video_part_001.mp4",
+    "t_start": 9690.0,
+    "t_end": 9720.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_153_p1_t15330_forceps_type_236",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_153/case_153_video_part_001.mp4",
+    "t_start": 15330.0,
+    "t_end": 15360.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_153_p1_t1200_forceps_type_787",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_153/case_153_video_part_001.mp4",
+    "t_start": 1200.0,
+    "t_end": 1230.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Prograsp Forceps",
+      "The type of forceps mentioned is Prograsp Forceps.",
+      "Prograsp Forceps are the type mentioned.",
+      "The forceps type is Prograsp Forceps.",
+      "Prograsp Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_153_p2_t450_forceps_type_803",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_153/case_153_video_part_002.mp4",
+    "t_start": 450.0,
+    "t_end": 480.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_153_p2_t2670_forceps_type_816",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_153/case_153_video_part_002.mp4",
+    "t_start": 2670.0,
+    "t_end": 2700.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_153_p2_t3015_forceps_type_898",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_153/case_153_video_part_002.mp4",
+    "t_start": 3015.0,
+    "t_end": 3045.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_153_p1_t7170_forceps_type_614",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_153/case_153_video_part_001.mp4",
+    "t_start": 7170.0,
+    "t_end": 7200.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_153_p2_t4605_forceps_type_254",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_153/case_153_video_part_002.mp4",
+    "t_start": 4605.0,
+    "t_end": 4635.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_153_p2_t600_forceps_type_372",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_153/case_153_video_part_002.mp4",
+    "t_start": 600.0,
+    "t_end": 630.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_153_p1_t4290_forceps_type_870",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_153/case_153_video_part_001.mp4",
+    "t_start": 4290.0,
+    "t_end": 4320.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Prograsp Forceps",
+      "The type of forceps mentioned is Prograsp Forceps.",
+      "Prograsp Forceps are the type mentioned.",
+      "The forceps type is Prograsp Forceps.",
+      "Prograsp Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_154_p1_t16770_forceps_type_482",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_154/case_154_video_part_001.mp4",
+    "t_start": 16770.0,
+    "t_end": 16800.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_154_p1_t9195_forceps_type_752",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_154/case_154_video_part_001.mp4",
+    "t_start": 9195.0,
+    "t_end": 9225.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Prograsp Forceps",
+      "The type of forceps mentioned is Prograsp Forceps.",
+      "Prograsp Forceps are the type mentioned.",
+      "The forceps type is Prograsp Forceps.",
+      "Prograsp Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_154_p1_t16545_forceps_type_726",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_154/case_154_video_part_001.mp4",
+    "t_start": 16545.0,
+    "t_end": 16575.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_154_p1_t14895_forceps_type_902",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_154/case_154_video_part_001.mp4",
+    "t_start": 14895.0,
+    "t_end": 14925.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_154_p1_t16725_forceps_type_567",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_154/case_154_video_part_001.mp4",
+    "t_start": 16725.0,
+    "t_end": 16755.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Cadiere Forceps",
+      "The type of forceps mentioned is Cadiere Forceps.",
+      "Cadiere Forceps are the type mentioned.",
+      "The forceps type is Cadiere Forceps.",
+      "Cadiere Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_154_p1_t4245_forceps_type_990",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_154/case_154_video_part_001.mp4",
+    "t_start": 4245.0,
+    "t_end": 4275.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Prograsp Forceps",
+      "The type of forceps mentioned is Prograsp Forceps.",
+      "Prograsp Forceps are the type mentioned.",
+      "The forceps type is Prograsp Forceps.",
+      "Prograsp Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  },
+  {
+    "id": "case_154_p1_t14160_forceps_type_976",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_154/case_154_video_part_001.mp4",
+    "t_start": 14160.0,
+    "t_end": 14190.0,
+    "question": "What type of forceps is mentioned?",
+    "answers": [
+      "Bipolar Forceps",
+      "The type of forceps mentioned is Bipolar Forceps.",
+      "Bipolar Forceps are the type mentioned.",
+      "The forceps type is Bipolar Forceps.",
+      "Bipolar Forceps is the specific type referenced."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "visual_claim",
+    "question_type": "forceps_type",
+    "sample_weight": 1.0,
+    "curation_action": "keep"
+  }
+]

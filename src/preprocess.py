@@ -1,9 +1,19 @@
-import os
+import argparse
 import glob
-import pandas as pd
 import json
-from tqdm import tqdm
+import os
+from pathlib import Path
+
 import decord
+import pandas as pd
+from tqdm import tqdm
+
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+DEFAULT_VIDEO_ROOT = PROJECT_ROOT / "surgvu24"
+DEFAULT_LABEL_ROOT = PROJECT_ROOT / "surgvu24_labels_updated_v2" / "labels"
+DEFAULT_DESCRIPTION_ROOT = PROJECT_ROOT / "SURGVU25_train_labels"
+DEFAULT_OUTPUT = PROJECT_ROOT / "src" / "surgvu_segments_v2.json"
 
 def time_to_seconds(t_str):
     if pd.isna(t_str) or not isinstance(t_str, str):
@@ -28,11 +38,54 @@ def time_to_seconds(t_str):
     except Exception:
         return 0.0
 
-def load_case_labels(case_dir, case_id):
+def _normalise_join_value(value):
+    if pd.isna(value):
+        return None
+    try:
+        number = float(value)
+        return int(number) if number.is_integer() else round(number, 6)
+    except (TypeError, ValueError):
+        return str(value).strip().lower()
+
+
+def _task_join_key(row):
+    return (
+        _normalise_join_value(row.get("start_part")),
+        _normalise_join_value(row.get("start_time")),
+        _normalise_join_value(row.get("stop_part")),
+        _normalise_join_value(row.get("stop_time")),
+        _normalise_join_value(row.get("groundtruth_taskname")),
+    )
+
+
+def enrich_task_descriptions(tasks_df, description_case_dir):
+    """Exact-join old descriptions onto authoritative updated-v2 task rows."""
+    tasks_df = tasks_df.copy()
+    tasks_df["matched_description"] = ""
+    if not description_case_dir:
+        return tasks_df
+    old_path = os.path.join(description_case_dir, "tasks.csv")
+    if not os.path.exists(old_path):
+        return tasks_df
+
+    old_tasks = pd.read_csv(old_path)
+    descriptions = {}
+    for _, row in old_tasks.iterrows():
+        description = str(row.get("matched_description", "")).strip()
+        if description and description.lower() != "nan":
+            descriptions.setdefault(_task_join_key(row), description)
+    tasks_df["matched_description"] = [
+        descriptions.get(_task_join_key(row), "") for _, row in tasks_df.iterrows()
+    ]
+    return tasks_df
+
+
+def load_case_labels(case_dir, case_id, description_case_dir=None):
     # Load tasks.csv
     tasks_path = os.path.join(case_dir, "tasks.csv")
     if os.path.exists(tasks_path):
         tasks_df = pd.read_csv(tasks_path)
+        tasks_df = enrich_task_descriptions(tasks_df, description_case_dir)
     else:
         tasks_df = pd.DataFrame()
 
@@ -45,11 +98,42 @@ def load_case_labels(case_dir, case_id):
 
     return tasks_df, tools_df
 
-def process_case(case_name, surgvu24_dir, labels_dir):
+def task_interval_in_part(row, part_id, duration):
+    """Express a possibly cross-part task in the current video's local timeline."""
+    start_part = int(float(row.get("start_part", 1)))
+    stop_part = int(float(row.get("stop_part", 1)))
+    if not start_part <= part_id <= stop_part:
+        return None
+    row_start = time_to_seconds(row.get("start_time", 0.0))
+    row_end = time_to_seconds(row.get("stop_time", 0.0))
+    local_start = row_start if part_id == start_part else 0.0
+    local_end = row_end if part_id == stop_part else duration
+    local_start = min(max(local_start, 0.0), duration)
+    local_end = min(max(local_end, 0.0), duration)
+    if local_end <= local_start:
+        return None
+    return local_start, local_end
+
+
+def process_case(
+    case_name,
+    surgvu24_dir,
+    labels_dir,
+    description_labels_dir=None,
+    window_size=30.0,
+    step_size=15.0,
+):
     case_video_dir = os.path.join(surgvu24_dir, case_name)
     case_label_dir = os.path.join(labels_dir, case_name)
 
-    tasks_df, tools_df = load_case_labels(case_label_dir, case_name)
+    description_case_dir = (
+        os.path.join(description_labels_dir, case_name)
+        if description_labels_dir
+        else None
+    )
+    tasks_df, tools_df = load_case_labels(
+        case_label_dir, case_name, description_case_dir=description_case_dir
+    )
     
     # Find video parts
     video_paths = glob.glob(os.path.join(case_video_dir, "*.mp4"))
@@ -95,14 +179,19 @@ def process_case(case_name, surgvu24_dir, labels_dir):
             print(f"Error loading {video_path}: {e}")
             continue
 
-        # Segment into 30-second windows with 15-second overlap
-        window_size = 30.0
-        step_size = 15.0
-        
+        # Preserve the one valid video shorter than 30 seconds instead of silently
+        # excluding it from full-data training.
+        starts = []
         t = 0.0
         while t + window_size <= duration:
+            starts.append(t)
+            t += step_size
+        if not starts and duration > 0:
+            starts.append(0.0)
+
+        for t in starts:
             t_start = t
-            t_end = t + window_size
+            t_end = min(t + window_size, duration)
             
             # Determine active task
             # Filter tasks matching current part and overlapping with [t_start, t_end]
@@ -114,15 +203,9 @@ def process_case(case_name, surgvu24_dir, labels_dir):
                 # start_part/stop_part are floats in CSV
                 overlapping_tasks = []
                 for _, row in tasks_df.iterrows():
-                    start_part = int(row.get('start_part', 1))
-                    stop_part = int(row.get('stop_part', 1))
-                    
-                    # If this row belongs to the current part
-                    if start_part <= part_id <= stop_part:
-                        row_start = float(row.get('start_time', 0.0))
-                        row_end = float(row.get('stop_time', 0.0))
-                        
-                        # Calculate overlap
+                    interval = task_interval_in_part(row, part_id, duration)
+                    if interval is not None:
+                        row_start, row_end = interval
                         overlap_start = max(t_start, row_start)
                         overlap_end = min(t_end, row_end)
                         if overlap_end > overlap_start:
@@ -130,10 +213,33 @@ def process_case(case_name, surgvu24_dir, labels_dir):
                             overlapping_tasks.append((overlap_dur, row.get('groundtruth_taskname', 'Other'), row.get('matched_description', '')))
                 
                 if overlapping_tasks:
-                    # Select the task with the maximum overlap duration
+                    # Select the task with the maximum overlap duration - but only if it
+                    # actually covers a majority of the window. Without this threshold, a
+                    # task that ends (or starts) a fraction of a second inside the window
+                    # still "wins" whenever no other task overlaps at all, mislabeling the
+                    # entire 30s window - and everything 16-frame-sampled from it - with a
+                    # task/description that describes almost none of what's actually shown
+                    # (found via analyze_description_alignment.py: some segments had as
+                    # little as 0.02% real overlap). Below the threshold, fall back to the
+                    # existing "Other" default instead of crediting a boundary sliver.
+                    MIN_OVERLAP_FRACTION = 0.5
                     overlapping_tasks.sort(reverse=True, key=lambda x: x[0])
-                    active_task = overlapping_tasks[0][1]
-                    task_desc = overlapping_tasks[0][2]
+                    best_overlap_dur = overlapping_tasks[0][0]
+                    segment_duration = t_end - t_start
+                    if best_overlap_dur / segment_duration >= MIN_OVERLAP_FRACTION:
+                        raw_task = overlapping_tasks[0][1]
+                        active_task = (
+                            "Other"
+                            if pd.isna(raw_task) or not str(raw_task).strip()
+                            else str(raw_task).strip()
+                        )
+                        task_desc = str(overlapping_tasks[0][2]).strip()
+                        if not task_desc or task_desc.lower() == "nan":
+                            task_desc = (
+                                f"The training activity is {active_task}."
+                                if active_task != "Other"
+                                else "Activity outside of the structured training."
+                            )
 
             # Determine active tools
             active_tools = set()
@@ -184,15 +290,39 @@ def process_case(case_name, surgvu24_dir, labels_dir):
                 "tools": list(active_tools),
                 "commercial_tools": list(active_commercial_tools)
             })
-            
-            t += step_size
 
     return segments
 
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--video-root", default=str(DEFAULT_VIDEO_ROOT))
+    parser.add_argument("--labels-root", default=str(DEFAULT_LABEL_ROOT))
+    parser.add_argument(
+        "--description-labels-root",
+        default=str(DEFAULT_DESCRIPTION_ROOT),
+        help="Old enriched labels used only for exact matched_description joins.",
+    )
+    parser.add_argument("--output", default=str(DEFAULT_OUTPUT))
+    parser.add_argument("--window-size", type=float, default=30.0)
+    parser.add_argument("--step-size", type=float, default=15.0)
+    return parser.parse_args()
+
+
 def main():
-    surgvu24_dir = r"d:\SCLab\Surgical-Video-Understanding\SurgVU-challenge\surgvu24"
-    labels_dir = r"d:\SCLab\Surgical-Video-Understanding\SurgVU-challenge\SURGVU25_train_labels"
-    output_json = r"d:\SCLab\Surgical-Video-Understanding\SurgVU-challenge\src\surgvu_segments.json"
+    args = parse_args()
+    surgvu24_dir = os.path.abspath(args.video_root)
+    labels_dir = os.path.abspath(args.labels_root)
+    description_labels_dir = (
+        os.path.abspath(args.description_labels_root)
+        if args.description_labels_root
+        else None
+    )
+    output_json = os.path.abspath(args.output)
+
+    if not os.path.isdir(surgvu24_dir):
+        raise FileNotFoundError(surgvu24_dir)
+    if not os.path.isdir(labels_dir):
+        raise FileNotFoundError(labels_dir)
 
     # Get all case directories
     case_dirs = glob.glob(os.path.join(surgvu24_dir, "case_*"))
@@ -202,12 +332,20 @@ def main():
     print("Processing cases...")
     for case_dir in tqdm(case_dirs):
         case_name = os.path.basename(case_dir)
-        segments = process_case(case_name, surgvu24_dir, labels_dir)
+        segments = process_case(
+            case_name,
+            surgvu24_dir,
+            labels_dir,
+            description_labels_dir=description_labels_dir,
+            window_size=args.window_size,
+            step_size=args.step_size,
+        )
         all_segments.extend(segments)
         
     print(f"Total segments indexed: {len(all_segments)}")
     
     # Save to JSON
+    os.makedirs(os.path.dirname(output_json), exist_ok=True)
     with open(output_json, 'w', encoding='utf-8') as f:
         json.dump(all_segments, f, indent=4, ensure_ascii=False)
     print(f"Saved segment database to {output_json}")

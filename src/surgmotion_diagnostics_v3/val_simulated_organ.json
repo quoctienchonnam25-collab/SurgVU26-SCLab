@@ -1,0 +1,382 @@
+[
+  {
+    "id": "case_140_p1_t14490_organ_951",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_140/case_140_video_part_001.mp4",
+    "t_start": 14490.0,
+    "t_end": 14520.0,
+    "question": "What organ or structure does this exercise represent?",
+    "answers": [
+      "Colon",
+      "The training exercise represents the colon.",
+      "The simulated anatomical structure is the colon.",
+      "This training task is intended to model the colon.",
+      "The anatomical focus of this exercise is the colon."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is being manipulated?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_140_p1_t16680_organ_687",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_140/case_140_video_part_001.mp4",
+    "t_start": 16680.0,
+    "t_end": 16710.0,
+    "question": "What organ or structure does this exercise represent?",
+    "answers": [
+      "Uterine horn",
+      "The training exercise represents the uterine horn.",
+      "The simulated anatomical structure is the uterine horn.",
+      "This training task is intended to model the uterine horn.",
+      "The anatomical focus of this exercise is the uterine horn."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What anatomical structure is being operated on?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_140_p1_t14625_organ_589",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_140/case_140_video_part_001.mp4",
+    "t_start": 14625.0,
+    "t_end": 14655.0,
+    "question": "What anatomical structure is this training exercise intended to represent?",
+    "answers": [
+      "Colon",
+      "The training exercise represents the colon.",
+      "The simulated anatomical structure is the colon.",
+      "This training task is intended to model the colon.",
+      "The anatomical focus of this exercise is the colon."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What anatomical structure is being operated on?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_140_p1_t25185_organ_294",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_140/case_140_video_part_001.mp4",
+    "t_start": 25185.0,
+    "t_end": 25215.0,
+    "question": "What organ or structure does this exercise represent?",
+    "answers": [
+      "Colon",
+      "The training exercise represents the colon.",
+      "The simulated anatomical structure is the colon.",
+      "This training task is intended to model the colon.",
+      "The anatomical focus of this exercise is the colon."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What anatomical structure is being operated on?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_140_p1_t25935_organ_453",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_140/case_140_video_part_001.mp4",
+    "t_start": 25935.0,
+    "t_end": 25965.0,
+    "question": "What anatomical structure is this training exercise intended to represent?",
+    "answers": [
+      "Rectal artery and vein",
+      "The training exercise represents the rectal artery and vein.",
+      "The simulated anatomical structure is the rectal artery and vein.",
+      "This training task is intended to model the rectal artery and vein.",
+      "The anatomical focus of this exercise is the rectal artery and vein."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is involved in this step?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_141_p2_t6915_organ_781",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_141/case_141_video_part_002.mp4",
+    "t_start": 6915.0,
+    "t_end": 6945.0,
+    "question": "Which anatomical structure is simulated by this training task?",
+    "answers": [
+      "Gallbladder",
+      "The training exercise represents the gallbladder.",
+      "The simulated anatomical structure is the gallbladder.",
+      "This training task is intended to model the gallbladder.",
+      "The anatomical focus of this exercise is the gallbladder."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is being manipulated?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_141_p1_t8700_organ_354",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_141/case_141_video_part_001.mp4",
+    "t_start": 8700.0,
+    "t_end": 8730.0,
+    "question": "What organ or structure does this exercise represent?",
+    "answers": [
+      "Uterine horn",
+      "The training exercise represents the uterine horn.",
+      "The simulated anatomical structure is the uterine horn.",
+      "This training task is intended to model the uterine horn.",
+      "The anatomical focus of this exercise is the uterine horn."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is being manipulated?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_141_p2_t5895_organ_356",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_141/case_141_video_part_002.mp4",
+    "t_start": 5895.0,
+    "t_end": 5925.0,
+    "question": "Which anatomical structure is simulated by this training task?",
+    "answers": [
+      "Gallbladder",
+      "The training exercise represents the gallbladder.",
+      "The simulated anatomical structure is the gallbladder.",
+      "This training task is intended to model the gallbladder.",
+      "The anatomical focus of this exercise is the gallbladder."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is involved in this step?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_141_p1_t7830_organ_585",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_141/case_141_video_part_001.mp4",
+    "t_start": 7830.0,
+    "t_end": 7860.0,
+    "question": "What organ or structure does this exercise represent?",
+    "answers": [
+      "Uterine horn",
+      "The training exercise represents the uterine horn.",
+      "The simulated anatomical structure is the uterine horn.",
+      "This training task is intended to model the uterine horn.",
+      "The anatomical focus of this exercise is the uterine horn."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What anatomical structure is being operated on?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_142_p2_t2805_organ_334",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_142/case_142_video_part_002.mp4",
+    "t_start": 2805.0,
+    "t_end": 2835.0,
+    "question": "Which anatomical structure is simulated by this training task?",
+    "answers": [
+      "Rectal artery and vein",
+      "The training exercise represents the rectal artery and vein.",
+      "The simulated anatomical structure is the rectal artery and vein.",
+      "This training task is intended to model the rectal artery and vein.",
+      "The anatomical focus of this exercise is the rectal artery and vein."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What anatomical structure is being operated on?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_142_p1_t16950_organ_910",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_142/case_142_video_part_001.mp4",
+    "t_start": 16950.0,
+    "t_end": 16980.0,
+    "question": "What organ or structure does this exercise represent?",
+    "answers": [
+      "Suspensory ligaments",
+      "The training exercise represents the suspensory ligaments.",
+      "The simulated anatomical structure is the suspensory ligaments.",
+      "This training task is intended to model the suspensory ligaments.",
+      "The anatomical focus of this exercise is the suspensory ligaments."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What anatomical structure is being operated on?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_142_p1_t16665_organ_682",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_142/case_142_video_part_001.mp4",
+    "t_start": 16665.0,
+    "t_end": 16695.0,
+    "question": "What anatomical structure is this training exercise intended to represent?",
+    "answers": [
+      "Suspensory ligaments",
+      "The training exercise represents the suspensory ligaments.",
+      "The simulated anatomical structure is the suspensory ligaments.",
+      "This training task is intended to model the suspensory ligaments.",
+      "The anatomical focus of this exercise is the suspensory ligaments."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What anatomical structure is being operated on?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_142_p1_t16350_organ_337",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_142/case_142_video_part_001.mp4",
+    "t_start": 16350.0,
+    "t_end": 16380.0,
+    "question": "What organ or structure does this exercise represent?",
+    "answers": [
+      "Suspensory ligaments",
+      "The training exercise represents the suspensory ligaments.",
+      "The simulated anatomical structure is the suspensory ligaments.",
+      "This training task is intended to model the suspensory ligaments.",
+      "The anatomical focus of this exercise is the suspensory ligaments."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is being manipulated?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_143_p1_t9180_organ_453",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_143/case_143_video_part_001.mp4",
+    "t_start": 9180.0,
+    "t_end": 9210.0,
+    "question": "What organ or structure does this exercise represent?",
+    "answers": [
+      "Colon",
+      "The training exercise represents the colon.",
+      "The simulated anatomical structure is the colon.",
+      "This training task is intended to model the colon.",
+      "The anatomical focus of this exercise is the colon."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What anatomical structure is being operated on?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_144_p1_t5760_organ_488",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_144/case_144_video_part_001.mp4",
+    "t_start": 5760.0,
+    "t_end": 5790.0,
+    "question": "What anatomical structure is this training exercise intended to represent?",
+    "answers": [
+      "Uterine horn",
+      "The training exercise represents the uterine horn.",
+      "The simulated anatomical structure is the uterine horn.",
+      "This training task is intended to model the uterine horn.",
+      "The anatomical focus of this exercise is the uterine horn."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is being manipulated?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_145_p2_t105_organ_379",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_145/case_145_video_part_002.mp4",
+    "t_start": 105.0,
+    "t_end": 135.0,
+    "question": "What anatomical structure is this training exercise intended to represent?",
+    "answers": [
+      "Gallbladder",
+      "The training exercise represents the gallbladder.",
+      "The simulated anatomical structure is the gallbladder.",
+      "This training task is intended to model the gallbladder.",
+      "The anatomical focus of this exercise is the gallbladder."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What anatomical structure is being operated on?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_145_p2_t645_organ_127",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_145/case_145_video_part_002.mp4",
+    "t_start": 645.0,
+    "t_end": 675.0,
+    "question": "What anatomical structure is this training exercise intended to represent?",
+    "answers": [
+      "Gallbladder",
+      "The training exercise represents the gallbladder.",
+      "The simulated anatomical structure is the gallbladder.",
+      "This training task is intended to model the gallbladder.",
+      "The anatomical focus of this exercise is the gallbladder."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What anatomical structure is being operated on?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_146_p1_t17445_organ_734",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_146/case_146_video_part_001.mp4",
+    "t_start": 17445.0,
+    "t_end": 17475.0,
+    "question": "Which anatomical structure is simulated by this training task?",
+    "answers": [
+      "Rectal artery and vein",
+      "The training exercise represents the rectal artery and vein.",
+      "The simulated anatomical structure is the rectal artery and vein.",
+      "This training task is intended to model the rectal artery and vein.",
+      "The anatomical focus of this exercise is the rectal artery and vein."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What anatomical structure is being operated on?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  },
+  {
+    "id": "case_146_p1_t8370_organ_432",
+    "video": "/media/devin/WORK/devin/tien/SurgVU-challenge/surgvu24/case_146/case_146_video_part_001.mp4",
+    "t_start": 8370.0,
+    "t_end": 8400.0,
+    "question": "Which anatomical structure is simulated by this training task?",
+    "answers": [
+      "Uterine horn",
+      "The training exercise represents the uterine horn.",
+      "The simulated anatomical structure is the uterine horn.",
+      "This training task is intended to model the uterine horn.",
+      "The anatomical focus of this exercise is the uterine horn."
+    ],
+    "visual_status": "valid",
+    "grounding_status": "semantic_task_label",
+    "question_type": "organ",
+    "original_question": "What organ is involved in this step?",
+    "sample_weight": 0.5,
+    "curation_action": "rewrite_semantic_organ"
+  }
+]
