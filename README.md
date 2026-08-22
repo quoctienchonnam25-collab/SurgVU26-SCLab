@@ -218,3 +218,37 @@ docker build -t surgvu-submission .
 `src/train.py --help` documents the remaining flags (frame count, eval/save cadence,
 LoRA hyperparameters). Random seeds are fixed in `generate_qa.py`/`prepare_pretrain_qa.py`
 for reproducible train/val splits.
+
+## Acknowledgements
+
+This project builds on the following external models, datasets, and code, in
+addition to the SurgVU data and challenge infrastructure provided by the organizers:
+
+- **[SurgMotion](https://github.com/CAIR-HKISI/SurgMotion)** (CAIR-HKISI, Apache-2.0) -
+  video-native surgical foundation model (ViT-Large variant), pretrained on
+  SurgMotion-15M, used as the motion-aware visual encoder in the `DualEncoderVQA`
+  final-phase candidates (`thresholdfix`, `combo`). [Paper](https://arxiv.org/abs/2602.05638) ·
+  [weights](https://huggingface.co/CAIR-HKISI/SurgMotion).
+- **[Qwen2.5-VL-3B-Instruct](https://github.com/QwenLM/Qwen2.5-VL)** (Alibaba Qwen team) -
+  base vision-language model, LoRA fine-tuned, used in the `plain` final-phase
+  candidate and as the frozen/LoRA-adapted vision-language backbone in the
+  `DualEncoderVQA` line. [Paper](https://arxiv.org/abs/2409.12191).
+- **[Qwen2-VL-2B-Instruct](https://github.com/QwenLM/Qwen2-VL)** (Alibaba Qwen team) -
+  base vision-language model, QLoRA fine-tuned, used in the earlier v1-v7 iteration
+  line (see [Earlier iteration history](#earlier-iteration-history-v1-v5-superseded-by-the-releases-above)).
+- **[ProstaTDv2](https://arxiv.org/abs/2506.01130)** (robotic prostatectomy
+  instrument/action/target triplet annotations) - used for domain-adaptive
+  pretraining, in both the v1-v7 line and (re-tried, not adopted) the current
+  `DualEncoderVQA` line.
+- **[CholecT50](https://github.com/CAMMA-public/cholect50)** (CAMMA, CC BY-NC-SA 4.0) -
+  laparoscopic instrument/action/target triplet dataset, evaluated as a domain-pretrain
+  alternative to ProstaTDv2 but not used in any released model (instrument/procedure
+  domain mismatch with SurgVU's robotic setting).
+- **[YOLOv5](https://github.com/ultralytics/yolov5)** (Ultralytics, AGPL-3.0) - object
+  detector fine-tuned as the optional tool-detector used for grounding in the
+  earlier v3 iteration; not part of any final-phase candidate.
+- **[Hugging Face `transformers`](https://github.com/huggingface/transformers)** and
+  **[`peft`](https://github.com/huggingface/peft)** - model loading, LoRA/QLoRA
+  fine-tuning.
+- **[`bert-score`](https://github.com/Tiiiger/bert_score)** - the official BERTScore-F1
+  evaluation metric implementation used throughout this project.
