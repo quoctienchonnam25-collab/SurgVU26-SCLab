@@ -20,6 +20,30 @@ implement the `DualEncoderVQA`/SurgMotion line; `src/train_plain_qwen25vl.py`,
 Qwen2.5-VL line. `submission/build_image*.sh` + `submission/Dockerfile*` build each
 release's container.
 
+### Reproducing / running a final-phase container
+
+See [`submission/README.md`](submission/README.md) for the exact build and run
+command for each of the three candidates above (matches the Grand Challenge
+single-case docker contract: `/input` in, `/output` out, offline at runtime).
+
+### Data/models used beyond what the challenge provided (final-phase candidates)
+
+- **SurgMotion** (`CAIR-HKISI/SurgMotion`, ViT-Large variant, Apache-2.0) - a
+  video-native surgical foundation model pretrained on SurgMotion-15M, used as the
+  motion-aware visual encoder in `DualEncoderVQA` (`thresholdfix` and `combo`
+  releases only). [Paper](https://arxiv.org/abs/2602.05638),
+  [weights](https://huggingface.co/CAIR-HKISI/SurgMotion),
+  [code](https://github.com/CAIR-HKISI/SurgMotion). Not fine-tuned itself in
+  `thresholdfix`; `combo` adds a low-rank LoRA adapter (r=8) on top of it.
+- `release_20260821_plain` uses no data or pretrained components beyond
+  `Qwen/Qwen2.5-VL-3B-Instruct` and the challenge-provided SurgVU training data.
+- ProstaTDv2 domain-adaptive pretraining was re-tried against the current
+  `DualEncoderVQA` line (underperformed the combo checkpoint on the gate check) and
+  **not adopted**. The YOLOv5 tool-detector (see
+  [Earlier iteration history](#earlier-iteration-history-v1-v5-superseded-by-the-releases-above)
+  below) was only ever part of the earlier v1-v5 line and was never carried into the
+  current architecture.
+
 ## Earlier iteration history (v1-v5, superseded by the releases above)
 
 The results below are from an earlier architecture (plain `Qwen2-VL-2B-Instruct` QLoRA,
