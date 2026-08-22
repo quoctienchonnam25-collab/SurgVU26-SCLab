@@ -2,8 +2,30 @@
 
 Team: SCLab-Surg (Chonnam National University) - Grand Challenge username `TienNQ27`
 
-Fine-tuned Qwen2-VL-2B-Instruct (QLoRA) for surgical video VQA, with a domain-adaptive
-pretraining stage and an optional YOLOv5 tool-detector used to ground the VQA prompt.
+## Final-phase submission candidates (2026-08-22)
+
+Three release lines are packaged and verified for the Grand Challenge final testing
+phase (3 submissions/team, best score counts). Each `submission/release_*/README_UPLOAD.md`
+documents its own build, evaluation, and verification steps in full; short summary:
+
+| Release | Architecture | Real prelim score | Status |
+|---|---|---|---|
+| [`release_20260806_thresholdfix`](submission/release_20260806_thresholdfix/README_UPLOAD.md) | `DualEncoderVQA` (SurgMotion + frozen Qwen2.5-VL vision tower), calibrated Yes/No thresholds | **0.8290 (confirmed)** | Insurance floor - known-good, real-leaderboard-confirmed |
+| [`release_20260816_combo`](submission/release_20260816_combo/README_UPLOAD.md) | `DualEncoderVQA` + vision-tower LoRA (r=8) + text LoRA (r=32) | 0.7653 (regressed vs. thresholdfix; likely a data-fix confound, see release notes) | Architecture combo, best local holdout score of the dual-encoder line |
+| [`release_20260821_plain`](submission/release_20260821_plain/README_UPLOAD.md) | Plain `Qwen2.5-VL-3B-Instruct` + LoRA (r=16, text-only), 5 frames, **no SurgMotion branch** | Not yet tested on real prelim | Deliberate architecture reset - lightweight informed bet, built on historical + external precedent (see release notes for why) |
+
+`src/dual_encoder_vqa_prototype.py`, `src/predict_dual_encoder_vqa.py`, `src/train_dual_encoder_vqa.py`
+implement the `DualEncoderVQA`/SurgMotion line; `src/train_plain_qwen25vl.py`,
+`src/predict_plain_qwen25vl.py`, `src/evaluate_plain_qwen25vl.py` implement the plain
+Qwen2.5-VL line. `submission/build_image*.sh` + `submission/Dockerfile*` build each
+release's container.
+
+## Earlier iteration history (v1-v5, superseded by the releases above)
+
+The results below are from an earlier architecture (plain `Qwen2-VL-2B-Instruct` QLoRA,
+16 frames, optional YOLOv5 tool-detector grounding) kept for historical reference; it
+predates the `DualEncoderVQA`/SurgMotion and plain-`Qwen2.5-VL` lines used in the actual
+final-phase candidates above.
 
 ## Results on the public sample set (`SURGVU25_cat_2_sample_set_public`, 11 Q&A pairs)
 
