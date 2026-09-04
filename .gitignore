@@ -29,7 +29,7 @@ checkpoints/
 
 # Generated QA/segment data (large, regenerate via preprocess.py + generate_qa.py)
 src/*.json
-src/*.json.bak
+src/*.json.bak*
 
 # Python
 __pycache__/

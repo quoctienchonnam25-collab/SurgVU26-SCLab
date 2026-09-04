@@ -9,6 +9,7 @@ from collections import defaultdict
 
 from tqdm import tqdm
 
+from answer_postprocess import postprocess_answer
 from predict_plain_qwen25vl import load_model, predict_vqa_clip, DEFAULT_BASE_MODEL
 from evaluate import compute_bertscore_f1
 
@@ -55,6 +56,7 @@ def main():
         except Exception as e:
             print(f"\n[eval] {item.get('id')} failed, using empty prediction: {e}")
             pred = ""
+        pred = postprocess_answer(item["question"], pred)
         predictions.append(pred)
 
     mean_bert, scores = compute_bertscore_f1(items, predictions, model_type=args.bertscore_model)

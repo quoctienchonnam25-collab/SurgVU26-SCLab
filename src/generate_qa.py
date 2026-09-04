@@ -97,6 +97,10 @@ TASK_ORGAN = {
     "Other":                         None,
 }
 
+# "short" reproduces the 2026-08-12 rewrite; "long" reproduces the original
+# ~200-char excerpt. Set by --description-style; see gen_description_question().
+DESCRIPTION_STYLE = "short"
+
 FORCEPS_TOOLS = ["cadiere forceps", "bipolar forceps", "prograsp forceps"]
 
 ALL_TARGET_TOOLS = list(TOOL_SINGULAR_PLURAL.keys())
@@ -429,19 +433,31 @@ def gen_description_question(description):
     ]
     q = random.choice(q_templates)
 
-    # Keep only the first sentence (cap ~140 chars) - short-answer style, not
-    # the full multi-sentence task paragraph.
-    search_window = desc[:140]
-    sentence_end = min(
-        (i for i in (search_window.find("."), search_window.find("!"), search_window.find("?")) if i != -1),
-        default=-1,
-    )
-    if sentence_end >= 15:
-        desc = search_window[: sentence_end + 1]
-    elif len(desc) > 140:
-        desc = desc[:140].rsplit(" ", 1)[0].rstrip(" ,;:") + "."
-    elif desc[-1] not in ".!?":
-        desc += "."
+    if DESCRIPTION_STYLE == "short":
+        # Keep only the first sentence (cap ~140 chars) - short-answer style, not
+        # the full multi-sentence task paragraph.
+        search_window = desc[:140]
+        sentence_end = min(
+            (i for i in (search_window.find("."), search_window.find("!"), search_window.find("?")) if i != -1),
+            default=-1,
+        )
+        if sentence_end >= 15:
+            desc = search_window[: sentence_end + 1]
+        elif len(desc) > 140:
+            desc = desc[:140].rsplit(" ", 1)[0].rstrip(" ,;:") + "."
+        elif desc[-1] not in ".!?":
+            desc += "."
+    else:
+        # Long form: the ~200-char excerpt this generator produced before
+        # 2026-08-12. Required whenever regenerating training data for the
+        # checkpoint lineage that scored 0.5972, which was trained on long-form
+        # descriptions - the short rewrite is the variant that coincided with the
+        # 0.8290 -> 0.7653 prelim regression, so mixing it into an otherwise
+        # unrelated experiment would confound the result.
+        if len(desc) > 200:
+            desc = desc[:200].rsplit(" ", 1)[0].rstrip(" ,;:") + "."
+        elif desc[-1] not in ".!?":
+            desc += "."
 
     body = desc[:-1] if desc[-1] in ".!?" else desc
     body_lower = body[0].lower() + body[1:] if body[0].isupper() else body
@@ -466,11 +482,22 @@ def parse_args():
     parser.add_argument("--train-case-count", type=int, default=140)
     parser.add_argument("--max-segments-per-case", type=int, default=60)
     parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument(
+        "--description-style",
+        choices=("short", "long"),
+        default="short",
+        help="Answer style for description questions. 'long' reproduces the "
+             "pre-2026-08-12 ~200-char excerpt, which is what the checkpoint "
+             "lineage scoring 0.5972 was trained on.",
+    )
     return parser.parse_args()
 
 
 def main():
+    global DESCRIPTION_STYLE
     args = parse_args()
+    DESCRIPTION_STYLE = args.description_style
+    print(f"description answer style: {DESCRIPTION_STYLE}")
     segments_json = os.path.abspath(args.segments)
     train_output = os.path.abspath(args.train_output)
     val_output = os.path.abspath(args.val_output)

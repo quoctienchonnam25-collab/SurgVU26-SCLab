@@ -20,7 +20,10 @@ mkdir -p \
 
 cp -al "$PROJECT_ROOT/submission/Dockerfile.plain" "$BUILD_CONTEXT/submission/Dockerfile"
 cp -al "$PROJECT_ROOT/submission/requirements.txt" "$BUILD_CONTEXT/submission/"
-cp -al "$PROJECT_ROOT/src/predict_plain_qwen25vl.py" "$BUILD_CONTEXT/src/"
+cp -al "$PROJECT_ROOT/src/predict_plain_qwen25vl.py" \
+    "$PROJECT_ROOT/src/answer_postprocess.py" \
+    "$PROJECT_ROOT/src/generate_qa.py" \
+    "$BUILD_CONTEXT/src/"
 cp -al "$PROJECT_ROOT/checkpoints/base_models/Qwen2.5-VL-3B-Instruct" \
     "$BUILD_CONTEXT/checkpoints/base_models/"
 

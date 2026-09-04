@@ -17,6 +17,7 @@ checkpoint format differ.
 
 import argparse
 import json
+import os
 import subprocess
 from pathlib import Path
 
@@ -557,7 +558,22 @@ def main():
         capture_output=True,
         text=True,
     ).stdout.splitlines()
-    conflicting = [line for line in gpu_processes if line.strip() and "nxnode" not in line]
+    # Same escape hatch predict_dual_encoder_vqa.py::assert_gpu_idle() already has.
+    # The "nxnode" name filter below only works on the host: inside a container
+    # nvidia-smi cannot resolve host PIDs and reports every process as
+    # "[Not Found]", so this workstation's own NX session looks like a conflict and
+    # blocks training outright.
+    ignored_pids = {
+        pid.strip()
+        for pid in os.environ.get("SURGVU_GPU_GUARD_IGNORE_PIDS", "").split(",")
+        if pid.strip()
+    }
+    conflicting = [
+        line for line in gpu_processes
+        if line.strip()
+        and "nxnode" not in line
+        and line.split(",", 1)[0].strip() not in ignored_pids
+    ]
     if conflicting:
         raise RuntimeError(
             "Refusing to train while another GPU compute process is active: " + "; ".join(conflicting)

@@ -260,8 +260,28 @@ def process_case(
                         # A recorded 00:00:00 (or otherwise missing) uninstall time is a data
                         # sentinel, not a real timestamp - treat it as "still installed" rather
                         # than silently dropping the tool from this segment.
+                        #
+                        # 2026-09-02: that sentinel does not actually occur in this dataset -
+                        # zero rows have uninstall_case_time == 00:00:00. What DOES occur is
+                        # 348 rows (within a single part) whose recorded uninstall time is a
+                        # real timestamp that is simply EARLIER than the install time, i.e.
+                        # corrupt. Extending those to `duration` marked the tool present from
+                        # its install right through to the end of the video - a median of 19.4
+                        # and a mean of 85.9 minutes of invented presence per row. Across the
+                        # dataset that flipped 11,471 of 200,648 segments (5.7%), adding 16,175
+                        # spurious positive tool labels, all of them in tool_presence, which is
+                        # ~45% of the generated questions. Corrupt rows are now dropped; the
+                        # sentinel branch is kept only for a genuinely zero/missing timestamp.
+                        #
+                        # Note this only bites when install_part == uninstall_part == part_id.
+                        # For a row spanning parts the `else duration` above already applies,
+                        # and its uninstall time being "earlier" is just the two timestamps
+                        # living in different parts' timelines - those 424 rows are fine.
                         if tool_end <= tool_start:
-                            tool_end = duration
+                            if tool_end == 0.0:
+                                tool_end = duration
+                            else:
+                                continue
 
                         # Check overlap
                         if min(t_end, tool_end) > max(t_start, tool_start):

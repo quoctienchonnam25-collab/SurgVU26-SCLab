@@ -7,6 +7,7 @@ processor output and a SurgMotion clip tensor per call.
 
 import argparse
 import json
+import math
 import os
 import subprocess
 import re
@@ -20,6 +21,7 @@ from PIL import Image
 from qwen_vl_utils import process_vision_info
 from transformers import AutoProcessor, AutoTokenizer
 
+from answer_postprocess import is_forceps_type_question, postprocess_answer
 from dual_encoder_vqa_prototype import AUX_NUM_TOKENS, DEFAULT_QWEN_MODEL, build
 from evaluate import compute_bertscore_f1, evaluate_predictions
 from generate_qa import ALL_PRESENCE_TARGETS
@@ -40,32 +42,102 @@ GC_VIDEO = "endoscopic-robotic-surgery-video.mp4"
 GC_QUESTION = "visual-context-question.json"
 GC_RESPONSE = "visual-context-response.json"
 
+# Stems, not fully-inflected forms. These are substring tests, so "involve" also
+# catches "involves"/"involved" while "involved" catches neither "involve" nor
+# "involves" - which is exactly how "Does this clip involve a grasping retractor?"
+# used to fall through to free generation and get answered as prose instead of
+# Yes/No. Same reasoning for list/install/use (2026-09-02 paraphrase audit, see
+# audit_question_paraphrases.py).
 TOOL_PRESENCE_WORDS = (
-    "listed", "installed", "installation record", "tool record",
-    "used", "being used", "present", "involved",
+    "list", "install", "installation record", "tool record",
+    "use", "present", "involve",
 )
 TOOL_PRESENCE_NAMES = tuple(
     sorted((name.lower() for name in ALL_PRESENCE_TARGETS), key=len, reverse=True)
 )
 
 
+# Open-ended interrogatives. A question opening with one of these expects a NAME
+# or a sentence, never "Yes"/"No", so it must never reach the binary
+# logit-margin path below - see is_binary_question().
+OPEN_ENDED_PREFIXES = (
+    "what", "which", "who", "whom", "whose", "where", "when", "how", "why",
+    "name", "list", "describe", "identify",
+)
+
+
+def is_binary_question(question):
+    """True only for genuinely Yes/No-shaped questions.
+
+    Guard added 2026-08-31 after finding a real defect in the shipped
+    `release_20260806_thresholdfix` container (the one that scored 0.5526 on the
+    final leaderboard): `is_tool_presence_question()` matches on a tool name plus
+    any presence word, with no check that the question is actually a Yes/No one.
+    generate_qa.py's own `gen_forceps_type()` templates - "Which forceps type is
+    listed as installed for this clip?" - contain both ("forceps" + "listed"), so
+    they were routed to `tool_presence_answer_tensor()` and answered "Yes"/"No"
+    against reference answers like "Cadiere Forceps". Verified end to end by
+    running that exact question through the shipped image: it returns "Yes".
+    BERTScore-F1 of "Yes" against a tool-name reference set is near zero, so every
+    open-ended forceps question in the hidden test set was scoring ~0 regardless of
+    what the model actually knew.
+
+    Note the 3 calibrated thresholds in submission/inference_policy.json were swept
+    using the un-guarded detectors, so their sweep populations included these
+    misrouted open-ended questions. They are left unchanged here: re-sweeping needs
+    a full holdout generation run, and per project memory
+    (surgvu_threshold_fix_leaderboard_invisible) BERTScore-F1 is near-blind to
+    Yes/No polarity anyway - the win here is emitting a tool NAME instead of
+    "Yes"/"No" at all, not the exact threshold value.
+    """
+    return not normalize_answer(question).startswith(OPEN_ENDED_PREFIXES)
+
+
 def is_tool_presence_question(question):
     normalized = normalize_answer(question)
-    return any(name in normalized for name in TOOL_PRESENCE_NAMES) and any(
-        word in normalized for word in TOOL_PRESENCE_WORDS
+    return (
+        is_binary_question(question)
+        # "Are any forceps types listed as installed for this clip?" is Yes/No
+        # shaped but its reference answers are full sentences ("No forceps types
+        # are listed."), never a bare "No" - it belongs to forceps_type, which
+        # answer_postprocess.is_forceps_type_question() owns on the free-generation
+        # path. Only that phrase is excluded; case122's "Are there forceps being
+        # used here?" (reference "No") has no "forceps type" and stays here.
+        and not is_forceps_type_question(question)
+        and any(name in normalized for name in TOOL_PRESENCE_NAMES)
+        and any(word in normalized for word in TOOL_PRESENCE_WORDS)
     )
 
 
 def is_tissue_cutting_question(question):
     """Matches all 3 generate_qa.py::gen_tissue_cutting templates - only 2 of the
-    3 contain "tissue", so "cutting" alone is also accepted."""
+    3 contain "tissue", so "cutting" alone is also accepted.
+
+    2026-08-31: also accepts bare "cut". The template "Is tissue being cut during
+    this clip?" contains neither "cutting" nor "dissect", so it was silently
+    missing the calibrated threshold - and that is the exact phrasing the official
+    public sample uses (case131), i.e. the organizers' own wording was unmatched.
+    """
     normalized = normalize_answer(question)
-    return "cutting" in normalized or ("tissue" in normalized and "dissect" in normalized)
+    return is_binary_question(question) and (
+        bool(re.search(r"\bcut(ting)?\b", normalized))
+        or ("tissue" in normalized and "dissect" in normalized)
+    )
 
 
 def is_suture_required_question(question):
+    """Matches on the stem "sutur", not "suture".
+
+    "suturing" does not contain the substring "suture" (there is no 'e'), so
+    "Is suturing required here?" silently missed its calibrated threshold and was
+    answered as free prose instead of Yes/No - found by the 2026-09-02 paraphrase
+    audit. Tool-presence questions naming a "large suturecut needle driver" also
+    contain "sutur", but is_tool_presence_question() is checked first in
+    answer_question() and claims those; in the rare leftover case both routes end
+    at the same Yes/No mechanism anyway, differing only in threshold.
+    """
     normalized = normalize_answer(question)
-    return "suture" in normalized and "required" in normalized
+    return is_binary_question(question) and "sutur" in normalized and "required" in normalized
 
 def assert_gpu_idle():
     if not torch.cuda.is_available():
@@ -225,6 +297,19 @@ def answer_tensor(model, tokenizer, processor, pil_frames, aux_video, aux_valid,
         )
     return tokenizer.decode(output_ids[0].detach().cpu(), skip_special_tokens=True).strip()
 
+# Multi-view margin averaging was implemented here on 2026-09-02 and then removed
+# after being measured properly. A 60-question probe suggested it was worth ~+2.5pp
+# binary accuracy (it recovered 3/3 decisions that flipped between frame subsets),
+# but re-running on 300 questions collapsed that to **+0.33pp** (77.59% -> 77.93%,
+# ~+0.0006 BERTScore): on the 18 flipped cases averaging was right 12 times, i.e.
+# 66.7% against a coin-flip baseline of 50% with a standard error of 11.8pp - not a
+# real effect. Frame-subset choice does move the margin (mean 0.239, flipping 6.3%
+# of decisions) and 43.8% of decisions do sit within 0.5 logit of the threshold, so
+# the noise is real; averaging two near-identical uniform views simply does not
+# cancel it. Don't re-add this without a genuinely more diverse set of views and a
+# sample large enough to measure the result.
+
+
 def tool_presence_answer_tensor(model, tokenizer, processor, pil_frames, aux_video, aux_valid, question, threshold):
     """Conservative Yes/No decision from the calibrated first-token margin."""
     user_turn = [
@@ -277,11 +362,23 @@ def answer_question(
         threshold = suture_required_threshold
 
     if threshold is not None:
-        prediction, _ = tool_presence_answer_tensor(
+        prediction, margin = tool_presence_answer_tensor(
             model, tokenizer, processor, qwen_frames, aux_video, aux_valid, question, threshold
         )
-        return prediction
-    return answer_tensor(model, tokenizer, processor, qwen_frames, aux_video, aux_valid, question, max_new_tokens)
+        # A non-finite margin makes the comparison `margin >= threshold` silently
+        # False, so the question gets answered "No" for no reason at all. Measured
+        # rate: 1 of 300 random binary holdout questions produced a nan margin
+        # (FP16 overflow in the logits - the same numeric fragility that already
+        # forced do_sample=False in the plain pipeline). Fall back to ordinary
+        # generation, which reaches the Yes/No decision through a different numeric
+        # path instead of defaulting to one polarity.
+        if math.isfinite(margin):
+            return prediction
+        print(f"[warn] non-finite Yes/No margin ({margin}); falling back to generation")
+    prediction = answer_tensor(
+        model, tokenizer, processor, qwen_frames, aux_video, aux_valid, question, max_new_tokens
+    )
+    return postprocess_answer(question, prediction)
 
 
 def public_cases(input_dir):
@@ -415,6 +512,7 @@ def run_vqa_json(args, model, tokenizer, processor, qwen_num_frames):
             item["question"],
             args.max_new_tokens,
         )
+        prediction = postprocess_answer(item["question"], prediction)
         row = dict(item)
         row["prediction"] = prediction
         rows.append(row)
@@ -452,17 +550,60 @@ def run_public(args, model, tokenizer, processor, qwen_num_frames):
         json.dump(rows, open(output_dir / "predictions.json", "w", encoding="utf-8"), indent=2, ensure_ascii=False)
 
 
+GENERIC_FALLBACK_ANSWER = "The surgical field is visible in this clip."
+
+
+def fallback_answer(question):
+    """Last-resort answer used only when inference itself raised.
+
+    A case that writes no response file scores zero (and can mark the whole run
+    failed); any syntactically plausible sentence scores more than that. So this is
+    a crash-safety net, not an accuracy tactic. Where a category has a defensible
+    prior it reuses the same one answer_postprocess already applies to empty output
+    (organ -> the majority fallback string, procedure_type -> the single correct
+    answer, etc.). For binary questions there is no meaningful prior - the official
+    public sample is 4 Yes / 3 No - so "Yes" here is an arbitrary coin-flip, chosen
+    only because it beats writing nothing.
+    """
+    try:
+        canned = postprocess_answer(question, "")
+        if canned and canned.strip():
+            return canned
+        if is_binary_question(question):
+            return "Yes"
+    except Exception:
+        pass
+    return GENERIC_FALLBACK_ANSWER
+
+
 def run_grand_challenge(args, model, tokenizer, processor, qwen_num_frames):
+    """Never raises: the grading harness gets a response file no matter what.
+
+    Previously any failure in here - an undecodable video, a transient CUDA error,
+    an unexpected question payload - propagated out of main() and left /output
+    empty, turning one bad case into a zero. predict_plain_qwen25vl.py already
+    degrades to black frames on a video-read failure; this path had no handling at
+    all.
+    """
     input_dir = Path(args.input_dir)
-    question = json.load(open(input_dir / GC_QUESTION, encoding="utf-8"))
-    prediction = answer_question(
-        model, tokenizer, processor, input_dir / GC_VIDEO, question, qwen_num_frames, args.max_new_tokens,
-        tool_presence_threshold=args.tool_presence_threshold,
-        tissue_cutting_threshold=args.tissue_cutting_threshold,
-        suture_required_threshold=args.suture_required_threshold,
-    )
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
+
+    question = None
+    try:
+        question = json.load(open(input_dir / GC_QUESTION, encoding="utf-8"))
+        prediction = answer_question(
+            model, tokenizer, processor, input_dir / GC_VIDEO, question, qwen_num_frames, args.max_new_tokens,
+            tool_presence_threshold=args.tool_presence_threshold,
+            tissue_cutting_threshold=args.tissue_cutting_threshold,
+            suture_required_threshold=args.suture_required_threshold,
+        )
+        if not str(prediction).strip():
+            raise RuntimeError("model returned an empty answer")
+    except Exception as error:
+        prediction = fallback_answer(question) if question is not None else GENERIC_FALLBACK_ANSWER
+        print(f"[fallback] inference failed ({type(error).__name__}: {error}); answering {prediction!r}")
+
     json.dump(prediction, open(output_dir / GC_RESPONSE, "w", encoding="utf-8"), ensure_ascii=False)
     print(prediction)
 
@@ -474,7 +615,18 @@ def parse_args():
     parser.add_argument("--output-dir", default=str(PROJECT_ROOT / "runs" / "dual_encoder_vqa"))
     parser.add_argument("--qwen-model", default=None)
     parser.add_argument("--surgmotion-checkpoint", default=None)
-    parser.add_argument("--max-new-tokens", type=int, default=24)
+    # 50, not the original 24: at 24 the model was being cut off mid-clause on
+    # longer answers. Measured on the 1314-row true holdout, 14 predictions ended
+    # with no terminal punctuation, all of them 20-22 words - e.g. it generated
+    # "Separating the rectum and mesorectum from the lateral pelvic wall. Left side
+    # can be more difficult because of" and stopped there, when the reference
+    # continues "...because of sub-optimal view (based on port placement)." - i.e.
+    # a verbatim-correct answer truncated into a 0.788 instead of ~1.0. The cap only
+    # binds when the model wants more tokens (it emits EOS on its own for short
+    # answers like "Yes" or a tool name), so raising it cannot lengthen answers that
+    # were already complete. 50 matches predict_plain_qwen25vl.py's value rather
+    # than being tuned against any score.
+    parser.add_argument("--max-new-tokens", type=int, default=50)
     parser.add_argument("--grand-challenge", action="store_true")
     parser.add_argument("--vqa-json", default=None)
     parser.add_argument("--cache-root", default=str(PROJECT_ROOT / "frame_cache_16fr"))
@@ -489,7 +641,18 @@ def parse_args():
 
 def main():
     args = parse_args()
-    assert_gpu_idle()
+    # assert_gpu_idle() exists to stop a local run from colliding with training on
+    # this workstation's single GPU. It has no purpose inside the submission
+    # container and is actively dangerous there: it shells out to `nvidia-smi`
+    # (raising FileNotFoundError if that binary isn't on PATH, and CalledProcessError
+    # on any non-zero exit because of check=True), then raises "GPU is busy" if the
+    # driver reports ANY other compute process - which on shared grading
+    # infrastructure is entirely normal and outside our control. Either way the
+    # process dies before the model is even loaded, no visual-context-response.json
+    # is written, and the case scores zero. Keep the guard for local development
+    # paths only.
+    if not args.grand_challenge:
+        assert_gpu_idle()
     model, tokenizer, processor, qwen_num_frames = load_model(args.checkpoint, args.qwen_model, args.surgmotion_checkpoint)
     if args.grand_challenge:
         run_grand_challenge(args, model, tokenizer, processor, qwen_num_frames)

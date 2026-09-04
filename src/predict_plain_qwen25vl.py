@@ -24,6 +24,8 @@ from peft import PeftModel
 from qwen_vl_utils import process_vision_info
 import argparse
 
+from answer_postprocess import postprocess_answer
+
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 DEFAULT_BASE_MODEL = os.path.join(PROJECT_ROOT, "checkpoints", "base_models", "Qwen2.5-VL-3B-Instruct")
 
@@ -153,18 +155,42 @@ GC_QUESTION_SLUG = "visual-context-question"
 GC_RESPONSE_SLUG = "visual-context-response"
 
 
+GENERIC_FALLBACK_ANSWER = "The surgical field is visible in this clip."
+
+
 def run_grand_challenge_case(input_dir, output_dir, model, processor, max_frames):
+    """Never raises: the grading harness gets a response file no matter what.
+
+    predict_vqa() already degrades to black frames when the video can't be read,
+    but generation itself, the question-payload read and the output write were all
+    unguarded - and a case that writes no response file scores zero. Mirrors
+    predict_dual_encoder_vqa.run_grand_challenge().
+    """
     video_path = os.path.join(input_dir, f"{GC_VIDEO_SLUG}.mp4")
     question_path = os.path.join(input_dir, f"{GC_QUESTION_SLUG}.json")
 
-    with open(question_path, "r", encoding="utf-8") as f:
-        question = json.load(f)
-
-    print(f"Question: {question}")
-    answer = predict_vqa(model, processor, video_path, question, max_frames=max_frames)
-    print(f"Answer: {answer}")
-
     os.makedirs(output_dir, exist_ok=True)
+    question = None
+    try:
+        with open(question_path, "r", encoding="utf-8") as f:
+            question = json.load(f)
+        print(f"Question: {question}")
+        answer = predict_vqa(model, processor, video_path, question, max_frames=max_frames)
+        answer = postprocess_answer(question, answer)
+        if not str(answer).strip():
+            raise RuntimeError("model returned an empty answer")
+    except Exception as error:
+        answer = GENERIC_FALLBACK_ANSWER
+        if question is not None:
+            try:
+                canned = postprocess_answer(question, "")
+                if canned and canned.strip():
+                    answer = canned
+            except Exception:
+                pass
+        print(f"[fallback] inference failed ({type(error).__name__}: {error}); answering {answer!r}")
+
+    print(f"Answer: {answer}")
     with open(os.path.join(output_dir, f"{GC_RESPONSE_SLUG}.json"), "w", encoding="utf-8") as f:
         json.dump(answer, f, ensure_ascii=False)
 
@@ -191,6 +217,7 @@ def run_batch_directory(input_dir, output_dir, model, processor, max_frames):
 
         print(f"Predicting for {base_name}: Q='{question}'")
         pred_ans = predict_vqa(model, processor, video_path, question, max_frames=max_frames)
+        pred_ans = postprocess_answer(question, pred_ans)
         print(f"Prediction: '{pred_ans}'")
         predictions[base_name] = pred_ans
 
