@@ -2,6 +2,125 @@
 
 Team: SCLab-Surg (Chonnam National University) - Grand Challenge username `TienNQ27`
 
+## Final-phase results (2026-09-03)
+
+| Slot | Release | Final score |
+|---|---|---|
+| 1 | `release_20260806_thresholdfix` | 0.5526 |
+| 2 | `release_20260831_thresholdfix_qfix` | **0.5972** (team's final score, best-of-3) |
+| 3 | `release_20260902_final` | 0.5820 |
+
+**Slot 2 used the identical checkpoint and thresholds as slot 1.** The +0.0446 came
+entirely from fixing how the container *formats and routes* its answers - no
+retraining, no architecture change, no data change. That is the single most useful
+result this project produced, and it is a controlled one.
+
+### What produced the gain
+
+Auditing the 11 official public samples against the container's own question
+detectors - never done before, because every detector had been written against this
+project's synthetic templates - found **3 of 11 mishandled**:
+
+- **Open-ended questions were routed to the binary Yes/No path.** `is_tool_presence_question()`
+  matched on "a tool name appears" + "a presence word appears" with no check that the
+  question was Yes/No-shaped, so `gen_forceps_type()`'s own template *"Which forceps
+  type is listed as installed for this clip?"* (containing "forceps" and "listed") was
+  answered literally **"Yes"**. Verified by running that question through the shipped
+  image. Against case124's real reference set: `"Yes"` scores **-0.0392**, the fixed
+  path's (still wrong) `"Bipolar Forceps"` scores **0.2402**, a correct
+  `"Cadiere Forceps"` scores 1.0000.
+- **Organizer phrasing differs from ours.** They write *"type of forceps"* and
+  *"mentioned"*, not *"forceps type"* and *"installed"*; *"cut"*, not *"cutting"*.
+  Unqualified *"forceps"* in a purpose question had no `TOOL_PURPOSE` entry, yet its
+  official answer is character-for-character the cadiere purpose text.
+- **Answers were truncated mid-clause** at `max_new_tokens=24` (the sibling pipeline
+  used 50). 14 of 1314 holdout predictions ended without terminal punctuation; raising
+  the cap was worth **+0.0703** on description rows, with truncation going 10/21 -> 0/21.
+
+Detector coverage went **8/11 -> 11/11**.
+
+### Preliminary-phase scores were blind to all of it
+
+The slot-2 container scored **0.8290 on the preliminary phase - byte-identical to the
+unfixed build** while gaining +0.0446 on the real test. An earlier threshold-calibration
+release had also scored exactly 0.8290. Three different containers, the same prelim
+number three times. Prelim could not detect this class of fix in either direction, which
+matches the organizers' own guidance that prelim rankings are not indicative.
+
+### Geometry of the metric
+
+BERTScore-F1 takes the max over 5 references shaped `[bare answer, frame1 + answer, ...]`.
+Measured against official reference sets, that produces two opposite optima:
+
+| answer type | best form | evidence |
+|---|---|---|
+| binary (Yes/No) | **bare** | `"Yes"`/`"No"` = 0.851 expected at p=0.5, vs 0.788-0.820 framed; hedging ("may be", "unclear") is worst at 0.542-0.616 |
+| name-valued | **framed sentence** | a *wrong* bare name scores 0.209-0.240; the same wrong name inside the question's frame scores 0.747-0.812, while a correct answer scores 1.000 either way |
+
+On binary questions the score is a pure linear function of accuracy - a wrong polarity
+costs **0.299**. Measured: 71.1% accuracy predicts 0.9136, against 0.9119 observed. With
+binary questions ~61% of the corpus, **each +1pp of binary accuracy is worth ~+0.0018
+overall**. This corrects an earlier belief in this project that the metric was
+near-blind to Yes/No correctness; it is not - the threshold calibration that produced
+"no change" had simply moved accuracy by only +0.7pp.
+
+### Measured negative results
+
+Reported because they were properly controlled, and because the negatives were more
+informative than most of the positives:
+
+- **Corrupt tool annotations.** 348 `tools.csv` rows (within a single part) record an
+  uninstall timestamp *earlier* than their install timestamp. `preprocess.py` was
+  extending each to the end of the video - a median of 19.4 minutes of invented tool
+  presence per row - producing **16,175 spurious positive labels across 5.1% of
+  segments**. The `00:00:00` sentinel that branch was written for does not occur once in
+  this dataset. A full two-stage retrain on corrected labels changed the holdout score
+  by **exactly nothing** (0.9140 -> 0.9140), though false positives fell as predicted
+  (40.1% -> 35.4%): the fix moved the operating point rather than improving the decision.
+  The correction is kept because the data was wrong, not because it scores.
+- **Multi-view frame voting.** Which 8 of 16 cached frames the model sees moves the
+  Yes/No margin by a mean of 0.239 and flips 6.3% of decisions, and 43.8% of decisions
+  sit within 0.5 logit of the threshold - so averaging views looked well-motivated. On
+  60 questions it appeared worth +2.5pp; on 300 it was **+0.33pp** (~+0.0006), with
+  averaging correct on 12 of 18 flips against a 50% baseline at 11.8pp standard error.
+- **Threshold re-tuning.** Full accuracy-vs-threshold curves on the corrected holdout
+  put the shipped values at or beside their optima (tool_presence 0.2 vs 0.1, +0.33pp;
+  suture_required 0.3 exactly optimal). `tissue_cutting` ships 1.4 where this holdout
+  prefers -0.1 (+4.35pp, one standard error) - but an August calibration on a different
+  holdout had found 1.4 optimal by +3.9pp. Two calibrations, opposite answers, neither
+  significant: the parameter is not identifiable from ~138 samples. Total available
+  gain across all three: **+0.0017**.
+
+### What went wrong in slot 3
+
+Slot 3 bundled four changes - forceps-type answer framing, two further routing fixes,
+a non-finite-margin guard, and container-robustness hardening - and lost 0.0152. Every
+one of them had measured positive on *both* the 1314-row synthetic holdout and the 11
+official samples, which had been treated as the strong bar after answer-framing for
+`organ`/`task_id` was caught overfitting to the 11 samples (+0.0329 there, -0.24 and
+-0.27 on the holdout). Two lessons:
+
+1. Agreement across both local sets is **necessary but not sufficient**.
+2. **Bundling four changes into a scarce slot destroys the information it could have
+   bought.** With slot 2's score already banked, slot 3 should have carried a single
+   variable. The most likely culprit is the stem broadening in `TOOL_PRESENCE_WORDS`
+   (`used`->`use`, `listed`->`list`, `involved`->`involve`), the only change that routes
+   *more* questions into the bare Yes/No path - and it was validated against 54
+   paraphrases written by the same author as the hypothesis, so that audit confirmed its
+   own assumptions rather than challenging them.
+
+### Reproducing these numbers
+
+```bash
+python src/audit_question_paraphrases.py          # routing audit, expects 54/54
+python src/dump_binary_margins.py --checkpoint ... --vqa-json ... --output margins.json
+```
+
+`dump_binary_margins.py` saves one margin per binary question, so any threshold question
+is answerable offline without a GPU pass. `generate_qa.py --description-style long`
+reproduces the pre-2026-08-12 description answers, needed so a label experiment is not
+confounded by that rewrite.
+
 ## Final-phase submission candidates (2026-08-22)
 
 Three release lines are packaged and verified for the Grand Challenge final testing
