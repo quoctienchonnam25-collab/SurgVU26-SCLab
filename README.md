@@ -6,138 +6,31 @@ Team: SCLab-Surg (Chonnam National University) - Grand Challenge username `TienN
 
 | Slot | Release | Final score |
 |---|---|---|
-| 1 | `release_20260806_thresholdfix` | 0.5526 |
-| 2 | `release_20260831_thresholdfix_qfix` | **0.5972** (team's final score, best-of-3) |
-| 3 | `release_20260902_final` | 0.5820 |
+| 1 | [`release_20260806_thresholdfix`](submission/release_20260806_thresholdfix/README_UPLOAD.md) | 0.5526 |
+| 2 | [`release_20260831_thresholdfix_qfix`](submission/release_20260831_thresholdfix_qfix/README_UPLOAD.md) | **0.5972** (best, official score) |
+| 3 | [`release_20260902_final`](submission/release_20260902_final/README_UPLOAD.md) | 0.5820 |
 
-**Slot 2 used the identical checkpoint and thresholds as slot 1.** The +0.0446 came
-entirely from fixing how the container *formats and routes* its answers - no
-retraining, no architecture change, no data change. That is the single most useful
-result this project produced, and it is a controlled one.
+All three slots use the identical `DualEncoderVQA` checkpoint and thresholds - only the
+container's answer formatting/routing code changed between them. Slot 2's +0.0446 over
+slot 1 came from fixing 3 of 11 official question types that were misrouted or truncated
+(full writeup in its release doc, linked above); slot 3 bundled four further fixes into
+one slot and lost 0.0152 despite every one measuring positive locally - the lesson being
+that a scarce, non-repeatable slot should carry exactly one change at a time.
 
-### What produced the gain
+## Architecture: `DualEncoderVQA`
 
-Auditing the 11 official public samples against the container's own question
-detectors - never done before, because every detector had been written against this
-project's synthetic templates - found **3 of 11 mishandled**:
+Qwen2.5-VL-3B-Instruct's vision tower stays fully frozen; a separate frozen
+[SurgMotion](https://github.com/CAIR-HKISI/SurgMotion) encoder (16-frame clips) adds a
+32-token auxiliary signal through a trained projector. Only the projector and a rank-16
+LoRA adapter on the text decoder are trained. Yes/No questions use a calibrated
+logit-margin threshold instead of free-form generation. Two other architectures were
+evaluated but never submitted (a LoRA'd vision tower + rank-32 text LoRA combo, and a
+plain Qwen2.5-VL with no SurgMotion branch) - see the release docs above for why.
 
-- **Open-ended questions were routed to the binary Yes/No path.** `is_tool_presence_question()`
-  matched on "a tool name appears" + "a presence word appears" with no check that the
-  question was Yes/No-shaped, so `gen_forceps_type()`'s own template *"Which forceps
-  type is listed as installed for this clip?"* (containing "forceps" and "listed") was
-  answered literally **"Yes"**. Verified by running that question through the shipped
-  image. Against case124's real reference set: `"Yes"` scores **-0.0392**, the fixed
-  path's (still wrong) `"Bipolar Forceps"` scores **0.2402**, a correct
-  `"Cadiere Forceps"` scores 1.0000.
-- **Organizer phrasing differs from ours.** They write *"type of forceps"* and
-  *"mentioned"*, not *"forceps type"* and *"installed"*; *"cut"*, not *"cutting"*.
-  Unqualified *"forceps"* in a purpose question had no `TOOL_PURPOSE` entry, yet its
-  official answer is character-for-character the cadiere purpose text.
-- **Answers were truncated mid-clause** at `max_new_tokens=24` (the sibling pipeline
-  used 50). 14 of 1314 holdout predictions ended without terminal punctuation; raising
-  the cap was worth **+0.0703** on description rows, with truncation going 10/21 -> 0/21.
+## Running / reproducing (best model, slot 2)
 
-Detector coverage went **8/11 -> 11/11**.
-
-### Preliminary-phase scores were blind to all of it
-
-The slot-2 container scored **0.8290 on the preliminary phase - byte-identical to the
-unfixed build** while gaining +0.0446 on the real test. An earlier threshold-calibration
-release had also scored exactly 0.8290. Three different containers, the same prelim
-number three times. Prelim could not detect this class of fix in either direction, which
-matches the organizers' own guidance that prelim rankings are not indicative.
-
-### Geometry of the metric
-
-BERTScore-F1 takes the max over 5 references shaped `[bare answer, frame1 + answer, ...]`.
-Measured against official reference sets, that produces two opposite optima:
-
-| answer type | best form | evidence |
-|---|---|---|
-| binary (Yes/No) | **bare** | `"Yes"`/`"No"` = 0.851 expected at p=0.5, vs 0.788-0.820 framed; hedging ("may be", "unclear") is worst at 0.542-0.616 |
-| name-valued | **framed sentence** | a *wrong* bare name scores 0.209-0.240; the same wrong name inside the question's frame scores 0.747-0.812, while a correct answer scores 1.000 either way |
-
-On binary questions the score is a pure linear function of accuracy - a wrong polarity
-costs **0.299**. Measured: 71.1% accuracy predicts 0.9136, against 0.9119 observed. With
-binary questions ~61% of the corpus, **each +1pp of binary accuracy is worth ~+0.0018
-overall**. This corrects an earlier belief in this project that the metric was
-near-blind to Yes/No correctness; it is not - the threshold calibration that produced
-"no change" had simply moved accuracy by only +0.7pp.
-
-### Measured negative results
-
-Reported because they were properly controlled, and because the negatives were more
-informative than most of the positives:
-
-- **Corrupt tool annotations.** 348 `tools.csv` rows (within a single part) record an
-  uninstall timestamp *earlier* than their install timestamp. `preprocess.py` was
-  extending each to the end of the video - a median of 19.4 minutes of invented tool
-  presence per row - producing **16,175 spurious positive labels across 5.1% of
-  segments**. The `00:00:00` sentinel that branch was written for does not occur once in
-  this dataset. A full two-stage retrain on corrected labels changed the holdout score
-  by **exactly nothing** (0.9140 -> 0.9140), though false positives fell as predicted
-  (40.1% -> 35.4%): the fix moved the operating point rather than improving the decision.
-  The correction is kept because the data was wrong, not because it scores.
-- **Multi-view frame voting.** Which 8 of 16 cached frames the model sees moves the
-  Yes/No margin by a mean of 0.239 and flips 6.3% of decisions, and 43.8% of decisions
-  sit within 0.5 logit of the threshold - so averaging views looked well-motivated. On
-  60 questions it appeared worth +2.5pp; on 300 it was **+0.33pp** (~+0.0006), with
-  averaging correct on 12 of 18 flips against a 50% baseline at 11.8pp standard error.
-- **Threshold re-tuning.** Full accuracy-vs-threshold curves on the corrected holdout
-  put the shipped values at or beside their optima (tool_presence 0.2 vs 0.1, +0.33pp;
-  suture_required 0.3 exactly optimal). `tissue_cutting` ships 1.4 where this holdout
-  prefers -0.1 (+4.35pp, one standard error) - but an August calibration on a different
-  holdout had found 1.4 optimal by +3.9pp. Two calibrations, opposite answers, neither
-  significant: the parameter is not identifiable from ~138 samples. Total available
-  gain across all three: **+0.0017**.
-
-### What went wrong in slot 3
-
-Slot 3 bundled four changes - forceps-type answer framing, two further routing fixes,
-a non-finite-margin guard, and container-robustness hardening - and lost 0.0152. Every
-one of them had measured positive on *both* the 1314-row synthetic holdout and the 11
-official samples, which had been treated as the strong bar after answer-framing for
-`organ`/`task_id` was caught overfitting to the 11 samples (+0.0329 there, -0.24 and
--0.27 on the holdout). Two lessons:
-
-1. Agreement across both local sets is **necessary but not sufficient**.
-2. **Bundling four changes into a scarce slot destroys the information it could have
-   bought.** With slot 2's score already banked, slot 3 should have carried a single
-   variable. The most likely culprit is the stem broadening in `TOOL_PRESENCE_WORDS`
-   (`used`->`use`, `listed`->`list`, `involved`->`involve`), the only change that routes
-   *more* questions into the bare Yes/No path - and it was validated against 54
-   paraphrases written by the same author as the hypothesis, so that audit confirmed its
-   own assumptions rather than challenging them.
-
-### Reproducing these numbers
-
-```bash
-python src/audit_question_paraphrases.py          # routing audit, expects 54/54
-python src/dump_binary_margins.py --checkpoint ... --vqa-json ... --output margins.json
-```
-
-`dump_binary_margins.py` saves one margin per binary question, so any threshold question
-is answerable offline without a GPU pass. `generate_qa.py --description-style long`
-reproduces the pre-2026-08-12 description answers, needed so a label experiment is not
-confounded by that rewrite.
-
-## Final-phase submission candidates (2026-08-22)
-
-`DualEncoderVQA` (SurgMotion + Qwen2.5-VL, described below) is the architecture behind
-all three final-phase slots above. A plain `Qwen2.5-VL-3B-Instruct` + LoRA
-architecture (no SurgMotion) was also evaluated but never submitted - see
-[Methodology](#methodology---final-phase-candidates) below.
-
-| Release | Architecture | Real prelim score |
-|---|---|---|
-| [`release_20260806_thresholdfix`](submission/release_20260806_thresholdfix/README_UPLOAD.md) | `DualEncoderVQA`, calibrated Yes/No thresholds | **0.8290 (confirmed)** |
-
-### Reproducing / running a final-phase container
-
-Full instructions: [`submission/README.md`](submission/README.md). Quick version:
-
-1. **Download slot 2's checkpoint** (~185 MB, LoRA adapter + projector + SurgMotion
-   delta) from Hugging Face - **<https://huggingface.co/Partrick86/surgvu26-sclab-slot2-checkpoint>**:
+1. Download the checkpoint (~185 MB) from Hugging Face -
+   <https://huggingface.co/Partrick86/surgvu26-sclab-slot2-checkpoint>:
    ```bash
    huggingface-cli download Partrick86/surgvu26-sclab-slot2-checkpoint \
      surgvu26_sclab_slot2_dual_encoder_checkpoint.tar.gz --local-dir /tmp
@@ -145,228 +38,22 @@ Full instructions: [`submission/README.md`](submission/README.md). Quick version
    mkdir -p checkpoints/dual_encoder_v3_stage_b_all155
    tar -xzf /tmp/surgvu26_sclab_slot2_dual_encoder_checkpoint.tar.gz -C checkpoints/dual_encoder_v3_stage_b_all155
    ```
-2. **Download the two base models** it sits on top of (see
-   [Data/models used beyond what the challenge provided](#datamodels-used-beyond-what-the-challenge-provided-final-phase-candidates)
-   below): `Qwen/Qwen2.5-VL-3B-Instruct` and `SurgMotion-vitl.pt`.
-3. **Build and run**: `./submission/build_image.sh` then `docker run` - see
-   [`submission/README.md`](submission/README.md) for the exact commands.
-
-### Data/models used beyond what the challenge provided (final-phase candidates)
-
-- **SurgMotion** (`CAIR-HKISI/SurgMotion`, ViT-Large variant, Apache-2.0) - a
-  video-native surgical foundation model pretrained on SurgMotion-15M, used as the
-  motion-aware visual encoder in `DualEncoderVQA` (`thresholdfix` and `combo`
-  releases only). [Paper](https://arxiv.org/abs/2602.05638),
-  [weights](https://huggingface.co/CAIR-HKISI/SurgMotion),
-  [code](https://github.com/CAIR-HKISI/SurgMotion). Not fine-tuned itself in
-  `thresholdfix`; `combo` adds a low-rank LoRA adapter (r=8) on top of it.
-- The plain `Qwen2.5-VL-3B-Instruct` architecture (evaluated but not submitted, see
-  [Final-phase submission candidates](#final-phase-submission-candidates-2026-08-22)
-  above) uses no data or pretrained components beyond `Qwen/Qwen2.5-VL-3B-Instruct`
-  and the challenge-provided SurgVU training data.
-- ProstaTDv2 domain-adaptive pretraining was re-tried against the current
-  `DualEncoderVQA` line (underperformed the combo checkpoint on the gate check) and
-  **not adopted**. The YOLOv5 tool-detector was only ever part of an earlier (v1-v5)
-  iteration and was never carried into the current architecture.
-
-## Methodology - final-phase candidates
-
-### Shared data pipeline
-
-All three candidates start from the same base data path: `preprocess.py` +
-`generate_qa.py` (9 question types over 30s video segments, per-tool and
-per-commercial-variant Yes/No balancing). `curate_surgmotion_vqa.py` then applies quality-aware curation on top - it
-drops unanswerable supervision on fully-black clips (found via a visual-signal
-audit) and rewrites metadata-derived organ questions into simulation-appropriate
-language - and `validate_qa_v3.py` runs schema/grammar checks (id/field
-completeness, forbidden grammar patterns like "a forceps", presence-question
-wording) before any GPU time is spent. Frames are pre-cached once
-(`frame_cache_16fr/`, 384x384 JPEGs, 16 frames/segment) and reused read-only by
-every training script, avoiding repeated video decoding.
-
-One data variant diverges: the `description` question type originally answered
-with a ~150-200 char, up-to-2-sentence excerpt of raw metadata. Comparing against
-the 11 official public-sample Q&A pairs (the only real ground truth ever seen)
-showed every reference answer is a single short sentence, so
-`gen_description_question()` was rewritten (2026-08-13) to cap output at one
-sentence (~140 chars). **`thresholdfix` and `plain` still use the original
-long-form `description` answers; `combo` is the first release trained on the
-short-form rewrite** (see `combo` below for why that matters).
-
-### `DualEncoderVQA` architecture (`thresholdfix`, `combo`)
-
-`Qwen2.5-VL-3B-Instruct`'s own vision tower is kept **fully intact** - native
-multimodal RoPE, per-example dynamic resolution, untouched processing path - and
-handles general scene understanding exactly as designed. A separate, frozen
-**SurgMotion** encoder (`CAIR-HKISI/SurgMotion`, ViT-Large, 16-frame clips) runs
-alongside it and is projected (`VisualProjector`, mean-pooled to `AUX_NUM_TOKENS
-= 32` tokens) into a short auxiliary token sequence, inserted between the user's
-prompt and the assistant's answer - giving the LoRA-adapted decoder an extra
-surgical-motion-specific signal without touching Qwen's own visual path at all.
-
-This design is a direct response to an earlier, more aggressive prototype
-(`SurgMotionVQA`) that **replaced** Qwen's vision tower with SurgMotion entirely: it won on this
-project's own held-out split but *lost* to a plain Qwen2-VL-2B LoRA fine-tune
-(v7) on the real Grand Challenge hidden test set (0.7643 vs 0.7693) - trading
-away Qwen's broadly-pretrained visual grounding for a narrower, only-shallowly-
-adapted surgical encoder did not pay off out-of-distribution. A targeted
-real-vs-blank ablation (`audit_surgmotion_visual_ablation.py`) found the one
-place SurgMotion showed a real, causally-verified benefit was `forceps_type`
-discrimination - `DualEncoderVQA` is a bet that keeping Qwen's native path fully
-intact while adding SurgMotion only as a small supplementary signal keeps that
-narrow benefit without the broad-robustness cost. Training (`train_dual_encoder_vqa.py`)
-updates only the auxiliary projector and the LoRA-adapted decoder; both the Qwen
-vision tower and the SurgMotion encoder stay frozen in the base configuration.
-
-Every Yes/No-style question type (`tool_presence`, `tissue_cutting`,
-`suture_required`) is decided by a calibrated first-token logit-margin
-comparison rather than free-form generation - a threshold sweep
-(`calibrate_yes_no_thresholds.py`, margins -3.0 to 3.0 in steps of 0.1) found
-free-generation `tool_presence` accuracy was only 73.6% with a 38%
-false-positive rate on a real, never-trained-on holdout (case140-154), while
-this was invisible to the aggregate BERTScore-F1 metric (stayed 0.909) - i.e. a
-real decision-rule defect the headline metric couldn't see. A manual DPO
-fine-tune was also tried to correct this bias directly and made it worse (37
-preference pairs were themselves imbalanced, so the model over-corrected toward
-"Yes"); that checkpoint was discarded, not part of any release. Inference also
-required an FP16-not-BF16 fix (`fp16fix`, folded into every release from
-2026-08-06 on): the submission GPU is a T4 (Turing), which supports neither flash
-attention (needs Ampere+) nor memory-efficient SDPA in BF16 (no native BF16
-compute unit pre-Ampere) - the SurgMotion branch's attention backend had nowhere
-left to dispatch to and crashed 6 minutes into a real graded run. Training stays
-in BF16; only the inference path switched to FP16.
-
-#### `thresholdfix` - base `DualEncoderVQA`, calibrated thresholds (0.8290 confirmed)
-
-The base configuration: Qwen's vision tower fully frozen, text-side LoRA at
-rank 16, trained on the long-form `description` data. Calibrated decision
-thresholds (swept against a fair dev-lineage holdout, since the `all155`
-checkpoint trains on every case and has no holdout of its own):
-
-| question_type | threshold | accuracy (greedy -> calibrated) |
-|---|---|---|
-| `tool_presence` | 0.2 | 73.6% -> 74.3% |
-| `suture_required` | 0.3 | 90.5% -> 91.0% |
-| `tissue_cutting` | 1.4 | 85.4% -> 89.3% |
-
-This is the only candidate with a confirmed real leaderboard score (0.8290,
-prelim phase) - it is carried into the final phase as the insurance floor.
-
-#### `combo` - vision-tower LoRA (r=8) + text LoRA (r=32)
-
-Four isolated architecture changes were tried on top of `thresholdfix`
-(dev-scale, `case000-139` train / `case140-154` test, gated by
-`check_dual_encoder_v3_gate.py`), then the two that passed the gate were
-combined:
-
-| # | Change | Gate | Overall BERTScore delta |
-|---|---|---|---|
-| 1 | Qwen input resolution 112²->224² | FAIL 1/4 | +0.0003 |
-| 2 | vision-tower LoRA r=8 | **PASS 4/4** | +0.0063 |
-| 3 | text LoRA rank 16->32 | FAIL 3/4 | +0.0038 |
-| 4 | `CrossModalFusion` cross-attention layer between the two visual streams | FAIL 3/4 | +0.0019 |
-| **combo (2+3)** | **vision LoRA r=8 + text LoRA r=32** | **PASS 4/4** | **+0.0067** |
-
-Unfreezing a small low-rank adapter on Qwen's own vision tower (previously fully
-frozen) turned out to be the single biggest lever found in this project on the
-dev-scale holdout - bigger than any data-curation change tried. `combo` also
-trains on the short-form `description` data (see Shared data pipeline above),
-making it the first release to test both changes together.
-
-**Real-world caveat**: on the actual Grand Challenge prelim leaderboard, `combo`
-scored 0.7653 - identical to a data-only variant (`descfix`, same architecture as
-`thresholdfix`, only the short-form `description` data changed) that also scored
-0.7653. Since an architecture change and a data-only change landed on the exact
-same real score, the architecture change most likely added no measurable value
-on the real test set, and the short-form `description` data is the more likely
-regression driver versus `thresholdfix`'s confirmed 0.8290 - though per the
-SurgVU Org Team's 2026-08-20 forum statement, the prelim test set is small enough
-that ranking differences "will likely not mean anything," so this is treated as
-suggestive evidence, not a settled conclusion.
-
-### `plain` - architecture reset, no SurgMotion (informed bet, untested on real prelim)
-
-Plain `Qwen2.5-VL-3B-Instruct` + a standard LoRA fine-tune (r=16, text-side
-only), 5 frames per clip, trained on the long-form `description` data (like
-`thresholdfix`, not `combo`/`descfix`'s short-form rewrite) - no SurgMotion
-branch, no dual-encoder complexity, no vision-tower adaptation of any kind. This
-is a deliberate simplification, not an incremental change, motivated by three
-converging signals against architecture complexity:
-
-1. **Historical precedent already in this codebase**: the `SurgMotionVQA` full
-   vision-tower swap lost to a plain Qwen2-VL-2B LoRA fine-tune on the real
-   hidden test set (0.7643 vs 0.7693) - the same finding that motivated
-   `DualEncoderVQA`'s more conservative design in the first place.
-2. **This project's own 2026-08-16/17 real-world result**: `combo` and
-   `descfix` scored an identical 0.7653 on real prelim (see `combo` above),
-   suggesting the added architecture complexity bought nothing measurable.
-3. **External evidence**: the #1 leaderboard entry as of 2026-08-20 scores
-   0.8523 using "QwenVL LoRA, 5-frame" - close to this exact shape.
-
-Given local dev-scale holdout metrics have now twice failed to predict real
-leaderboard direction, this release was **not** tuned or gated against any
-local metric - it is built directly on historical + external precedent rather
-than a locally-optimized candidate. A full BERTScore-F1 evaluation was still run
-afterward as a coherence check (0.9562 overall, 1314-example true holdout
-case147-154):
-
-| category | BERTScore-F1 |
-|---|---|
-| `suture_required` | 0.9998 |
-| `tool_presence` | 0.9881 |
-| `tool_purpose` | 0.9869 |
-| `procedure_type` | 0.9893 |
-| `tissue_cutting` | 0.9854 |
-| `forceps_type` | 0.9299 |
-| `task_id` | 0.7163 |
-| `organ` | 0.6468 |
-| `description` | 0.4611 |
-
-**Critical fix applied post-training**: the base model's own
-`generation_config.json` ships `do_sample=true, temperature=0.000001` as a
-"greedy-like" trick, but dividing by a near-zero temperature overflows to `inf`
-under FP16 (this container's inference dtype), producing `nan` in the sampling
-softmax and crashing generation mid-run (hit at 293/1314 examples during
-evaluation). Fixed by passing `do_sample=False` explicitly in
-`predict_plain_qwen25vl.py` (true greedy decoding, bypassing the
-temperature/softmax path entirely) - this would otherwise have risked crashing
-a real graded submission.
-
-**Known limitations**: unlike every `DualEncoderVQA` release, `plain` has no
-Yes/No threshold calibration - raw `generate()` output is used as-is, matching
-the "plain LoRA" simplicity this release is testing. It was also not tested on
-prelim before packaging (prelim budget was already exhausted when it was built).
+2. Download the two base models it sits on top of: `Qwen/Qwen2.5-VL-3B-Instruct`
+   (Hugging Face) and `SurgMotion-vitl.pt` (`CAIR-HKISI/SurgMotion`).
+3. Build and run - see [`submission/README.md`](submission/README.md) for exact commands.
 
 ## Acknowledgements
 
-This project builds on the following external models, datasets, and code, in
-addition to the SurgVU data and challenge infrastructure provided by the organizers:
+Built on the following external models/datasets, in addition to the SurgVU data and
+challenge infrastructure:
 
 - **[SurgMotion](https://github.com/CAIR-HKISI/SurgMotion)** (CAIR-HKISI, Apache-2.0) -
-  video-native surgical foundation model (ViT-Large variant), pretrained on
-  SurgMotion-15M, used as the motion-aware visual encoder in the `DualEncoderVQA`
-  final-phase candidates (`thresholdfix`, `combo`). [Paper](https://arxiv.org/abs/2602.05638) ·
+  motion-aware visual encoder. [Paper](https://arxiv.org/abs/2602.05638) ·
   [weights](https://huggingface.co/CAIR-HKISI/SurgMotion).
 - **[Qwen2.5-VL-3B-Instruct](https://github.com/QwenLM/Qwen2.5-VL)** (Alibaba Qwen team) -
-  base vision-language model, LoRA fine-tuned, used in the `plain` final-phase
-  candidate and as the frozen/LoRA-adapted vision-language backbone in the
-  `DualEncoderVQA` line. [Paper](https://arxiv.org/abs/2409.12191).
-- **[Qwen2-VL-2B-Instruct](https://github.com/QwenLM/Qwen2-VL)** (Alibaba Qwen team) -
-  base vision-language model, QLoRA fine-tuned, used in an earlier (v1-v7) iteration
-  line superseded by the `DualEncoderVQA`/plain-`Qwen2.5-VL` architectures above.
-- **[ProstaTDv2](https://arxiv.org/abs/2506.01130)** (robotic prostatectomy
-  instrument/action/target triplet annotations) - used for domain-adaptive
-  pretraining, in both the v1-v7 line and (re-tried, not adopted) the current
-  `DualEncoderVQA` line.
-- **[CholecT50](https://github.com/CAMMA-public/cholect50)** (CAMMA, CC BY-NC-SA 4.0) -
-  laparoscopic instrument/action/target triplet dataset, evaluated as a domain-pretrain
-  alternative to ProstaTDv2 but not used in any released model (instrument/procedure
-  domain mismatch with SurgVU's robotic setting).
-- **[YOLOv5](https://github.com/ultralytics/yolov5)** (Ultralytics, AGPL-3.0) - object
-  detector fine-tuned as the optional tool-detector used for grounding in the
-  earlier v3 iteration; not part of any final-phase candidate.
+  base vision-language model, LoRA fine-tuned. [Paper](https://arxiv.org/abs/2409.12191).
+- **[ProstaTDv2](https://arxiv.org/abs/2506.01130)** - tried for domain-adaptive
+  pretraining, not adopted (underperformed on gate check).
 - **[Hugging Face `transformers`](https://github.com/huggingface/transformers)** and
-  **[`peft`](https://github.com/huggingface/peft)** - model loading, LoRA/QLoRA
-  fine-tuning.
-- **[`bert-score`](https://github.com/Tiiiger/bert_score)** - the official BERTScore-F1
-  evaluation metric implementation used throughout this project.
+  **[`peft`](https://github.com/huggingface/peft)** - model loading, LoRA fine-tuning.
+- **[`bert-score`](https://github.com/Tiiiger/bert_score)** - official evaluation metric.

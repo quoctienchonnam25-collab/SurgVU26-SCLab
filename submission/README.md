@@ -41,10 +41,10 @@ tar -xzf /tmp/surgvu26_sclab_slot2_dual_encoder_checkpoint.tar.gz \
 The checkpoint's Hugging Face repo: <https://huggingface.co/Partrick86/surgvu26-sclab-slot2-checkpoint>.
 
 The two base models this checkpoint's LoRA/delta sit on top of are downloaded from
-their own public sources instead of being re-hosted here - see
-[Data/models used beyond what the challenge provided](../README.md#datamodels-used-beyond-what-the-challenge-provided-final-phase-candidates)
-in the top-level README: `Qwen/Qwen2.5-VL-3B-Instruct` (Hugging Face) and
-`SurgMotion-vitl.pt` (`CAIR-HKISI/SurgMotion`).
+their own public sources instead of being re-hosted here (see
+[Acknowledgements](../README.md#acknowledgements) in the top-level README):
+`Qwen/Qwen2.5-VL-3B-Instruct` (Hugging Face) and `SurgMotion-vitl.pt`
+(`CAIR-HKISI/SurgMotion`).
 
 ```bash
 # Run from the repository root, once checkpoints/ and repo/SurgMotion-main/ckpts/ are populated.
