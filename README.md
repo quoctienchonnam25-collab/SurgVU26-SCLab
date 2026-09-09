@@ -145,6 +145,35 @@ See [`submission/README.md`](submission/README.md) for the exact build and run
 command for each of the three candidates above (matches the Grand Challenge
 single-case docker contract: `/input` in, `/output` out, offline at runtime).
 
+`checkpoints/`, `repo/SurgMotion-main/ckpts/`, and `*.pt` are gitignored (large
+binaries), so cloning this repository alone is **not** enough to run
+`submission/build_image.sh` - the `dual_encoder_v3_stage_b_all155` checkpoint it
+expects (used by both `thresholdfix` and `thresholdfix_qfix`, i.e. **slot 2,
+0.5972**, the team's official score) has to be fetched first:
+
+```bash
+# 1. Download the LoRA adapter, projector, and SurgMotion delta (~185 MB)
+huggingface-cli download Partrick86/surgvu26-sclab-slot2-checkpoint \
+  surgvu26_sclab_slot2_dual_encoder_checkpoint.tar.gz --local-dir /tmp
+
+# 2. Verify against the published checksum
+echo "19dc1ac00eb3f553118494dd282f57e686c8370008eb683a99d6dadf52d421b8  /tmp/surgvu26_sclab_slot2_dual_encoder_checkpoint.tar.gz" | sha256sum -c -
+
+# 3. Extract into the checkpoint directory build_image.sh expects
+mkdir -p checkpoints/dual_encoder_v3_stage_b_all155
+tar -xzf /tmp/surgvu26_sclab_slot2_dual_encoder_checkpoint.tar.gz \
+  -C checkpoints/dual_encoder_v3_stage_b_all155
+```
+
+The two large pretrained base models that this checkpoint's LoRA/delta sit on
+top of are **not** re-hosted here - they are downloaded directly from their own
+public sources (already linked under
+[Data/models used beyond what the challenge provided](#datamodels-used-beyond-what-the-challenge-provided-final-phase-candidates)
+below): `Qwen/Qwen2.5-VL-3B-Instruct` from Hugging Face, and
+`SurgMotion-vitl.pt` from `CAIR-HKISI/SurgMotion`. Once both the base models and
+the checkpoint above are in place, `submission/build_image.sh` builds the exact
+image that scored 0.5972.
+
 ### Data/models used beyond what the challenge provided (final-phase candidates)
 
 - **SurgMotion** (`CAIR-HKISI/SurgMotion`, ViT-Large variant, Apache-2.0) - a

@@ -36,6 +36,12 @@ Run from the repository root. Each `build_image*.sh` creates a temporary, minima
 context containing only the inference code and the required Qwen/SurgMotion/adapter
 weights for that specific release, then builds and discards the context.
 
+`checkpoints/` and `repo/SurgMotion-main/ckpts/` are gitignored, so a fresh clone needs
+the weights fetched first - see
+[Reproducing / running a final-phase container](../README.md#reproducing--running-a-final-phase-container)
+in the top-level README for the exact download/checksum/extract steps
+(`build_image.sh`/`thresholdfix`/`thresholdfix_qfix`, i.e. slot 2's 0.5972 checkpoint).
+
 ```bash
 # thresholdfix (0.8290 confirmed real prelim score)
 ./submission/build_image.sh surgvu-dual-encoder-v3:latest
